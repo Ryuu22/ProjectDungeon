@@ -13,6 +13,6 @@ _Dungeon Crawler/RogueLike._|TopDown|Hand-Drawn Cartoon 2D|International/+13
 --------------------------- | ---------------------------------- | -------------------
 PC/Mac/Linux| Work in progress|May 2018
      
-##Mechanics
+## Mechanics
 -------
 
