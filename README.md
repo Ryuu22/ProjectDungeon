@@ -10,7 +10,7 @@ _Dungeon Crawler/RogueLike._|TopDown|Hand-Drawn Cartoon 2D|International/+13
 
 **Available Platforms**     |      **Computer Requirements**     |    **Release Date**
 --------------------------- | ---------------------------------- | -------------------
-     PC/Mac/Linux           |            Work in progress        |      May 2018
+PC/Mac/Linux| Work in progress|May 2018
      
 ##Mechanics
 -------
