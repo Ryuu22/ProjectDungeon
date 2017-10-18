@@ -1,4 +1,4 @@
-# project2
+# Dungeons! Dungeons!! Dungeons!!!
 
 **Synopsis:**
 --------
@@ -12,7 +12,30 @@ _Dungeon Crawler/RogueLike._|TopDown|Hand-Drawn Cartoon 2D|International/+13
 **Available Platforms**     |      **Computer Requirements**     |    **Release Date**
 --------------------------- | ---------------------------------- | -------------------
 PC/Mac/Linux| Work in progress|May 2018
-     
+
+
+
 ## Mechanics
 -------
+### Camera
+
+### Controls
+#### KeyBoard & Mouse:
+
+* A W S D for player movement.
+* Q & E for skills.
+* I for inventory.
+* SPACEBAR for Dash
+* Mouse for aim, interact and attack.
+
+#### PS3/4 Controller:
+
+* Left Joystick for player movement
+* Right Joystick for aiming.
+* R2 & L2 for skills.
+* R1 & L1 for attack and interact.
+* Sqaure for Dash
+* Triangle for Inventory
+
+#### XBOX Controller TODO
 
