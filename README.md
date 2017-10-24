@@ -18,6 +18,7 @@ PC/Mac/Linux| Work in progress|May 2018
 ## Mechanics
 -------
 ### Camera
+Camera View is Top Down. Follows the player keeping him in the center of the camera except when it arrives to the edges of the room, thus stops.
 
 ### Controls
 #### KeyBoard & Mouse:
@@ -38,4 +39,6 @@ PC/Mac/Linux| Work in progress|May 2018
 * Triangle for Inventory
 
 #### XBOX Controller TODO
+
+
 
