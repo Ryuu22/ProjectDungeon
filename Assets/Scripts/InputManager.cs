@@ -6,7 +6,7 @@ public class InputManager : MonoBehaviour {
 
     [SerializeField] private Vector2 playerAxis;
 
-
+    public Player player;
    
 
 	// Use this for initialization
@@ -22,7 +22,7 @@ public class InputManager : MonoBehaviour {
 
         playerAxis.y = Input.GetAxis("Vertical");
 
-        PlayerMovement(playerAxis);
+        player.PlayerMovement(playerAxis);
 	}
     
 

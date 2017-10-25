@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
 
     public Transform playerTransform;
     public Vector2 playerVector;
+    
 
 	void Start ()
     {
