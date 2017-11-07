@@ -10,6 +10,7 @@ Unfortunately, peace is not forever. Since the day the monsters escaped from the
 This Game is being Developed by 2 student Artists and 2 student Programmers. You can read more about them in "[The Devs Page](https://github.com/RyuuSukeChan/ProjectDungeon/wiki/The-Devs)".
 
 **Want to contact the team?**
+
 Mail us: RaptorSoftDev@gmail.com
 
 
