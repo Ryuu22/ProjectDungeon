@@ -7,5 +7,5 @@ Unfortunately, peace is not forever. Since the day the monsters escaped from the
 
 ![alt text](/Assets/Textures/Enemies/Slime_01.png)
 
-##License
+## License
 We use a MIT License, see more information in [License](https://github.com/RyuuSukeChan/ProjectDungeon/blob/master/LICENSE)
