@@ -13,7 +13,7 @@ This Game is being Developed by 2 student Artists and 2 student Programmers. You
 Mail us: RaptorSoftDev@gmail.com
 
 
-Tweet us: [TODO TWITTER]
+Tweet us: [@RaptorSoft_Dev](https://twitter.com/RaptorSoft_dev)
 
 ## License
 We use a MIT License, see more information in [License](https://github.com/RyuuSukeChan/ProjectDungeon/blob/master/LICENSE)
