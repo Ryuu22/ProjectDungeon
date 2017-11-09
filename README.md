@@ -13,10 +13,10 @@ This Game is being Developed by 2 student Artists and 2 student Programmers. You
 
 **Want to contact the team?**
 
-Mail us: RaptorSoftDev@gmail.com
+<img align="left" src="https://github.com/RyuuSukeChan/ProjectDungeon/blob/master/WikiResources/OtherIcons/Mail.png" width=32> RaptorSoftDev@gmail.com
 
 
-Tweet us: [@RaptorSoft_Dev](https://twitter.com/RaptorSoft_dev)
+<img align="left" src="https://github.com/RyuuSukeChan/ProjectDungeon/blob/master/WikiResources/OtherIcons/Twitter.png" width=32> [@RaptorSoft_Dev](https://twitter.com/RaptorSoft_dev)
 
 ## License
 We use a MIT License, see more information in [License](https://github.com/RyuuSukeChan/ProjectDungeon/blob/master/LICENSE)
