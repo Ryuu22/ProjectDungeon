@@ -5,7 +5,7 @@
 **Concept Art**
 - [x] 2 Character concepts.
 - [x] 2 Enviroment concepts.
-- [ ] 2 Prop concepts.
+- [x] 2 Prop concepts.
 
 **Mockups**
 - [ ] 2 Gameplay.
