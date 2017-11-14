@@ -8,15 +8,19 @@ Unfortunately, peace is not forever. Since the day the monsters escaped from the
 
 ## Main features
 
-* 2D graphics with a lot of detail
+* 2D graphics with a lot of detail <img align="right" src="https://github.com/RyuuSukeChan/ProjectDungeon/blob/master/Assets/Textures/Enemies/Slime_01.png?raw=true" width=200>
 * Dramatic storyline
 * Scenary full of terror and mystery
 * Customizable loadout for the gameplay
 
+
+
 ## About
 
 **Who is making Afro Dungeon?**
-This Game is being Developed by 2 student Artists and 2 student Programmers. You can read more about them in "[The Devs Page](https://github.com/RyuuSukeChan/ProjectDungeon/wiki/The-Devs)".
+This Game is being Developed by 2 student Artists and 2 student Programmers. You can read more about them in "[The Devs Page](https://github.com/RyuuSukeChan/ProjectDungeon/wiki/The-Devs)". 
+
+
 
 **Want to contact the team?**
 
