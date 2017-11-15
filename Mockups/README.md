@@ -6,11 +6,11 @@
 
 ## TITLE MENU
 
-![image](https://github.com/RyuuSukeChan/ProjectDungeon/blob/master/Mockups/MainMenu.png)
+![image](https://github.com/RyuuSukeChan/ProjectDungeon/blob/master/Mockups/MainTitle.png)
 
 ## MAIN MENU
 
-![image](https://github.com/RyuuSukeChan/ProjectDungeon/blob/master/Mockups/MainTitle.png)
+![image](https://github.com/RyuuSukeChan/ProjectDungeon/blob/master/Mockups/MainMenu.png)
 
 ## PAUSE
 
