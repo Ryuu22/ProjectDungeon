@@ -1,5 +1,5 @@
 
-![alt text](/WikiResources/Banner.png)
+<i align="center">![alt text](/WikiResources/Banner01.png)</i>
 
 **Synopsis**
 --------
