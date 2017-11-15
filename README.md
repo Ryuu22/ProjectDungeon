@@ -30,4 +30,4 @@ This Game is being Developed by 2 student Artists and 2 student Programmers. You
 <img align="left" src="https://github.com/RyuuSukeChan/ProjectDungeon/blob/master/WikiResources/OtherIcons/Twitter.png" width=32> [@RaptorSoft_Dev](https://twitter.com/RaptorSoft_dev)
 
 ## License
-We use a MIT License, see more information in [License](https://github.com/RyuuSukeChan/ProjectDungeon/blob/master/LICENSE)
+We use an MIT License, see more information in [License](https://github.com/RyuuSukeChan/ProjectDungeon/blob/master/LICENSE)
