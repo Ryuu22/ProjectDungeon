@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class GameMaster : MonoBehaviour
 {
-    MoveMaster movM;
     InputMaster inputM;
 
 	void Start ()
     {
-		
+        inputM = GameObject.FindGameObjectWithTag("InputMaster").GetComponent<InputMaster>();
 	}
 
-	void Update ()
+    public Vector2 GetAxis()
     {
-		
-	}
+        return inputM.GetAxis();
+    }
 }

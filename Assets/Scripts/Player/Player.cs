@@ -5,21 +5,30 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [Header("GameElements")]
-    GameMaster gm;
-    MoveMaster movM;
+    GameMaster gM;
 
     [Header("Player")]
     float speed = 5f;
-    Vector2 playerVector;
+    Rigidbody2D rb;
 
 	void Start ()
     {
-        gm = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>();
-        movM = GameObject.FindGameObjectWithTag("MoveMaster").GetComponent<MoveMaster>();
+        gM = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
 	void Update ()
     {
-        movM.PlayerMovement(this.gameObject, speed);
-	}
+
+    }
+
+    void FixedUpdate()
+    {
+        Movement();
+    }
+
+    void Movement()
+    {
+        rb.AddForce(gM.GetAxis() * speed, ForceMode2D.Impulse);
+    }
 }

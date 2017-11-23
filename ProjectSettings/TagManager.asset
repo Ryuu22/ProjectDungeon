@@ -7,7 +7,6 @@ TagManager:
   - Wall
   - GameMaster
   - InputMaster
-  - MoveMaster
   layers:
   - Default
   - TransparentFX

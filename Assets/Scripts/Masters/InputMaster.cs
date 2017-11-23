@@ -6,14 +6,9 @@ public class InputMaster : MonoBehaviour
 {
     GameMaster gm;
 
-	void Start ()
+    void Start ()
     {
         gm = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>();
-	}
-
-	void Update ()
-    {
-        GetAxis();
 	}
 
     public Vector2 GetAxis()
