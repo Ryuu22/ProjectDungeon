@@ -2,46 +2,98 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Slime : MonoBehaviour {
+public class Slime : MonoBehaviour
+{
+    [Header("Slime Fields")]
+    bool canAttack = false;
+    int hitDamage = 3;
+    float coolDownAttack = 1.0f;
+    int life = 30;
+    int fase = 3;
+    float timeToLive;
 
-    private enum EnemyState { Idle, Patrol, Attack, Stun, Divide, Dead }
-    [SerializeField] EnemyState state;
-    [Header("Stats")]
+    enum EnemyState { Idle, Patrol, Attack, Stun, Divide, Dead }
+    [SerializeField] EnemyState currentState;
 
-    public bool canAttack = false;
-    public int hitDamage = 3;
-    public float coolDownAttack = 1.0f;
-    public int life = 30;
-    public int fase = 3;
-    public float timeToLive;
-
-	
-	// Update is called once per frame
 	void Update ()
     {
-        switch(state)
+        switch(currentState)
         {
             case EnemyState.Idle:
-                IdleUpdate();
+                Idle();
                 break;
             case EnemyState.Patrol:
-                PatrolUpdate();
+                Patrol();
                 break;
             case EnemyState.Attack:
-                AttackUpdate();
+                Attack();
                 break;
             case EnemyState.Stun:
-                StunUpdate();
+                Stun();
                 break;
             case EnemyState.Dead:
-                DeadUpdate();
+                Dead();
                 break;
             default:
                 break;
         }
     }
-IdleUpdate()
+
+    #region UPDATE METHODS
+
+    void Idle()
     {
 
     }
+
+    void Patrol()
+    {
+
+    }
+
+    void Attack()
+    {
+
+    }
+
+    void Stun()
+    {
+
+    }
+
+    void Dead()
+    {
+
+    }
+
+    #endregion
+
+    #region STATE METHODS
+
+    void IdleState()
+    {
+        currentState = EnemyState.Idle;
+    }
+
+    void PatrolState()
+    {
+        currentState = EnemyState.Patrol;
+    }
+
+    void AttackState()
+    {
+        currentState = EnemyState.Attack;
+    }
+
+    void StunState()
+    {
+        currentState = EnemyState.Stun;
+    }
+
+    void DeadState()
+    {
+        currentState = EnemyState.Dead;
+    }
+
+    #endregion
 }
