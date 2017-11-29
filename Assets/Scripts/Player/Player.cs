@@ -9,26 +9,26 @@ public class Player : MonoBehaviour
 
     [Header("Player")]
     float speed = 5f;
-    Rigidbody2D rb;
 
 	void Start ()
     {
         gM = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>();
-        rb = GetComponent<Rigidbody2D>();
     }
 
 	void Update ()
-    {
-
-    }
-
-    void FixedUpdate()
     {
         Movement();
     }
 
     void Movement()
     {
-        rb.AddForce(gM.GetAxis() * speed, ForceMode2D.Impulse);
+        Vector3 provisionalPos;
+
+        provisionalPos = this.transform.position;
+
+        provisionalPos.x += gM.GetAxis().x * Time.deltaTime * speed;
+        provisionalPos.y += gM.GetAxis().y * Time.deltaTime * speed;
+
+        this.transform.position = provisionalPos;
     }
 }
