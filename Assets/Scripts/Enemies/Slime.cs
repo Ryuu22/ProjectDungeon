@@ -51,20 +51,29 @@ public class Slime : MonoBehaviour
 
     void Idle()
     {
-        if(Vector2.Distance(playerPosition,position) > detectionRadius)
+        if(Vector2.Distance(playerPosition,position) < detectionRadius)
         {
-
+            currentState = EnemyState.Attack;
         }
 
     }
 
     void Patrol()
     {
+        if(Vector2.Distance(playerPosition, position) < detectionRadius)
+        {
+            currentState = EnemyState.Attack;
+        }
 
     }
 
     void Attack()
     {
+        if(Vector2.Distance(playerPosition, position) > detectionRadius)
+        {
+            currentState = EnemyState.Idle;
+        }
+
 
     }
 
