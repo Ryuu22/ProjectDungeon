@@ -19,6 +19,7 @@ public class InputMaster : MonoBehaviour
         AxisX = Input.GetAxis("Horizontal");
         AxisY = Input.GetAxis("Vertical");
 
+
         return new Vector2(AxisX, AxisY);
     }
 }
