@@ -12,11 +12,19 @@ public class Slime : MonoBehaviour
     int fase = 3;
     float timeToLive;
 
+    public Transform player;
+    Vector2 playerPosition;
+    Vector2 position;
+
+    public float detectionRadius;
+
     enum EnemyState { Idle, Patrol, Attack, Stun, Divide, Dead }
     [SerializeField] EnemyState currentState;
 
 	void Update ()
     {
+        playerPosition = player.transform.position;
+        position = this.transform.position;
         switch(currentState)
         {
             case EnemyState.Idle:
@@ -43,6 +51,10 @@ public class Slime : MonoBehaviour
 
     void Idle()
     {
+        if(Vector2.Distance(playerPosition,position) > detectionRadius)
+        {
+
+        }
 
     }
 
@@ -96,4 +108,10 @@ public class Slime : MonoBehaviour
     }
 
     #endregion
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(position, detectionRadius);
+       
+    }
 }
