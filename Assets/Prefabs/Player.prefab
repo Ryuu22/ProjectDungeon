@@ -171,14 +171,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 634502c2cc0e1ab488d5ef9fcdacdbcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isWalled: 0
-  wasWalledLastFrame: 0
-  justGotWalled: 0
-  justNotWalled: 0
-  isNotWalling: 0
   filter:
     useTriggers: 0
-    useLayerMask: 0
+    useLayerMask: 1
     useDepth: 0
     useOutsideDepth: 0
     useNormalAngle: 0
@@ -192,8 +187,14 @@ MonoBehaviour:
     maxNormalAngle: 0
   maxColliders: 1
   checkWall: 1
-  wallBoxPos: {x: 0.5, y: 0.5}
-  wallBoxSize: {x: 0.1, y: 0.5}
+  leftBoxPos: {x: -0.5, y: 0.5}
+  leftBoxSize: {x: 0.1, y: 0.5}
+  rightBoxPos: {x: 0.5, y: 0.5}
+  rightBoxSize: {x: 0.1, y: 0.5}
+  topBoxPos: {x: 0, y: 1}
+  topBoxSize: {x: 0.5, y: 0.1}
+  bottomBoxPos: {x: 0, y: 0}
+  bottomBoxSize: {x: 0.5, y: 0.1}
 --- !u!114 &114424429050111234
 MonoBehaviour:
   m_ObjectHideFlags: 1

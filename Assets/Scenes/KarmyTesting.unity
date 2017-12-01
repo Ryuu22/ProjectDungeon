@@ -479,6 +479,46 @@ Prefab:
     - {fileID: 114367726400532476, guid: 52260243a7622c24582538ed90b58534, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 52260243a7622c24582538ed90b58534, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1508283933 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1766662421994866, guid: 52260243a7622c24582538ed90b58534,
+    type: 2}
+  m_PrefabInternal: {fileID: 1307787587}
+--- !u!114 &1508283937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1508283933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 634502c2cc0e1ab488d5ef9fcdacdbcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  maxColliders: 1
+  checkWall: 1
+  leftBoxPos: {x: 0, y: 0}
+  leftBoxSize: {x: 0, y: 0}
+  rightBoxPos: {x: 0, y: 0}
+  rightBoxSize: {x: 0, y: 0}
+  topBoxPos: {x: 0, y: 0}
+  topBoxSize: {x: 0, y: 0}
+  bottomBoxPos: {x: 0, y: 0}
+  bottomBoxSize: {x: 0, y: 0}
 --- !u!1001 &2113497327
 Prefab:
   m_ObjectHideFlags: 0

@@ -5,12 +5,17 @@ using UnityEngine;
 public class Slime : MonoBehaviour
 {
     [Header("Slime Fields")]
-    bool canAttack = false;
-    int hitDamage = 3;
-    float coolDownAttack = 1.0f;
-    int life = 30;
-    int fase = 3;
-    float timeToLive;
+    [SerializeField] bool canAttack = false;
+    [SerializeField] int hitDamage = 3;
+    [SerializeField] float coolDownAttack = 1.0f;
+    [SerializeField] int life = 30;
+    [SerializeField] int fase = 3;
+    [SerializeField] float timeToLive;
+
+    [SerializeField] float IdleCounter;
+    [SerializeField] float IdleTime; 
+
+
 
     public Transform player;
     Vector2 playerPosition;
@@ -51,15 +56,44 @@ public class Slime : MonoBehaviour
 
     void Idle()
     {
+        IdleCounter += Time.deltaTime;
+
+        if(IdleCounter >= IdleTime)
+        {
+            PatrolState();
+        }
+
+        //Checks distance between player and enemy
         if(Vector2.Distance(playerPosition,position) < detectionRadius)
         {
-            currentState = EnemyState.Attack;
+            AttackState();
+        }
+
+        //Checks death 
+        if(life <= 0)
+        {
+            fase--;
+            if(fase <= 0)
+            {
+                DeadState();
+            }
+            else
+            {
+                Divide(fase);
+            }
         }
 
     }
 
     void Patrol()
     {
+        IdleCounter += Time.deltaTime;
+
+        if(IdleCounter >= IdleTime)
+        {
+            PatrolState();
+        }
+
         if(Vector2.Distance(playerPosition, position) < detectionRadius)
         {
             currentState = EnemyState.Attack;
@@ -89,16 +123,30 @@ public class Slime : MonoBehaviour
 
     #endregion
 
+    void ReceiveDamage()
+    {
+
+    }
+
+    void Divide(int fase)
+    {
+
+    }
+
     #region STATE METHODS
 
     void IdleState()
     {
         currentState = EnemyState.Idle;
+
+        IdleCounter = 0.0f;
     }
 
     void PatrolState()
     {
         currentState = EnemyState.Patrol;
+
+        IdleCounter = 0.0f;
     }
 
     void AttackState()
