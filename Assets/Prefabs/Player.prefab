@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 61844027382084038}
   - component: {fileID: 50498448293473970}
   - component: {fileID: 114424429050111234}
-  - component: {fileID: 114367726400532476}
+  - component: {fileID: 114809903655116128}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -160,7 +160,36 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114367726400532476
+--- !u!114 &114424429050111234
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1766662421994866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b9e20677982d44caa65dc3ca6be22e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: {x: 0, y: 0}
+  speed: {x: 5, y: 5}
+  attackBoxPos: {x: 1, y: 1}
+  attackBoxSize: {x: 1, y: 2}
+  filter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 3072
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+--- !u!114 &114809903655116128
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -195,14 +224,3 @@ MonoBehaviour:
   topBoxSize: {x: 0.5, y: 0.1}
   bottomBoxPos: {x: 0, y: 0}
   bottomBoxSize: {x: 0.5, y: 0.1}
---- !u!114 &114424429050111234
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1766662421994866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b9e20677982d44caa65dc3ca6be22e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

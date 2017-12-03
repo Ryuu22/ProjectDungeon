@@ -123,9 +123,9 @@ public class Slime : MonoBehaviour
 
     #endregion
 
-    void ReceiveDamage()
+    public void RecieveDamage(int damage)
     {
-
+        life -= damage;
     }
 
     void Divide(int fase)
@@ -165,6 +165,7 @@ public class Slime : MonoBehaviour
     }
 
     #endregion
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

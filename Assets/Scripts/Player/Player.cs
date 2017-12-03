@@ -11,9 +11,11 @@ public class Player : MonoBehaviour
     [Header("Player Fields")]
     Vector2 movementSpeed = Vector2.zero;
     Vector2 speed = new Vector2(5, 5);
+    int damage = 30;
 
-    Vector2 attackBoxPos;
-    Vector2 attackBoxSize;
+    public Vector2 attackBoxPos;
+    public Vector2 attackBoxSize;
+    public ContactFilter2D filter;
 
     void Start ()
     {
@@ -47,14 +49,30 @@ public class Player : MonoBehaviour
         this.transform.position = provisionalPos;
     }
 
-    void Attack()
+    public void Attack()
     {
-        
+        Vector3 pos = this.transform.position + (Vector3)attackBoxPos;
+        Collider2D[] results = new Collider2D[5];
+
+        int numColliders = Physics2D.OverlapBox(pos, attackBoxSize, 0, filter, results);
+
+        for(int i = 0; i < numColliders; i++)
+        {
+            if(results[i].gameObject.tag == "Slime")
+            {
+                Damage(results[i].gameObject);
+            }
+        }
+    }
+
+    void Damage (GameObject target)
+    {
+        target.GetComponent<Slime>().RecieveDamage(damage);
     }
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.black;
+        Gizmos.color = Color.white;
         Vector3 pos = this.transform.position + (Vector3)attackBoxPos;
         Gizmos.DrawWireCube(pos, attackBoxSize);
     }

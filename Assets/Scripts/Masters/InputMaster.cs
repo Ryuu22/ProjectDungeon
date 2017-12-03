@@ -4,10 +4,21 @@ using UnityEngine;
 
 public class InputMaster : MonoBehaviour
 {
+
+    Player player;
+
     void Start ()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+    }
 
-	}
+    void Update ()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            player.Attack();
+        }
+    }
 
     public Vector2 GetAxis()
     {
