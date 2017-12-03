@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [Header("GameElements")]
-    GameMaster gM;
-    CollisionMaster collision;
+    [Header("Game Elements")]
+    InputMaster inputM;
+    CollisionMaster collisionM;
 
-    [Header("Player")]
+    [Header("Player Fields")]
     Vector2 movementSpeed = Vector2.zero;
     Vector2 speed = new Vector2(5, 5);
 
-	void Start ()
+    Vector2 attackBoxPos;
+    Vector2 attackBoxSize;
+
+    void Start ()
     {
-        gM = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>();
-        collision = GetComponent<CollisionMaster>();
+        inputM = GameObject.FindGameObjectWithTag("InputMaster").GetComponent<InputMaster>();
+        collisionM = GetComponent<CollisionMaster>();
     }
 
 	void FixedUpdate ()
@@ -30,17 +33,29 @@ public class Player : MonoBehaviour
         provisionalPos = this.transform.position;
         movementSpeed = speed;
 
-        if(collision.IsLeftWalled && gM.GetAxis().x < 0) movementSpeed.x = 0;
+        if(collisionM.IsLeftWalled && inputM.GetAxis().x < 0) movementSpeed.x = 0;
 
-        if(collision.IsRightWalled && gM.GetAxis().x > 0) movementSpeed.x = 0;
+        if(collisionM.IsRightWalled && inputM.GetAxis().x > 0) movementSpeed.x = 0;
 
-        if(collision.IsTopWalled && gM.GetAxis().y > 0) movementSpeed.y = 0;
+        if(collisionM.IsTopWalled && inputM.GetAxis().y > 0) movementSpeed.y = 0;
 
-        if(collision.IsBottomWalled && gM.GetAxis().y < 0) movementSpeed.y = 0;
+        if(collisionM.IsBottomWalled && inputM.GetAxis().y < 0) movementSpeed.y = 0;
 
-        provisionalPos.x += gM.GetAxis().x * Time.deltaTime * movementSpeed.x;
-        provisionalPos.y += gM.GetAxis().y * Time.deltaTime * movementSpeed.y;
+        provisionalPos.x += inputM.GetAxis().x * Time.deltaTime * movementSpeed.x;
+        provisionalPos.y += inputM.GetAxis().y * Time.deltaTime * movementSpeed.y;
 
         this.transform.position = provisionalPos;
+    }
+
+    void Attack()
+    {
+        
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.black;
+        Vector3 pos = this.transform.position + (Vector3)attackBoxPos;
+        Gizmos.DrawWireCube(pos, attackBoxSize);
     }
 }

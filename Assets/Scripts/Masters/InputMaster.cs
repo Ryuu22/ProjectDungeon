@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class InputMaster : MonoBehaviour
 {
-    GameMaster gm;
-
     void Start ()
     {
-        gm = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>();
+
 	}
 
     public Vector2 GetAxis()
@@ -18,7 +16,6 @@ public class InputMaster : MonoBehaviour
 
         AxisX = Input.GetAxis("Horizontal");
         AxisY = Input.GetAxis("Vertical");
-
 
         return new Vector2(AxisX, AxisY);
     }
