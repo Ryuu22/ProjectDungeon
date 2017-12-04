@@ -11,7 +11,10 @@ public class Player : MonoBehaviour
     [Header("Player Fields")]
     Vector2 movementSpeed = Vector2.zero;
     Vector2 speed = new Vector2(5, 5);
-    int damage = 30;
+
+    float AttackCooldown = 0.7f;
+    float AttackCounter;
+    int damage = 10;
 
     public Vector2 attackBoxPos;
     public Vector2 attackBoxSize;
@@ -26,6 +29,14 @@ public class Player : MonoBehaviour
 	void FixedUpdate ()
     {
         Movement();
+    }
+
+    private void Update()
+    {
+        if(AttackCounter > 0)
+        {
+            AttackCounter -= Time.deltaTime;
+        }
     }
 
     void Movement()
@@ -51,23 +62,36 @@ public class Player : MonoBehaviour
 
     public void Attack()
     {
-        Vector3 pos = this.transform.position + (Vector3)attackBoxPos;
-        Collider2D[] results = new Collider2D[5];
-
-        int numColliders = Physics2D.OverlapBox(pos, attackBoxSize, 0, filter, results);
-
-        for(int i = 0; i < numColliders; i++)
+        if (AttackCounter <= 0)
         {
-            if(results[i].gameObject.tag == "Slime")
+            AttackCounter = AttackCooldown;
+
+            Vector3 pos = this.transform.position + (Vector3)attackBoxPos;
+            Collider2D[] results = new Collider2D[5];
+
+            int numColliders = Physics2D.OverlapBox(pos, attackBoxSize, 0, filter, results);
+
+            for (int i = 0; i < numColliders; i++)
             {
-                Damage(results[i].gameObject);
+                if (results[i].gameObject.tag == "Slime")
+                {
+                    Damage(results[i].gameObject, "Slime");
+                }
             }
         }
     }
 
-    void Damage (GameObject target)
+    public void Dash()
     {
-        target.GetComponent<Slime>().RecieveDamage(damage);
+
+    }
+
+    void Damage (GameObject target, string targetType)
+    {
+        if(targetType == ("Slime"))
+        {
+            target.GetComponent<Slime>().RecieveDamage(damage);
+        }
     }
 
     void OnDrawGizmosSelected()
