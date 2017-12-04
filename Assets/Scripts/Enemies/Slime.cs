@@ -4,49 +4,74 @@ using UnityEngine;
 
 public class Slime : MonoBehaviour
 {
+    [Header("Game Elements")]
+    MoveMaster moveM;
+
     [Header("Slime Fields")]
-    [SerializeField] bool canAttack = false;
-    [SerializeField] int hitDamage = 3;
-    [SerializeField] float coolDownAttack = 1.0f;
     [SerializeField] int life = 30;
-    [SerializeField] int fase = 3;
-    [SerializeField] float timeToLive;
-
-    [SerializeField] float IdleCounter;
-    [SerializeField] float IdleTime; 
-
-
-
-    public Transform player;
-    Vector2 playerPosition;
-    Vector2 position;
-
+    [SerializeField] int phase = 3;
+    float speed = 1;
+    Vector2 slimePos;
     public float detectionRadius;
+    bool canAttack = false;
+    int damage = 3;
+    float AttackCooldown = 1;
+    float IdleCounter;
+    float IdleTime; 
 
-    enum EnemyState { Idle, Patrol, Attack, Stun, Divide, Dead }
-    [SerializeField] EnemyState currentState;
+    [Header("Player Fields")]
+    Transform player;
+    Vector2 playerPos;
 
-	void Update ()
+
+    [SerializeField] SlimeState currentSlimeState;
+    enum SlimeState
     {
-        playerPosition = player.transform.position;
-        position = this.transform.position;
-        switch(currentState)
+        Idle,
+        Patrol,
+        Attack,
+        Stunned,
+        Dividing,
+        Dead
+    }
+
+    private void Start()
+    {
+        moveM = GameObject.FindGameObjectWithTag("MoveMaster").GetComponent<MoveMaster>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
+    void Update ()
+    {
+        playerPos = player.transform.position;
+        slimePos = this.transform.position;
+
+        switch(currentSlimeState)
         {
-            case EnemyState.Idle:
+            case SlimeState.Idle:
                 Idle();
                 break;
-            case EnemyState.Patrol:
+
+            case SlimeState.Patrol:
                 Patrol();
                 break;
-            case EnemyState.Attack:
+
+            case SlimeState.Attack:
                 Attack();
                 break;
-            case EnemyState.Stun:
-                Stun();
+
+            case SlimeState.Stunned:
+                Stunned();
                 break;
-            case EnemyState.Dead:
+
+            case SlimeState.Dividing:
+                Dividing();
+                break;
+
+            case SlimeState.Dead:
                 Dead();
                 break;
+
             default:
                 break;
         }
@@ -60,58 +85,44 @@ public class Slime : MonoBehaviour
 
         if(IdleCounter >= IdleTime)
         {
+            IdleCounter = 0;
+            IdleTime = Random.Range(4, 8);
             PatrolState();
         }
 
-        //Checks distance between player and enemy
-        if(Vector2.Distance(playerPosition,position) < detectionRadius)
+        if(Vector2.Distance(playerPos,slimePos) < detectionRadius)
         {
             AttackState();
         }
-
-        //Checks death 
-        if(life <= 0)
-        {
-            fase--;
-            if(fase <= 0)
-            {
-                DeadState();
-            }
-            else
-            {
-                Divide(fase);
-            }
-        }
-
     }
 
     void Patrol()
     {
-        IdleCounter += Time.deltaTime;
+        //Target nearby random Vector2 to move to it
+        //When arrive, IdleState();
 
-        if(IdleCounter >= IdleTime)
+        if(Vector2.Distance(playerPos, slimePos) < detectionRadius)
         {
-            PatrolState();
+            AttackState();
         }
-
-        if(Vector2.Distance(playerPosition, position) < detectionRadius)
-        {
-            currentState = EnemyState.Attack;
-        }
-
     }
 
     void Attack()
     {
-        if(Vector2.Distance(playerPosition, position) > detectionRadius)
-        {
-            currentState = EnemyState.Idle;
-        }
+        moveM.Move(this.gameObject, playerPos, speed);
 
+        if(Vector2.Distance(playerPos, slimePos) > detectionRadius)
+        {
+            IdleState();
+        }
+    }
+
+    void Stunned()
+    {
 
     }
 
-    void Stun()
+    void Dividing()
     {
 
     }
@@ -126,42 +137,51 @@ public class Slime : MonoBehaviour
     public void RecieveDamage(int damage)
     {
         life -= damage;
-    }
 
-    void Divide(int fase)
-    {
-
+        if(life <= 0)
+        {
+            phase--;
+            if(phase <= 0)
+            {
+                DeadState();
+            }
+            else
+            {
+                DividingState();
+            }
+        }
     }
 
     #region STATE METHODS
 
     void IdleState()
     {
-        currentState = EnemyState.Idle;
-
-        IdleCounter = 0.0f;
+        currentSlimeState = SlimeState.Idle;
     }
 
     void PatrolState()
     {
-        currentState = EnemyState.Patrol;
-
-        IdleCounter = 0.0f;
+        currentSlimeState = SlimeState.Patrol;
     }
 
     void AttackState()
     {
-        currentState = EnemyState.Attack;
+        currentSlimeState = SlimeState.Attack;
     }
 
-    void StunState()
+    void StunnedState()
     {
-        currentState = EnemyState.Stun;
+        currentSlimeState = SlimeState.Stunned;
+    }
+
+    void DividingState()
+    {
+        currentSlimeState = SlimeState.Dividing;
     }
 
     void DeadState()
     {
-        currentState = EnemyState.Dead;
+        currentSlimeState = SlimeState.Dead;
     }
 
     #endregion
@@ -169,7 +189,7 @@ public class Slime : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(position, detectionRadius);
+        Gizmos.DrawWireSphere(slimePos, detectionRadius);
        
     }
 }

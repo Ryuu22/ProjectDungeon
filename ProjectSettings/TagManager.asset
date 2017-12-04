@@ -8,6 +8,7 @@ TagManager:
   - InputMaster
   - GameMaster
   - Slime
+  - MoveMaster
   layers:
   - Default
   - TransparentFX
