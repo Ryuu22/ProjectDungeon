@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 50909800128843000}
   - component: {fileID: 70689816882384742}
   - component: {fileID: 114310198061141254}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Slime
   m_TagString: Slime
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!70 &70689816882384742
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
@@ -118,17 +118,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26799bc4afa0a4c418e9e057fd36d687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canAttack: 0
-  hitDamage: 3
-  coolDownAttack: 1
   life: 30
-  fase: 3
-  timeToLive: 0
-  IdleCounter: 0
-  IdleTime: 0
-  player: {fileID: 0}
+  phase: 3
   detectionRadius: 7
-  currentState: 0
+  currentSlimeState: 0
 --- !u!212 &212352926023590832
 SpriteRenderer:
   m_ObjectHideFlags: 1
