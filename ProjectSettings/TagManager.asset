@@ -9,6 +9,7 @@ TagManager:
   - GameMaster
   - Slime
   - MoveMaster
+  - Arrow
   layers:
   - Default
   - TransparentFX
