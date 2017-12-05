@@ -23,6 +23,11 @@ public class InputMaster : MonoBehaviour
         {
             player.BeginDash();
         }
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            player.Shoot();
+        }
     }
 
     public Vector2 GetAxis()

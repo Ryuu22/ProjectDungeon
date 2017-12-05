@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
     float AttackCounter;
     int damage = 10;
 
+    public GameObject arrowGameObject;
+
     public Vector2 attackBoxPos;
     public Vector2 attackBoxSize;
     public ContactFilter2D filter;
@@ -92,6 +94,12 @@ public class Player : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void Shoot()
+    {
+        Instantiate(arrowGameObject);
+        arrowGameObject.transform.position = new Vector3(this.transform.position.x + 1, this.transform.position.y + 1, 0);
     }
 
     void Damage (GameObject target, string targetType)
