@@ -12,6 +12,12 @@ public class Player : MonoBehaviour
     Vector2 movementSpeed = Vector2.zero;
     Vector2 speed = new Vector2(5, 5);
 
+    Vector2 dashDirection;
+    float dashSpeed = 15;
+    float dashTime = 0.2f;
+    float dashCounter;
+    bool isDashing;
+
     float AttackCooldown = 0.7f;
     float AttackCounter;
     int damage = 10;
@@ -36,28 +42,35 @@ public class Player : MonoBehaviour
         if(AttackCounter > 0)
         {
             AttackCounter -= Time.deltaTime;
-        }
+        }    
     }
 
     void Movement()
     {
-        Vector3 provisionalPos;
+        if (isDashing)
+        {
+            Dash(dashDirection);
+        }
+        else
+        {
+            Vector3 provisionalPos;
 
-        provisionalPos = this.transform.position;
-        movementSpeed = speed;
+            provisionalPos = this.transform.position;
+            movementSpeed = speed;
 
-        if(collisionM.IsLeftWalled && inputM.GetAxis().x < 0) movementSpeed.x = 0;
+            if (collisionM.IsLeftWalled && inputM.GetAxis().x < 0) movementSpeed.x = 0;
 
-        if(collisionM.IsRightWalled && inputM.GetAxis().x > 0) movementSpeed.x = 0;
+            if (collisionM.IsRightWalled && inputM.GetAxis().x > 0) movementSpeed.x = 0;
 
-        if(collisionM.IsTopWalled && inputM.GetAxis().y > 0) movementSpeed.y = 0;
+            if (collisionM.IsTopWalled && inputM.GetAxis().y > 0) movementSpeed.y = 0;
 
-        if(collisionM.IsBottomWalled && inputM.GetAxis().y < 0) movementSpeed.y = 0;
+            if (collisionM.IsBottomWalled && inputM.GetAxis().y < 0) movementSpeed.y = 0;
 
-        provisionalPos.x += inputM.GetAxis().x * Time.deltaTime * movementSpeed.x;
-        provisionalPos.y += inputM.GetAxis().y * Time.deltaTime * movementSpeed.y;
+            provisionalPos.x += inputM.GetAxis().x * Time.deltaTime * movementSpeed.x;
+            provisionalPos.y += inputM.GetAxis().y * Time.deltaTime * movementSpeed.y;
 
-        this.transform.position = provisionalPos;
+            this.transform.position = provisionalPos;
+        }
     }
 
     public void Attack()
@@ -81,16 +94,35 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Dash()
-    {
-
-    }
-
     void Damage (GameObject target, string targetType)
     {
         if(targetType == ("Slime"))
         {
             target.GetComponent<Slime>().RecieveDamage(damage);
+        }
+    }
+
+    public void BeginDash()
+    {
+        isDashing = true;
+        dashDirection = new Vector2(inputM.GetAxis().x, inputM.GetAxis().y);
+    }
+
+    void Dash(Vector2 direction)
+    {
+        Vector3 provisionalPos;
+        provisionalPos = this.transform.position;
+        dashCounter += Time.deltaTime;
+
+        provisionalPos.x += direction.x * Time.deltaTime * dashSpeed;
+        provisionalPos.y += direction.y * Time.deltaTime * dashSpeed;
+
+        this.transform.position = provisionalPos;
+
+        if (dashCounter >= dashTime)
+        {
+            dashCounter = 0;
+            isDashing = false;
         }
     }
 

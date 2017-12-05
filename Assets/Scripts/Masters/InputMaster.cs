@@ -18,6 +18,11 @@ public class InputMaster : MonoBehaviour
         {
             player.Attack();
         }
+
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            player.BeginDash();
+        }
     }
 
     public Vector2 GetAxis()
