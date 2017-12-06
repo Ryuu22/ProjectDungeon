@@ -65,7 +65,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1290298460264376}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.018683195, y: 0.1522913, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4224632875590822}
@@ -121,6 +121,7 @@ MonoBehaviour:
   life: 30
   phase: 3
   detectionRadius: 7
+  slimePreFab: {fileID: 1290298460264376}
   currentSlimeState: 0
 --- !u!212 &212352926023590832
 SpriteRenderer:

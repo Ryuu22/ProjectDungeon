@@ -9,8 +9,8 @@ public class Slime : MonoBehaviour
 
     [Header("Slime Fields")]
     [SerializeField] int life = 30;
-    [SerializeField] int phase = 3;
-    float speed = 1;
+    [SerializeField] public int phase = 3;
+    [SerializeField]float speed = 1;
     Vector2 slimePos;
     public float detectionRadius;
     bool canAttack = false;
@@ -22,6 +22,10 @@ public class Slime : MonoBehaviour
     [Header("Player Fields")]
     Transform player;
     Vector2 playerPos;
+
+    [Header("Slime Prefab")]
+
+    [SerializeField]GameObject slimePreFab;
 
 
     [SerializeField] SlimeState currentSlimeState;
@@ -124,12 +128,13 @@ public class Slime : MonoBehaviour
 
     void Dividing()
     {
-
+        IdleState();
+        DivideAndDestroy(phase);
     }
 
     void Dead()
     {
-
+        Destroy(this.gameObject);
     }
 
     #endregion
@@ -150,6 +155,20 @@ public class Slime : MonoBehaviour
                 DividingState();
             }
         }
+    }
+
+    private void DivideAndDestroy(int phase)
+    {
+        slimePreFab.GetComponent<Slime>().life = phase * 10;
+        slimePreFab.GetComponent<Slime>().speed *= 2;
+        slimePreFab.transform.localScale *= 0.8f;
+
+        for(int i = 0; i < phase + 1;i++)Instantiate(slimePreFab);
+
+  
+        Debug.Log(this.gameObject.tag);
+            
+        Destroy(this.gameObject);
     }
 
     #region STATE METHODS
