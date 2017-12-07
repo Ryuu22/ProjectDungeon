@@ -7,6 +7,7 @@ public class PlayerArrow : MonoBehaviour
     Vector2 arrowPos;
     Vector2 direction;
     float speed = 10;
+    int damage = 5;
 
 	void Start ()
     {
@@ -18,4 +19,17 @@ public class PlayerArrow : MonoBehaviour
     {
         this.transform.Translate(new Vector3(direction.x, direction.y, 0) * speed * Time.deltaTime);
 	}
+
+    void OnTriggerEnter2D (Collider2D other)
+    {
+        Debug.Log("Zasca flechazo: " + other);
+
+        if(other.gameObject.tag == "Slime")
+        {
+            other.GetComponent<Slime>().RecieveDamage(damage);
+        }
+
+        Destroy(this.gameObject);
+
+    }
 }

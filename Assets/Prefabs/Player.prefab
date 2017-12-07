@@ -54,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1581869419119038}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.403699, y: -2.4067907, z: -0.059295967}
+  m_LocalPosition: {x: -15.23, y: -9.78, z: -0.059295967}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4733166082067994}
@@ -173,8 +173,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrowGameObject: {fileID: 1467688319979118, guid: fdb28275541094547b0361fa069936a3,
     type: 2}
-  attackBoxPos: {x: 1, y: 1}
-  attackBoxSize: {x: 1, y: 2}
+  attackBoxPos: {x: 0.75, y: 1}
+  attackBoxSize: {x: 1.5, y: 3}
   filter:
     useTriggers: 0
     useLayerMask: 1

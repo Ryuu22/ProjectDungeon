@@ -14,13 +14,15 @@ public class Player : MonoBehaviour
 
     Vector2 dashDirection;
     float dashSpeed = 15;
-    float dashTime = 0.2f;
+    float dashTime = 0.1f;
     float dashCounter;
     bool isDashing;
 
-    float AttackCooldown = 0.7f;
-    float AttackCounter;
+    float attackCooldown = 0.7f;
+    float attackCounter;
     int damage = 10;
+    float arrowCooldown = 1.5f;
+    float arrowCounter;
 
     public GameObject arrowGameObject;
 
@@ -41,10 +43,14 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if(AttackCounter > 0)
+        if(attackCooldown > 0)
         {
-            AttackCounter -= Time.deltaTime;
-        }    
+            attackCooldown -= Time.deltaTime;
+        }
+        if(arrowCounter > 0)
+        {
+            arrowCounter -= Time.deltaTime;
+        }
     }
 
     void Movement()
@@ -72,14 +78,23 @@ public class Player : MonoBehaviour
             provisionalPos.y += inputM.GetAxis().y * Time.deltaTime * movementSpeed.y;
 
             this.transform.position = provisionalPos;
+
+            if(inputM.GetAxis().x > 0.1)
+            {
+                attackBoxPos.x = 0.75f;
+            }
+            if (inputM.GetAxis().x < -0.1)
+            {
+                attackBoxPos.x = -0.75f;
+            }
         }
     }
 
     public void Attack()
     {
-        if (AttackCounter <= 0)
+        if (attackCounter <= 0)
         {
-            AttackCounter = AttackCooldown;
+            attackCounter = attackCooldown;
 
             Vector3 pos = this.transform.position + (Vector3)attackBoxPos;
             Collider2D[] results = new Collider2D[5];
@@ -98,8 +113,12 @@ public class Player : MonoBehaviour
 
     public void Shoot()
     {
-        Instantiate(arrowGameObject);
-        arrowGameObject.transform.position = new Vector3(this.transform.position.x + 1, this.transform.position.y + 1, 0);
+        if(arrowCounter <= 0)
+        {
+            arrowCounter = arrowCooldown;
+            arrowGameObject.transform.position = new Vector3(this.transform.position.x + attackBoxPos.x, this.transform.position.y + 1, 0);
+            Instantiate(arrowGameObject);
+        }
     }
 
     void Damage (GameObject target, string targetType)
@@ -113,7 +132,15 @@ public class Player : MonoBehaviour
     public void BeginDash()
     {
         isDashing = true;
-        dashDirection = new Vector2(inputM.GetAxis().x, inputM.GetAxis().y);
+
+        if (inputM.GetAxis().x > 0.1) dashDirection.x = 1;
+        if (inputM.GetAxis().x < -0.1) dashDirection.x = -1;
+        if (inputM.GetAxis().x > -0.1 && inputM.GetAxis().x < 0.1) dashDirection.x = 0;
+
+        if (inputM.GetAxis().y > 0.1) dashDirection.y = 1;
+        if (inputM.GetAxis().y < -0.1) dashDirection.y = -1;
+        if (inputM.GetAxis().y > -0.1 && inputM.GetAxis().y < 0.1) dashDirection.y = 0;
+
     }
 
     void Dash(Vector2 direction)

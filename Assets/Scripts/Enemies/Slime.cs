@@ -10,7 +10,7 @@ public class Slime : MonoBehaviour
     [Header("Slime Fields")]
     [SerializeField] int life = 30;
     [SerializeField] public int phase = 3;
-    [SerializeField]float speed = 1;
+    [SerializeField] float speed = 1;
     Vector2 slimePos;
     public float detectionRadius;
     bool canAttack = false;
@@ -24,11 +24,10 @@ public class Slime : MonoBehaviour
     Vector2 playerPos;
 
     [Header("Slime Prefab")]
+    [SerializeField] GameObject slimePreFab;
 
-    [SerializeField]GameObject slimePreFab;
-
-
-    [SerializeField] SlimeState currentSlimeState;
+    [SerializeField]
+    SlimeState currentSlimeState;
     enum SlimeState
     {
         Idle,
