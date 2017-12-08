@@ -1,1 +1,6 @@
-Source files used by our artists. Feel free to check them out, you can learn about our art workflow.
+## Character Thumbnails
+
+![concept 1](https://github.com/RyuuSukeChan/ProjectDungeon/blob/master/ArtSources/characterThumbnails.png)
+
+### Measures
+![concept 1](https://github.com/RyuuSukeChan/ProjectDungeon/blob/master/ArtSources/characterMeasures.png)
