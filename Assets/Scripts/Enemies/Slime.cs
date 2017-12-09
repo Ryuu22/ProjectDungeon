@@ -12,10 +12,11 @@ public class Slime : MonoBehaviour
     [SerializeField] public int phase = 3;
     [SerializeField] float speed = 1;
     Vector2 slimePos;
-    public float detectionRadius;
+    [SerializeField]
+    float detectionRadius;
     bool canAttack = false;
     int damage = 3;
-    float AttackCooldown = 1;
+    float attackCooldown = 1;
     float IdleCounter;
     float IdleTime; 
 
@@ -207,7 +208,6 @@ public class Slime : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(slimePos, detectionRadius);
-       
+        Gizmos.DrawWireSphere(slimePos, detectionRadius);       
     }
 }

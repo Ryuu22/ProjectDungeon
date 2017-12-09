@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     CollisionMaster collisionM;
 
     [Header("Player Fields")]
+    [SerializeField]
+    int life = 100;
     Vector2 movementSpeed = Vector2.zero;
     Vector2 speed = new Vector2(5, 5);
 
@@ -158,6 +160,16 @@ public class Player : MonoBehaviour
         {
             dashCounter = 0;
             isDashing = false;
+        }
+    }
+
+    public void RecieveDamage(int damage)
+    {
+        life -= damage;
+
+        if (life <= 0)
+        {
+            //DeadState();
         }
     }
 

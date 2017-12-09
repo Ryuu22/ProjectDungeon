@@ -10,6 +10,8 @@ TagManager:
   - Slime
   - MoveMaster
   - Arrow
+  - Spit
+  - SpitterSlime
   layers:
   - Default
   - TransparentFX
@@ -24,7 +26,7 @@ TagManager:
   - Enemy
   - Prop
   - Arrow
-  - 
+  - Spit
   - 
   - 
   - 
