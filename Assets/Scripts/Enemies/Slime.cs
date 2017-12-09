@@ -18,7 +18,12 @@ public class Slime : MonoBehaviour
     int damage = 3;
     float attackCooldown = 1;
     float IdleCounter;
-    float IdleTime; 
+    float IdleTime;
+
+    [SerializeField]float stunnedTime;
+    float stunnedCounter;
+
+    [SerializeField] Rigidbody2D rb;
 
     [Header("Player Fields")]
     Transform player;
@@ -123,7 +128,16 @@ public class Slime : MonoBehaviour
 
     void Stunned()
     {
+        if (stunnedCounter < stunnedTime)
+        {
+            stunnedCounter += Time.deltaTime;
 
+        }
+        else
+        {
+            stunnedCounter = 0;
+            IdleState();
+        }
     }
 
     void Dividing()
@@ -143,17 +157,28 @@ public class Slime : MonoBehaviour
     {
         life -= damage;
 
+
         if(life <= 0)
         {
             phase--;
             if(phase <= 0)
             {
-                DeadState();
+                DeadState();               
             }
             else
             {
                 DividingState();
             }
+        }
+        else
+        {
+            StunnedState();
+
+            Vector2 oppositePosition;
+            oppositePosition.x = player.position.x * -1;
+            oppositePosition.y = player.position.y * -1;
+
+            rb.AddForce(oppositePosition,ForceMode2D.Impulse);
         }
     }
 
