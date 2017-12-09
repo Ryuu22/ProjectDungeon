@@ -19,6 +19,11 @@ public class Slime : MonoBehaviour
     float attackCooldown = 1;
     float IdleCounter;
     float IdleTime;
+    Animator myAnim;
+
+    //provisional
+    float deadTime = 0.5f;
+    float deadCounter;
 
     [SerializeField]float stunnedTime;
     float stunnedCounter;
@@ -46,6 +51,7 @@ public class Slime : MonoBehaviour
 
     private void Start()
     {
+        myAnim = GetComponentInChildren<Animator>();
         moveM = GameObject.FindGameObjectWithTag("MoveMaster").GetComponent<MoveMaster>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
@@ -148,7 +154,13 @@ public class Slime : MonoBehaviour
 
     void Dead()
     {
-        Destroy(this.gameObject);
+        myAnim.SetTrigger("Dead");
+        deadCounter -= Time.deltaTime;
+
+        if (deadCounter <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     #endregion
@@ -163,7 +175,8 @@ public class Slime : MonoBehaviour
             phase--;
             if(phase <= 0)
             {
-                DeadState();               
+                DeadState();
+                deadCounter = deadTime;           
             }
             else
             {

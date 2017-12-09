@@ -13,6 +13,11 @@ public class SpitterSlime : MonoBehaviour
     float attackCounter;
     [SerializeField]
     GameObject spitGameObject;
+    Animator myAnim;
+
+    //provisional
+    float deadTime = 0.5f;
+    float deadCounter;
 
     [Header("Player Fields")]
     Transform player;
@@ -29,6 +34,7 @@ public class SpitterSlime : MonoBehaviour
 
     void Start ()
     {
+        myAnim = GetComponentInChildren<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 	}
 
@@ -79,7 +85,13 @@ public class SpitterSlime : MonoBehaviour
 
     void Dead()
     {
+        myAnim.SetTrigger("Dead");
+        deadCounter -= Time.deltaTime;
 
+        if(deadCounter <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     #endregion
@@ -110,6 +122,7 @@ public class SpitterSlime : MonoBehaviour
         if (life <= 0)
         {
             DeadState();
+            deadCounter = deadTime;
         }
     }
 
