@@ -81,6 +81,11 @@ public class SpitterSlime : MonoBehaviour
             Instantiate(spitGameObject);
         }
         else attackCounter -= Time.deltaTime;
+
+        if (Vector2.Distance(playerPos, spitterSlimePos) > detectionRadius)
+        {
+            IdleState();
+        }
     }
 
     void Dead()

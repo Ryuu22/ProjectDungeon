@@ -87,4 +87,16 @@ public class PassiveSlime : MonoBehaviour
             deadCounter = deadTime;
         }
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("Passive Slime Touched" + other);
+
+        if (other.gameObject.tag == "Player")
+        {
+            other.GetComponent<Player>().RecieveDamage(life);
+        }
+
+        DeadState();
+    }
 }
