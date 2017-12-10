@@ -12,6 +12,7 @@ TagManager:
   - Arrow
   - Spit
   - SpitterSlime
+  - PassiveSlime
   layers:
   - Default
   - TransparentFX
