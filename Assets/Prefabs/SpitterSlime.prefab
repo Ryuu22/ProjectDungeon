@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4918409769376630}
   - component: {fileID: 212862066609369174}
+  - component: {fileID: 95407753764429938}
   m_Layer: 0
   m_Name: SpitterSlimeTile
   m_TagString: Untagged
@@ -38,9 +39,9 @@ GameObject:
   - component: {fileID: 50962325948604308}
   - component: {fileID: 70997601507547924}
   - component: {fileID: 114273362410453560}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SpitterSlime
-  m_TagString: Untagged
+  m_TagString: SpitterSlime
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -107,6 +108,23 @@ CapsuleCollider2D:
   m_Offset: {x: -0.04, y: -0.13}
   m_Size: {x: 2.1, y: 1.48}
   m_Direction: 0
+--- !u!95 &95407753764429938
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1050149877293954}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eb3846418c3563d4e8c960b5790e7275, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114273362410453560
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -118,7 +136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73063f2746e11f6408fb07a6be8e0d19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRadius: 15
+  life: 20
+  detectionRadius: 10
   spitGameObject: {fileID: 1981432122036182, guid: 65c05da855fb19e4a93ecc7f82960e2e,
     type: 2}
   currentSpitterSlimeState: 0

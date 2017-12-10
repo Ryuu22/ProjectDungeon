@@ -32,6 +32,10 @@ public class PlayerArrow : MonoBehaviour
         {
             other.GetComponent<SpitterSlime>().RecieveDamage(damage);
         }
+        if (other.gameObject.tag == "PassiveSlime")
+        {
+            other.GetComponent<PassiveSlime>().RecieveDamage(damage);
+        }
 
         Destroy(this.gameObject);
 

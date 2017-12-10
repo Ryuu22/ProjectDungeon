@@ -28,7 +28,7 @@ public class Slime : MonoBehaviour
     [SerializeField]float stunnedTime;
     float stunnedCounter;
 
-    [SerializeField] Rigidbody2D rb;
+    Rigidbody2D rb;
 
     [Header("Player Fields")]
     Transform player;
@@ -52,6 +52,7 @@ public class Slime : MonoBehaviour
     private void Start()
     {
         myAnim = GetComponentInChildren<Animator>();
+        rb = GetComponent<Rigidbody2D>();
         moveM = GameObject.FindGameObjectWithTag("MoveMaster").GetComponent<MoveMaster>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
@@ -137,7 +138,6 @@ public class Slime : MonoBehaviour
         if (stunnedCounter < stunnedTime)
         {
             stunnedCounter += Time.deltaTime;
-
         }
         else
         {
@@ -189,7 +189,7 @@ public class Slime : MonoBehaviour
 
             Vector2 oppositePosition;
             oppositePosition.x = player.position.x * -1;
-            oppositePosition.y = player.position.y * -1;
+            oppositePosition.y = (player.position.y+1) * -1;
 
             rb.AddForce(oppositePosition,ForceMode2D.Impulse);
         }

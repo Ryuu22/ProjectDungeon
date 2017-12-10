@@ -109,6 +109,14 @@ public class Player : MonoBehaviour
                 {
                     Damage(results[i].gameObject, "Slime");
                 }
+                if (results[i].gameObject.tag == "SpitterSlime")
+                {
+                    Damage(results[i].gameObject, "SpitterSlime");
+                }
+                if (results[i].gameObject.tag == "PassiveSlime")
+                {
+                    Damage(results[i].gameObject, "PassiveSlime");
+                }
             }
         }
     }
@@ -128,6 +136,14 @@ public class Player : MonoBehaviour
         if(targetType == ("Slime"))
         {
             target.GetComponent<Slime>().RecieveDamage(damage);
+        }
+        if (targetType == ("SpitterSlime"))
+        {
+            target.GetComponent<SpitterSlime>().RecieveDamage(damage);
+        }
+        if (targetType == ("PassiveSlime"))
+        {
+            target.GetComponent<PassiveSlime>().RecieveDamage(damage);
         }
     }
 
