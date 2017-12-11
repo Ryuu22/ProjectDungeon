@@ -668,16 +668,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5dfcb0a430757c498b52218cceb49b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bridgeTiles:
-  - {fileID: 436166627}
-  - {fileID: 9737256}
-  - {fileID: 1880997756}
-  - {fileID: 1446471513}
-  - {fileID: 1463404911}
-  - {fileID: 1054462996}
-  player: {fileID: 1766662421994866, guid: 52260243a7622c24582538ed90b58534, type: 2}
-  fallCounter: 0
-  fallTime: 0
 --- !u!4 &1253938734
 Transform:
   m_ObjectHideFlags: 0
