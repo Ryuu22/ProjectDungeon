@@ -13,6 +13,7 @@ TagManager:
   - Spit
   - SpitterSlime
   - PassiveSlime
+  - Destructible
   layers:
   - Default
   - TransparentFX

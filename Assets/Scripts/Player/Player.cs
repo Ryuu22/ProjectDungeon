@@ -117,6 +117,10 @@ public class Player : MonoBehaviour
                 {
                     Damage(results[i].gameObject, "PassiveSlime");
                 }
+                if (results[i].gameObject.tag == "Destructible")
+                {
+                    Damage(results[i].gameObject, "Destructible");
+                }
             }
         }
     }
@@ -144,6 +148,10 @@ public class Player : MonoBehaviour
         if (targetType == ("PassiveSlime"))
         {
             target.GetComponent<PassiveSlime>().RecieveDamage(damage);
+        }
+        if (targetType == ("Destructible")) //for barrels, crates and more
+        {
+            target.GetComponent<DestructibleBehaviour>().GetDestroyed();
         }
     }
 
