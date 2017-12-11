@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 4398397739946480}
   - component: {fileID: 50737001912696112}
   - component: {fileID: 58379337229212580}
+  - component: {fileID: 58072249523279612}
   - component: {fileID: 114741066448628306}
   m_Layer: 10
   m_Name: PassiveSlime
@@ -53,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1357635326087576}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.779049, y: -7.4045753, z: -0.015625}
+  m_LocalPosition: {x: -13.88, y: 3.97, z: -0.015625}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4706773898839138}
@@ -93,6 +94,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &58072249523279612
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1357635326087576}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.16}
+  serializedVersion: 2
+  m_Radius: 0.51
 --- !u!58 &58379337229212580
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -137,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 20
+  patrolTarget: {x: 0, y: 0}
   currentPassiveSlimeState: 0
 --- !u!212 &212826756358189340
 SpriteRenderer:

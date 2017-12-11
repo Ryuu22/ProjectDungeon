@@ -14,9 +14,9 @@ public class Slime : MonoBehaviour
     Vector2 slimePos;
     [SerializeField]
     float detectionRadius;
-    bool canAttack = false;
     int damage = 3;
-    float attackCooldown = 1;
+    float attackCooldown = 2;
+    float attackCounter;
     float IdleCounter;
     float IdleTime;
     Animator myAnim;
@@ -33,6 +33,7 @@ public class Slime : MonoBehaviour
     [Header("Player Fields")]
     Transform player;
     Vector2 playerPos;
+    Player playerScript;
 
     [Header("Slime Prefab")]
     [SerializeField] GameObject slimePreFab;
@@ -43,6 +44,7 @@ public class Slime : MonoBehaviour
     {
         Idle,
         Patrol,
+        Chasing,
         Attack,
         Stunned,
         Dividing,
@@ -55,6 +57,7 @@ public class Slime : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         moveM = GameObject.FindGameObjectWithTag("MoveMaster").GetComponent<MoveMaster>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     void Update ()
@@ -70,6 +73,10 @@ public class Slime : MonoBehaviour
 
             case SlimeState.Patrol:
                 Patrol();
+                break;
+
+            case SlimeState.Chasing:
+                Chasing();
                 break;
 
             case SlimeState.Attack:
@@ -108,7 +115,7 @@ public class Slime : MonoBehaviour
 
         if(Vector2.Distance(playerPos,slimePos) < detectionRadius)
         {
-            AttackState();
+            ChasingState();
         }
     }
 
@@ -119,17 +126,29 @@ public class Slime : MonoBehaviour
 
         if(Vector2.Distance(playerPos, slimePos) < detectionRadius)
         {
-            AttackState();
+            ChasingState();
         }
     }
 
-    void Attack()
+    void Chasing()
     {
         moveM.Move(this.gameObject, playerPos, speed);
 
         if(Vector2.Distance(playerPos, slimePos) > detectionRadius)
         {
             IdleState();
+        }
+    }
+
+    void Attack()
+    {
+        attackCounter -= Time.deltaTime;
+
+        if(attackCounter <= 0)
+        {
+            attackCounter = attackCooldown;
+
+            playerScript.RecieveDamage(damage);
         }
     }
 
@@ -191,7 +210,7 @@ public class Slime : MonoBehaviour
             oppositePosition.x = player.position.x * -1;
             oppositePosition.y = (player.position.y+1) * -1;
 
-            rb.AddForce(oppositePosition,ForceMode2D.Impulse);
+            rb.AddForce(oppositePosition, ForceMode2D.Impulse);
         }
     }
 
@@ -221,6 +240,11 @@ public class Slime : MonoBehaviour
         currentSlimeState = SlimeState.Patrol;
     }
 
+    void ChasingState()
+    {
+        currentSlimeState = SlimeState.Chasing;
+    }
+
     void AttackState()
     {
         currentSlimeState = SlimeState.Attack;
@@ -242,6 +266,22 @@ public class Slime : MonoBehaviour
     }
 
     #endregion
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == ("Player") && currentSlimeState == SlimeState.Chasing)
+        {
+            AttackState();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.tag == ("Player") && currentSlimeState == SlimeState.Attack)
+        {
+            ChasingState();
+        }
+    }
 
     private void OnDrawGizmos()
     {

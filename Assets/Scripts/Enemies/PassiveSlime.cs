@@ -159,8 +159,6 @@ public class PassiveSlime : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
-        Debug.Log("Passive Slime Touched" + other);
-
         if (other.gameObject.tag == "Player")
         {
             Damage(other.gameObject);
