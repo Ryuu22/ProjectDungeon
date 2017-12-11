@@ -153,7 +153,7 @@ public class Slime : MonoBehaviour
     }
 
     void Stunned()
-    {
+    {/*
         if (stunnedCounter < stunnedTime)
         {
             stunnedCounter += Time.deltaTime;
@@ -164,11 +164,11 @@ public class Slime : MonoBehaviour
 
         rb.AddForce(oppositePosition, ForceMode2D.Impulse);
 
-        else
-        {
+
+
             stunnedCounter = 0;
             IdleState();
-        }
+        */
     }
 
     void Dividing()
