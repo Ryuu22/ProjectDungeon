@@ -158,6 +158,12 @@ public class Slime : MonoBehaviour
         {
             stunnedCounter += Time.deltaTime;
         }
+        Vector2 oppositePosition;
+        oppositePosition.x = slimePos.x - playerPos.x;
+        oppositePosition.y = slimePos.y - playerPos.y;
+
+        rb.AddForce(oppositePosition, ForceMode2D.Impulse);
+
         else
         {
             stunnedCounter = 0;
@@ -205,12 +211,6 @@ public class Slime : MonoBehaviour
         else
         {
             StunnedState();
-
-            Vector2 oppositePosition;
-            oppositePosition.x = player.position.x * -1;
-            oppositePosition.y = (player.position.y+1) * -1;
-
-            rb.AddForce(oppositePosition, ForceMode2D.Impulse);
         }
     }
 
