@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4990046819481324}
   - component: {fileID: 61887377419422876}
   - component: {fileID: 114914541085303838}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShootingPlant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1680175376290632}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.53, y: -2.02, z: 0}
+  m_LocalPosition: {x: -7.669046, y: -3.0550144, z: 0}
   m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_Children:
   - {fileID: 4268454803011882}
@@ -107,7 +107,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 808295b3f5a80cd418ec631df5687e2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plantShootPrefab: {fileID: 0}
+  plantShootPrefab: {fileID: 1318126375192846, guid: 83582552c95e02b459bd89702948bd92,
+    type: 2}
+  Right: 0
+  Left: 1
+  Top: 0
+  Bottom: 0
 --- !u!212 &212862031777472862
 SpriteRenderer:
   m_ObjectHideFlags: 1

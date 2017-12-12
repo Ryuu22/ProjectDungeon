@@ -5,9 +5,17 @@ using UnityEngine;
 public class ShootingPlant : MonoBehaviour
 {
     [Header("ShootingPlant Fields")]
-    Vector2 shootedDirection;
     [SerializeField]
     GameObject plantShootPrefab;
+
+    [SerializeField]
+    bool Right;
+    [SerializeField]
+    bool Left;
+    [SerializeField]
+    bool Top;
+    [SerializeField]
+    bool Bottom;
 
     [Header("Player Fields")]
     Player player;
@@ -19,7 +27,27 @@ public class ShootingPlant : MonoBehaviour
     
     void Shoot()
     {
-
+        if (Right)
+        {
+            Instantiate(plantShootPrefab);
+            plantShootPrefab.GetComponent<Rigidbody2D>().AddForce(new Vector2(1, 0), ForceMode2D.Impulse);
+        }
+        if (Left)
+        {
+            plantShootPrefab.transform.position = new Vector2(this.transform.position.x - 0.2f, this.transform.position.y);
+            plantShootPrefab.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1, 0), ForceMode2D.Impulse);
+            Instantiate(plantShootPrefab);
+        }
+        if (Top)
+        {
+            Instantiate(plantShootPrefab);
+            plantShootPrefab.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 1), ForceMode2D.Impulse);
+        }
+        if (Bottom)
+        {
+            Instantiate(plantShootPrefab);
+            plantShootPrefab.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -1), ForceMode2D.Impulse);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
