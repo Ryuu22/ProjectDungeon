@@ -7,6 +7,7 @@ public class ShootingPlant : MonoBehaviour
     [Header("ShootingPlant Fields")]
     [SerializeField]
     GameObject plantShootPrefab;
+    PlantProjectile projectileScript;
 
     [SerializeField]
     bool Right;
@@ -22,6 +23,7 @@ public class ShootingPlant : MonoBehaviour
 
 	void Start ()
     {
+        projectileScript = plantShootPrefab.GetComponent<PlantProjectile>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 	}
     
@@ -29,24 +31,39 @@ public class ShootingPlant : MonoBehaviour
     {
         if (Right)
         {
-            Instantiate(plantShootPrefab);
-            plantShootPrefab.GetComponent<Rigidbody2D>().AddForce(new Vector2(1, 0), ForceMode2D.Impulse);
+            GameObject plantShoot = plantShootPrefab;
+            PlantProjectile plantProjectile = projectileScript;
+
+            plantShoot.transform.position = new Vector2(this.transform.position.x + 0.2f, this.transform.position.y);
+            plantProjectile.ShotDirection(new Vector2(1, 0));
+            Instantiate(plantShoot);
         }
         if (Left)
         {
-            plantShootPrefab.transform.position = new Vector2(this.transform.position.x - 0.2f, this.transform.position.y);
-            plantShootPrefab.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1, 0), ForceMode2D.Impulse);
-            Instantiate(plantShootPrefab);
+            GameObject plantShoot = plantShootPrefab;
+            PlantProjectile plantProjectile = projectileScript;
+
+            plantShoot.transform.position = new Vector2(this.transform.position.x - 0.2f, this.transform.position.y);
+            plantProjectile.ShotDirection(new Vector2(-1, 0));
+            Instantiate(plantShoot);
         }
         if (Top)
         {
-            Instantiate(plantShootPrefab);
-            plantShootPrefab.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 1), ForceMode2D.Impulse);
+            GameObject plantShoot = plantShootPrefab;
+            PlantProjectile plantProjectile = projectileScript;
+
+            plantShoot.transform.position = new Vector2(this.transform.position.x, this.transform.position.y + 1);
+            plantProjectile.ShotDirection(new Vector2(0, 1));
+            Instantiate(plantShoot);
         }
         if (Bottom)
         {
-            Instantiate(plantShootPrefab);
-            plantShootPrefab.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -1), ForceMode2D.Impulse);
+            GameObject plantShoot = plantShootPrefab;
+            PlantProjectile plantProjectile = projectileScript;
+
+            plantShoot.transform.position = new Vector2(this.transform.position.x, this.transform.position.y - 1);
+            plantProjectile.ShotDirection(new Vector2(0, -1));
+            Instantiate(plantShoot);
         }
     }
 
