@@ -2,14 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestructibleBehaviour : MonoBehaviour {
-
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
+public class DestructibleBehaviour : MonoBehaviour
+{
     public void GetDestroyed()
     {
         Debug.Log("hit");
