@@ -17,6 +17,8 @@ public class Slime : MonoBehaviour
     int damage = 3;
     float attackCooldown = 2;
     float attackCounter;
+    float stunnedTime = 0.7f;
+    float stunnedCounter;
     float IdleCounter;
     float IdleTime;
     Animator myAnim;
@@ -25,8 +27,6 @@ public class Slime : MonoBehaviour
     float deadTime = 0.5f;
     float deadCounter;
 
-    [SerializeField]float stunnedTime;
-    float stunnedCounter;
 
     Rigidbody2D rb;
 
@@ -134,6 +134,7 @@ public class Slime : MonoBehaviour
     {
         moveM.Move(this.gameObject, playerPos, speed);
 
+
         if(Vector2.Distance(playerPos, slimePos) > detectionRadius)
         {
             IdleState();
@@ -153,22 +154,14 @@ public class Slime : MonoBehaviour
     }
 
     void Stunned()
-    {/*
-        if (stunnedCounter < stunnedTime)
+    {
+        stunnedCounter -= Time.deltaTime;
+
+        if (stunnedCounter <= 0)
         {
-            stunnedCounter += Time.deltaTime;
-        }
-        Vector2 oppositePosition;
-        oppositePosition.x = slimePos.x - playerPos.x;
-        oppositePosition.y = slimePos.y - playerPos.y;
-
-        rb.AddForce(oppositePosition, ForceMode2D.Impulse);
-
-
-
-            stunnedCounter = 0;
+            stunnedCounter = stunnedTime;
             IdleState();
-        */
+        }
     }
 
     void Dividing()
@@ -210,6 +203,12 @@ public class Slime : MonoBehaviour
         }
         else
         {
+            Vector2 oppositePosition;
+            oppositePosition.x = slimePos.x - playerPos.x;
+            oppositePosition.y = slimePos.y - playerPos.y;
+
+            rb.AddForce(oppositePosition.normalized*3, ForceMode2D.Impulse);
+
             StunnedState();
         }
     }
@@ -266,6 +265,11 @@ public class Slime : MonoBehaviour
     }
 
     #endregion
+
+    void Flip()
+    {
+        this.gameObject.transform.localScale = new Vector3((this.gameObject.transform.localScale.x * -1), 1, 1);
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
