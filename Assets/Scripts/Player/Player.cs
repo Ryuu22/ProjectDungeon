@@ -83,10 +83,12 @@ public class Player : MonoBehaviour
 
             if(inputM.GetAxis().x > 0.1)
             {
+                this.gameObject.transform.localScale = new Vector3(1, 1, 1);
                 attackBoxPos.x = 0.75f;
             }
             if (inputM.GetAxis().x < -0.1)
             {
+                this.gameObject.transform.localScale = new Vector3(-1, 1, 1);
                 attackBoxPos.x = -0.75f;
             }
         }

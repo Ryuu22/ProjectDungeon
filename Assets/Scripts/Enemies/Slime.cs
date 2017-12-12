@@ -11,7 +11,12 @@ public class Slime : MonoBehaviour
     [SerializeField] int life = 30;
     [SerializeField] public int phase = 3;
     [SerializeField] float speed = 1;
+    Vector2 slimeStartPos;
     Vector2 slimePos;
+    float velocityX;
+    bool isFacingRight;
+    Vector2 patrolTarget;
+    float patrolMoveCounter;
     [SerializeField]
     float detectionRadius;
     int damage = 3;
@@ -43,6 +48,7 @@ public class Slime : MonoBehaviour
     enum SlimeState
     {
         Idle,
+        TargetPatrol,
         Patrol,
         Chasing,
         Attack,
@@ -53,6 +59,7 @@ public class Slime : MonoBehaviour
 
     private void Start()
     {
+        slimeStartPos = this.transform.position;
         myAnim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
         moveM = GameObject.FindGameObjectWithTag("MoveMaster").GetComponent<MoveMaster>();
@@ -69,6 +76,10 @@ public class Slime : MonoBehaviour
         {
             case SlimeState.Idle:
                 Idle();
+                break;
+
+            case SlimeState.TargetPatrol:
+                TargetPatrol();
                 break;
 
             case SlimeState.Patrol:
@@ -109,8 +120,8 @@ public class Slime : MonoBehaviour
         if(IdleCounter >= IdleTime)
         {
             IdleCounter = 0;
-            IdleTime = Random.Range(4, 8);
-            PatrolState();
+            IdleTime = Random.Range(4, 9);
+            TargetPatrolState();
         }
 
         if(Vector2.Distance(playerPos,slimePos) < detectionRadius)
@@ -119,14 +130,37 @@ public class Slime : MonoBehaviour
         }
     }
 
+    void TargetPatrol()
+    {
+        patrolTarget = new Vector2(slimeStartPos.x + Random.Range(-3, 3), slimeStartPos.y + Random.Range(-2, 2));
+        PatrolState();
+    }
+
     void Patrol()
     {
-        //Target nearby random Vector2 to move to it
-        //When arrive, IdleState();
+        patrolMoveCounter += Time.deltaTime;
+        moveM.Move(this.gameObject, patrolTarget, speed);
+
+        if(Vector2.Distance(this.transform.position, patrolTarget) < 1 || patrolMoveCounter > 5)
+        {
+            patrolMoveCounter = 0;
+            IdleState();
+        }
 
         if(Vector2.Distance(playerPos, slimePos) < detectionRadius)
         {
             ChasingState();
+        }
+
+        if(this.gameObject.transform.position.x - patrolTarget.x > 0 && isFacingRight)
+        {
+            isFacingRight = false;
+            Flip();
+        }
+        if(this.gameObject.transform.position.x - patrolTarget.x < 0 && !isFacingRight)
+        {
+            isFacingRight = true;
+            Flip();
         }
     }
 
@@ -138,6 +172,17 @@ public class Slime : MonoBehaviour
         if(Vector2.Distance(playerPos, slimePos) > detectionRadius)
         {
             IdleState();
+        }
+
+        if(this.gameObject.transform.position.x - playerPos.x > 0 && isFacingRight)
+        {
+            isFacingRight = false;
+            Flip();
+        }
+        if(this.gameObject.transform.position.x - playerPos.x < 0 && !isFacingRight)
+        {
+            isFacingRight = true;
+            Flip();
         }
     }
 
@@ -183,6 +228,11 @@ public class Slime : MonoBehaviour
 
     #endregion
 
+    void Flip()
+    {
+        this.gameObject.transform.localScale = new Vector3((this.gameObject.transform.localScale.x * -1), this.gameObject.transform.localScale.y, this.gameObject.transform.localScale.z);
+    }
+
     public void RecieveDamage(int damage)
     {
         life -= damage;
@@ -194,7 +244,7 @@ public class Slime : MonoBehaviour
             if(phase <= 0)
             {
                 DeadState();
-                deadCounter = deadTime;           
+                deadCounter = deadTime;
             }
             else
             {
@@ -234,6 +284,11 @@ public class Slime : MonoBehaviour
         currentSlimeState = SlimeState.Idle;
     }
 
+    void TargetPatrolState()
+    {
+        currentSlimeState = SlimeState.TargetPatrol;
+    }
+
     void PatrolState()
     {
         currentSlimeState = SlimeState.Patrol;
@@ -265,11 +320,6 @@ public class Slime : MonoBehaviour
     }
 
     #endregion
-
-    void Flip()
-    {
-        this.gameObject.transform.localScale = new Vector3((this.gameObject.transform.localScale.x * -1), 1, 1);
-    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
