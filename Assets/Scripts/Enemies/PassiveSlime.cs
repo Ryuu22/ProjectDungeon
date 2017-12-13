@@ -20,6 +20,7 @@ public class PassiveSlime : MonoBehaviour
     [SerializeField]
     Vector2 patrolTarget;
     Animator myAnim;
+    float randomScale;
 
     //provisional
     float deadTime = 0.5f;
@@ -40,6 +41,8 @@ public class PassiveSlime : MonoBehaviour
         actualPos = this.transform.position;
         moveM = GameObject.FindGameObjectWithTag("MoveMaster").GetComponent<MoveMaster>();
         myAnim = GetComponentInChildren<Animator>();
+        randomScale = Random.Range(0.8f, 1.2f);
+        this.gameObject.transform.localScale = new Vector3(randomScale, randomScale, 1);
     }
 
 	void Update ()

@@ -8,31 +8,29 @@ public class Slime : MonoBehaviour
     MoveMaster moveM;
 
     [Header("Slime Fields")]
-    [SerializeField] int life = 30;
-    [SerializeField] public int phase = 3;
-    [SerializeField] float speed = 1;
+    [SerializeField]
+    int phase;
+    int life = 30;
+    float detectionRadius;
+    float speed = 1;
+    float attackCooldown = 2;
+    int damage = 3;
+
     Vector2 slimeStartPos;
     Vector2 slimePos;
-    float velocityX;
-    bool isFacingRight;
     Vector2 patrolTarget;
     float patrolMoveCounter;
-    [SerializeField]
-    float detectionRadius;
-    int damage = 3;
-    float attackCooldown = 2;
+    float velocityX;
+    bool isFacingRight;
     float attackCounter;
     float stunnedTime = 0.7f;
     float stunnedCounter;
     float IdleCounter;
     float IdleTime;
-    Animator myAnim;
-
-    //provisional
     float deadTime = 0.5f;
     float deadCounter;
-
-
+    float randomScale;
+    Animator myAnim;
     Rigidbody2D rb;
 
     [Header("Player Fields")]
@@ -41,7 +39,9 @@ public class Slime : MonoBehaviour
     Player playerScript;
 
     [Header("Slime Prefab")]
-    [SerializeField] GameObject slimePreFab;
+    [SerializeField] GameObject slimePrefab;
+    [SerializeField] GameObject slimeMediumPrefab;
+    [SerializeField] GameObject slimeSmallPrefab;
 
     [SerializeField]
     SlimeState currentSlimeState;
@@ -59,12 +59,14 @@ public class Slime : MonoBehaviour
 
     private void Start()
     {
-        slimeStartPos = this.transform.position;
-        myAnim = GetComponentInChildren<Animator>();
-        rb = GetComponent<Rigidbody2D>();
+        InitializateStats();
+        RandomizeScale();
+        this.transform.localScale = new Vector3(randomScale, randomScale, 0);
         moveM = GameObject.FindGameObjectWithTag("MoveMaster").GetComponent<MoveMaster>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        myAnim = GetComponentInChildren<Animator>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update ()
@@ -133,6 +135,16 @@ public class Slime : MonoBehaviour
     void TargetPatrol()
     {
         patrolTarget = new Vector2(slimeStartPos.x + Random.Range(-3, 3), slimeStartPos.y + Random.Range(-2, 2));
+
+        if(this.gameObject.transform.position.x - patrolTarget.x > 0 && isFacingRight)
+        {
+            Flip();
+        }
+        if(this.gameObject.transform.position.x - patrolTarget.x < 0 && !isFacingRight)
+        {
+            Flip();
+        }
+
         PatrolState();
     }
 
@@ -149,25 +161,22 @@ public class Slime : MonoBehaviour
 
         if(Vector2.Distance(playerPos, slimePos) < detectionRadius)
         {
-            ChasingState();
-        }
+            if(this.gameObject.transform.position.x - playerPos.x > 0 && isFacingRight)
+            {
+                Flip();
+            }
+            if(this.gameObject.transform.position.x - playerPos.x < 0 && !isFacingRight)
+            {
+                Flip();
+            }
 
-        if(this.gameObject.transform.position.x - patrolTarget.x > 0 && isFacingRight)
-        {
-            isFacingRight = false;
-            Flip();
-        }
-        if(this.gameObject.transform.position.x - patrolTarget.x < 0 && !isFacingRight)
-        {
-            isFacingRight = true;
-            Flip();
+            ChasingState();
         }
     }
 
     void Chasing()
     {
         moveM.Move(this.gameObject, playerPos, speed);
-
 
         if(Vector2.Distance(playerPos, slimePos) > detectionRadius)
         {
@@ -176,14 +185,13 @@ public class Slime : MonoBehaviour
 
         if(this.gameObject.transform.position.x - playerPos.x > 0 && isFacingRight)
         {
-            isFacingRight = false;
             Flip();
         }
         if(this.gameObject.transform.position.x - playerPos.x < 0 && !isFacingRight)
         {
-            isFacingRight = true;
             Flip();
         }
+
     }
 
     void Attack()
@@ -211,18 +219,69 @@ public class Slime : MonoBehaviour
 
     void Dividing()
     {
-        IdleState();
-        DivideAndDestroy(phase);
+        Divide();
+        DeadState();
     }
 
     void Dead()
     {
-        myAnim.SetTrigger("Dead");
         deadCounter -= Time.deltaTime;
+        myAnim.SetTrigger("Dead");
 
         if (deadCounter <= 0)
         {
+            deadCounter = deadTime;
+            Divide();
             Destroy(this.gameObject);
+        }
+    }
+
+    #endregion
+
+    #region START METHODS
+
+    void RandomizeScale()
+    {
+        if(phase == 3)
+        {
+            randomScale = Random.Range(0.9f, 1.2f);
+        }
+        if(phase == 2)
+        {
+            randomScale = Random.Range(0.5f, 0.8f);
+        }
+        if(phase == 1)
+        {
+            randomScale = Random.Range(0.2f, 0.3f);
+        }
+    }
+
+    void InitializateStats()
+    {
+        slimeStartPos = this.transform.position;
+        if(phase == 3)
+        {
+            life = 30;
+            detectionRadius = 7;
+            speed = 0.7f;
+            attackCooldown = 2;
+            damage = 20;
+}
+        if(phase == 2)
+        {
+            life = 15;
+            detectionRadius = 5;
+            speed = 1;
+            attackCooldown = 1.5f;
+            damage = 10;
+        }
+        if(phase == 1)
+        {
+            life = 5;
+            detectionRadius = 3.5f;
+            speed = 1.2f;
+            attackCooldown = 1;
+            damage = 3;
         }
     }
 
@@ -231,26 +290,19 @@ public class Slime : MonoBehaviour
     void Flip()
     {
         this.gameObject.transform.localScale = new Vector3((this.gameObject.transform.localScale.x * -1), this.gameObject.transform.localScale.y, this.gameObject.transform.localScale.z);
+        isFacingRight = !isFacingRight;
     }
 
     public void RecieveDamage(int damage)
     {
         life -= damage;
 
-
         if(life <= 0)
         {
-            phase--;
-            if(phase <= 0)
-            {
-                DeadState();
-                deadCounter = deadTime;
-            }
-            else
-            {
-                DividingState();
-            }
+            deadCounter = deadTime;
+            DeadState();
         }
+
         else
         {
             Vector2 oppositePosition;
@@ -263,18 +315,18 @@ public class Slime : MonoBehaviour
         }
     }
 
-    private void DivideAndDestroy(int phase)
+    private void Divide()
     {
-        slimePreFab.GetComponent<Slime>().life = phase * 10;
-        slimePreFab.GetComponent<Slime>().speed *= 2;
-        slimePreFab.transform.localScale *= 0.8f;
-
-        for(int i = 0; i < phase + 1;i++)Instantiate(slimePreFab);
-
-  
-        Debug.Log(this.gameObject.tag);
-            
-        Destroy(this.gameObject);
+        if(phase == 3)
+        {
+            Instantiate(slimeMediumPrefab, new Vector3(slimePos.x, slimePos.y + 0.5f, 0), new Quaternion(0, 0, 0, 0));
+            Instantiate(slimeMediumPrefab, new Vector3(slimePos.x, slimePos.y - 0.5f, 0), new Quaternion(0, 0, 0, 0));
+        }
+        if(phase == 2)
+        {
+            Instantiate(slimeSmallPrefab, new Vector3(slimePos.x, slimePos.y + 0.1f, 0), new Quaternion(0, 0, 0, 0));
+            Instantiate(slimeSmallPrefab, new Vector3(slimePos.x, slimePos.y - 0.1f, 0), new Quaternion(0, 0, 0, 0));
+        }
     }
 
     #region STATE METHODS
@@ -321,6 +373,8 @@ public class Slime : MonoBehaviour
 
     #endregion
 
+    #region COLLISION METHODS
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == ("Player") && currentSlimeState == SlimeState.Chasing)
@@ -336,6 +390,8 @@ public class Slime : MonoBehaviour
             ChasingState();
         }
     }
+
+    #endregion
 
     private void OnDrawGizmos()
     {
