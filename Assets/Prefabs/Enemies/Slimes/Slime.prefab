@@ -162,11 +162,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26799bc4afa0a4c418e9e057fd36d687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 30
   phase: 3
-  speed: 1
-  detectionRadius: 7
-  slimePreFab: {fileID: 1290298460264376}
+  slimePrefab: {fileID: 1290298460264376}
+  slimeMediumPrefab: {fileID: 1224021589510636, guid: 389a44ed47e7acc43a36541f54e926bc,
+    type: 2}
+  slimeSmallPrefab: {fileID: 1156527456943396, guid: cef8ef8eafd83a94db5d5f63cefa8269,
+    type: 2}
   currentSlimeState: 0
 --- !u!212 &212352926023590832
 SpriteRenderer:

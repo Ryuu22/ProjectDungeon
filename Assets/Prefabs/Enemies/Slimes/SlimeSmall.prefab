@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 114758953524998518}
   - component: {fileID: 61843289530886796}
   m_Layer: 10
-  m_Name: Slime(Clone)(Clone)
+  m_Name: SlimeSmall
   m_TagString: Slime
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -162,11 +162,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26799bc4afa0a4c418e9e057fd36d687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 10
   phase: 1
-  speed: 4
-  detectionRadius: 7
-  slimePreFab: {fileID: 1156527456943396}
+  slimePrefab: {fileID: 0}
+  slimeMediumPrefab: {fileID: 0}
+  slimeSmallPrefab: {fileID: 0}
   currentSlimeState: 0
 --- !u!212 &212273846684019066
 SpriteRenderer:

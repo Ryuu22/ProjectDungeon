@@ -15,7 +15,6 @@ public class Slime : MonoBehaviour
     float speed = 1;
     float attackCooldown = 2;
     int damage = 3;
-
     Vector2 slimeStartPos;
     Vector2 slimePos;
     Vector2 patrolTarget;
