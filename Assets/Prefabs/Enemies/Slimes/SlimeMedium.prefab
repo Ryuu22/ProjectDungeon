@@ -163,11 +163,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   phase: 2
+<<<<<<< HEAD
   slimePrefab: {fileID: 1290298460264376, guid: c064fc5755c0ef440a2c8c2002c0bb32,
     type: 2}
   slimeMediumPrefab: {fileID: 1224021589510636}
   slimeSmallPrefab: {fileID: 1156527456943396, guid: cef8ef8eafd83a94db5d5f63cefa8269,
     type: 2}
+=======
+  slimePrefab: {fileID: 0}
+  slimeMediumPrefab: {fileID: 0}
+  slimeSmallPrefab: {fileID: 0}
+>>>>>>> 993b237bc4fbde083bd5967aa92d6e699bbb46c5
   currentSlimeState: 0
 --- !u!212 &212618992575165292
 SpriteRenderer:
