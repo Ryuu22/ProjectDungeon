@@ -238,6 +238,50 @@ public class Slime : MonoBehaviour
 
     #endregion
 
+    #region STATE METHODS
+
+    void IdleState()
+    {
+        currentSlimeState = SlimeState.Idle;
+    }
+
+    void TargetPatrolState()
+    {
+        currentSlimeState = SlimeState.TargetPatrol;
+    }
+
+    void PatrolState()
+    {
+        currentSlimeState = SlimeState.Patrol;
+    }
+
+    void ChasingState()
+    {
+        currentSlimeState = SlimeState.Chasing;
+    }
+
+    void AttackState()
+    {
+        currentSlimeState = SlimeState.Attack;
+    }
+
+    void StunnedState()
+    {
+        currentSlimeState = SlimeState.Stunned;
+    }
+
+    void DividingState()
+    {
+        currentSlimeState = SlimeState.Dividing;
+    }
+
+    void DeadState()
+    {
+        currentSlimeState = SlimeState.Dead;
+    }
+
+    #endregion
+
     #region START METHODS
 
     void RandomizeScale()
@@ -287,6 +331,26 @@ public class Slime : MonoBehaviour
 
     #endregion
 
+    #region COLLISION METHODS
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == ("Player") && currentSlimeState == SlimeState.Chasing)
+        {
+            AttackState();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.tag == ("Player") && currentSlimeState == SlimeState.Attack)
+        {
+            ChasingState();
+        }
+    }
+
+    #endregion
+
     void Flip()
     {
         this.gameObject.transform.localScale = new Vector3((this.gameObject.transform.localScale.x * -1), this.gameObject.transform.localScale.y, this.gameObject.transform.localScale.z);
@@ -328,70 +392,6 @@ public class Slime : MonoBehaviour
             Instantiate(slimeSmallPrefab, new Vector3(slimePos.x, slimePos.y - 0.1f, 0), new Quaternion(0, 0, 0, 0));
         }
     }
-
-    #region STATE METHODS
-
-    void IdleState()
-    {
-        currentSlimeState = SlimeState.Idle;
-    }
-
-    void TargetPatrolState()
-    {
-        currentSlimeState = SlimeState.TargetPatrol;
-    }
-
-    void PatrolState()
-    {
-        currentSlimeState = SlimeState.Patrol;
-    }
-
-    void ChasingState()
-    {
-        currentSlimeState = SlimeState.Chasing;
-    }
-
-    void AttackState()
-    {
-        currentSlimeState = SlimeState.Attack;
-    }
-
-    void StunnedState()
-    {
-        currentSlimeState = SlimeState.Stunned;
-    }
-
-    void DividingState()
-    {
-        currentSlimeState = SlimeState.Dividing;
-    }
-
-    void DeadState()
-    {
-        currentSlimeState = SlimeState.Dead;
-    }
-
-    #endregion
-
-    #region COLLISION METHODS
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.tag == ("Player") && currentSlimeState == SlimeState.Chasing)
-        {
-            AttackState();
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if(other.tag == ("Player") && currentSlimeState == SlimeState.Attack)
-        {
-            ChasingState();
-        }
-    }
-
-    #endregion
 
     private void OnDrawGizmos()
     {
