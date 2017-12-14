@@ -27,7 +27,6 @@ public class Slime : MonoBehaviour
     float IdleCounter;
     float IdleTime;
     float deadTime = 0.5f;
-    float deadCounter;
     float randomScale;
     Animator myAnim;
     Rigidbody2D rb;
@@ -224,12 +223,11 @@ public class Slime : MonoBehaviour
 
     void Dead()
     {
-        deadCounter -= Time.deltaTime;
+        deadTime -= Time.deltaTime;
         myAnim.SetTrigger("Dead");
 
-        if (deadCounter <= 0)
+        if (deadTime <= 0)
         {
-            deadCounter = deadTime;
             Divide();
             Destroy(this.gameObject);
         }
@@ -362,7 +360,6 @@ public class Slime : MonoBehaviour
 
         if(life <= 0)
         {
-            deadCounter = deadTime;
             DeadState();
         }
 

@@ -24,7 +24,6 @@ public class PassiveSlime : MonoBehaviour
 
     //provisional
     float deadTime = 0.5f;
-    float deadCounter;
 
     [SerializeField]
     PassiveSlimeState currentPassiveSlimeState;
@@ -106,9 +105,9 @@ public class PassiveSlime : MonoBehaviour
     void Dead()
     {
         myAnim.SetTrigger("Dead");
-        deadCounter -= Time.deltaTime;
+        deadTime -= Time.deltaTime;
 
-        if (deadCounter <= 0)
+        if (deadTime <= 0)
         {
             Destroy(this.gameObject);
         }
@@ -147,7 +146,6 @@ public class PassiveSlime : MonoBehaviour
         if (life <= 0)
         {
             DeadState();
-            deadCounter = deadTime;
         }
     }
 

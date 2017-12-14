@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     Vector2 speed = new Vector2(5, 5);
 
     Vector2 dashDirection;
+    float dashCooldown = 4;
+    float dashCooldownCounter;
     float dashSpeed = 15;
     float dashTime = 0.1f;
     float dashCounter;
@@ -52,6 +54,10 @@ public class Player : MonoBehaviour
         if(arrowCounter > 0)
         {
             arrowCounter -= Time.deltaTime;
+        }
+        if (dashCooldownCounter > 0)
+        {
+            dashCooldownCounter -= Time.deltaTime;
         }
     }
 
@@ -151,7 +157,7 @@ public class Player : MonoBehaviour
         {
             target.GetComponent<PassiveSlime>().RecieveDamage(damage);
         }
-        if (targetType == ("Destructible")) //for barrels, crates and more
+        if (targetType == ("Destructible"))
         {
             target.GetComponent<DestructibleBehaviour>().GetDestroyed();
         }
@@ -159,16 +165,20 @@ public class Player : MonoBehaviour
 
     public void BeginDash()
     {
-        isDashing = true;
+        if(dashCooldownCounter <= 0)
+        {
+            dashCooldownCounter = dashCooldown;
 
-        if (inputM.GetAxis().x > 0.1) dashDirection.x = 1;
-        if (inputM.GetAxis().x < -0.1) dashDirection.x = -1;
-        if (inputM.GetAxis().x > -0.1 && inputM.GetAxis().x < 0.1) dashDirection.x = 0;
+            isDashing = true;
 
-        if (inputM.GetAxis().y > 0.1) dashDirection.y = 1;
-        if (inputM.GetAxis().y < -0.1) dashDirection.y = -1;
-        if (inputM.GetAxis().y > -0.1 && inputM.GetAxis().y < 0.1) dashDirection.y = 0;
+            if (inputM.GetAxis().x > 0.1) dashDirection.x = 1;
+            if (inputM.GetAxis().x < -0.1) dashDirection.x = -1;
+            if (inputM.GetAxis().x > -0.1 && inputM.GetAxis().x < 0.1) dashDirection.x = 0;
 
+            if (inputM.GetAxis().y > 0.1) dashDirection.y = 1;
+            if (inputM.GetAxis().y < -0.1) dashDirection.y = -1;
+            if (inputM.GetAxis().y > -0.1 && inputM.GetAxis().y < 0.1) dashDirection.y = 0;
+        }
     }
 
     void Dash(Vector2 direction)
