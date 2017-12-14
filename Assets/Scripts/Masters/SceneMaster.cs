@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneMaster : MonoBehaviour
 {
+
     public void LoadLogoScreen()
     {
         SceneManager.LoadScene(0);
@@ -25,9 +26,9 @@ public class SceneMaster : MonoBehaviour
 
     }
 
-    public void OpenMenuAnimation(GameObject menu)
+    public void FullScreen()
     {
-        menu.gameObject.SetActive(true);
+        Screen.fullScreen = !Screen.fullScreen;
     }
 
     public void OpenMenu(GameObject menu)
@@ -38,5 +39,10 @@ public class SceneMaster : MonoBehaviour
     public void CloseMenu(GameObject menu)
     {
         menu.gameObject.SetActive(false);
+    }
+
+    public void CloseOptionsMenu(Animator menu)
+    {
+        menu.SetTrigger("Close");
     }
 }
