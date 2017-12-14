@@ -5,6 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class SceneMaster : MonoBehaviour
 {
+    [SerializeField]
+    GameObject blackScreen;
+
+    float counter;
+    float alphaCounter;
+
+    private void Update()
+    {
+        counter += Time.deltaTime;
+        if (counter >= 5)
+        {
+            
+        }
+    }
 
     public void LoadLogoScreen()
     {
@@ -23,7 +37,7 @@ public class SceneMaster : MonoBehaviour
 
     public void ExitGame()
     {
-
+        
     }
 
     public void FullScreen()
