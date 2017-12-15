@@ -49,6 +49,21 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Collider
+    uniqueID: 3894846999
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: TopWalls
+    uniqueID: 281761547
+    locked: 0
+  - name: Wall
+    uniqueID: 3971186407
+    locked: 0
+  - name: Floors
+    uniqueID: 3743697971
+    locked: 0
+  - name: Character
+    uniqueID: 2454843463
     locked: 0
