@@ -10,6 +10,12 @@ public class SceneMaster : MonoBehaviour
     Image blackScreen;
     [SerializeField]
     Image logo;
+    [SerializeField]
+    Text pressAnyButton;
+    float anyButtonCounter;
+    bool started;
+    [SerializeField]
+    Animator myAnim;
     public float logoFade;
     public float fade;
     public bool fadeOut = false;
@@ -27,11 +33,31 @@ public class SceneMaster : MonoBehaviour
 
     private void Update()
     {
+        anyButtonCounter += Time.deltaTime;
+
+        if (anyButtonCounter >= 0.5f && !started && pressAnyButton != null)
+        {
+            pressAnyButton.color = new Color(255, 255, 255, 255);
+
+            if(anyButtonCounter >= 1)
+            {
+                pressAnyButton.color = new Color(255, 255, 255, 0);
+                anyButtonCounter = 0;
+            }
+        }
+
+        if(Input.anyKeyDown && myAnim != null)
+        {
+            pressAnyButton.color = new Color(255, 255, 255, 0);
+            started = true;
+            myAnim.SetTrigger("Start");
+        }
+
         counter += Time.deltaTime;
 
-        if(counter >= 3 && logo != null)
+        if(counter >= 2 && logo != null)
         {
-            if(logoFade < 1) logoFade += Time.deltaTime / 3;
+            if(logoFade < 1) logoFade += Time.deltaTime / 2;
 
             if(counter >= 8) FadeOut(false);
 
