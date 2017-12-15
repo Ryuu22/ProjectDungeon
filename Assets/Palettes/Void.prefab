@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4522933466990660}
   - component: {fileID: 2569400268535587382}
   m_Layer: 31
-  m_Name: SingleTopPallete
+  m_Name: Void
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
