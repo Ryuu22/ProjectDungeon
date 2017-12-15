@@ -87,4 +87,20 @@ public class SpikesBehaviour : MonoBehaviour {
         state = State.Active;
     }
     #endregion
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == ("Player"))
+        {
+            if (state == State.Active)
+            {
+                Debug.Log("Received 15 damage");
+                other.GetComponent<Player>().RecieveDamage(15);
+            }
+            else if (state == State.OnHold)
+            {
+                other.GetComponent<Player>().RecieveDamage(5);
+            }
+        }
+    }
 }
