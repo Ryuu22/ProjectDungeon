@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 100
-  arrowGameObject: {fileID: 1791073384878956, guid: fdb28275541094547b0361fa069936a3,
+  arrowGameObject: {fileID: 1402605795800020, guid: 261a65aba8dcda7448297a7bb9138512,
     type: 2}
   attackBoxPos: {x: 0.75, y: 1}
   attackBoxSize: {x: 1.5, y: 3}
