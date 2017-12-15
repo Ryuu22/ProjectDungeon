@@ -35,7 +35,7 @@ public class SceneMaster : MonoBehaviour
 
             if(counter >= 8) FadeOut(false);
 
-            logo.color = new Color(0, 0, 0, logoFade);
+            logo.color = new Color(255, 255, 255, logoFade);
         }
 
         if (fade > 0 && !fadeOut) fade -= Time.deltaTime / 3;
@@ -44,8 +44,12 @@ public class SceneMaster : MonoBehaviour
 
         if(fadeOut)
         {
+            logoFade -= Time.deltaTime;
 
-            if(fade < 1) fade += Time.deltaTime / 2;
+            if(fade < 1)
+            {
+                fade += Time.deltaTime / 2;
+            }
 
             blackScreen.color = new Color(0, 0, 0, fade);
 
