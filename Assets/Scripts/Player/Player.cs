@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     Vector2 speed = new Vector2(5, 5);
 
     Vector2 dashDirection;
-    float dashCooldown = 4;
+    float dashCooldown = 5;
     float dashCooldownCounter;
     float dashSpeed = 15;
     float dashTime = 0.1f;
@@ -208,6 +208,9 @@ public class Player : MonoBehaviour
             //DeadState();
         }
     }
+
+    public int Life { get { return life; } }
+    public float DashCooldownCounter { get { return dashCooldownCounter; } }
 
     void OnDrawGizmosSelected()
     {
