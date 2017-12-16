@@ -9,6 +9,8 @@ public class SceneMaster : MonoBehaviour
     [SerializeField]
     Image blackScreen;
     [SerializeField]
+    GameObject endingPanel;
+    [SerializeField]
     Image logo;
     [SerializeField]
     Text pressAnyButton;
@@ -96,10 +98,26 @@ public class SceneMaster : MonoBehaviour
         {
             if(player.IsDead)
             {
-                
+                EndingPanel(false);
             }
         }
 
+    }
+
+    public void EndingPanel(bool victory)
+    {
+        if (victory)
+        {
+            endingPanel.SetActive(true);
+            GameObject.FindGameObjectWithTag("EndingText").GetComponent<Text>().text = "victory";
+            GameObject.FindGameObjectWithTag("EndingText").GetComponent<Text>().color = new Color(0, 255, 0);
+        }
+        else
+        {
+            endingPanel.SetActive(true);
+            GameObject.FindGameObjectWithTag("EndingText").GetComponent<Text>().text = "defeat";
+            GameObject.FindGameObjectWithTag("EndingText").GetComponent<Text>().color = new Color(255, 0, 0);
+        }
     }
 
     public void FadeOut(bool isTitleScreen)
