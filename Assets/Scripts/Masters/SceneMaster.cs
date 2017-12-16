@@ -20,6 +20,7 @@ public class SceneMaster : MonoBehaviour
     public float fade;
     public bool fadeOut = false;
     public bool titleScreen = false;
+    Player player;
 
     public float counter;
     float alphaCounter;
@@ -29,6 +30,7 @@ public class SceneMaster : MonoBehaviour
         counter = 0;
         fade = 1;
         blackScreen.color = new Color(0, 0, 0, fade);
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     private void Update()
@@ -87,6 +89,14 @@ public class SceneMaster : MonoBehaviour
             if(fade >= 1 && titleScreen)
             {
                 LoadGameplayScreen();
+            }
+        }
+
+        if(player != null)
+        {
+            if(player.IsDead)
+            {
+                
             }
         }
 
