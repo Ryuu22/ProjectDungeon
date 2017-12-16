@@ -9,19 +9,23 @@ public class EssenceBehaviour : MonoBehaviour {
     [Header("Game Elements")]
     MoveMaster moveM;
 
-    Transform playerTransform;
-    Vector2 playerPos;
+    public Transform playerTransform;
+    public Vector2 playerPos;
     public float speed;
 
     // Use this for initialization
     void Start ()
     {
-            
-	}
+
+        playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        moveM = GameObject.FindGameObjectWithTag("MoveMaster").GetComponent<MoveMaster>();
+    }
 
     // Update is called once per frame
     void Update()
     {
+        playerPos = playerTransform.position;
+
         moveM.Move(this.gameObject, playerPos, speed);
     }
 
