@@ -11,16 +11,36 @@ public class HealingPointBehaviour : MonoBehaviour {
     [SerializeField]
     float period;
 
-    private void OnTriggerStay2D(Collider2D collision)
+    Player player;
+
+    bool playerInside = false;
+
+    private void Update()
+    {
+        if (Time.time > nextActionTime && playerInside)
+        {
+            nextActionTime += period;
+            player.RecieveHP(lifePerSecond);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == ("Player"))
         {
-            if (Time.time > nextActionTime)
-            {
-                nextActionTime += period;
-                collision.GetComponent<Player>().RecieveHP(lifePerSecond);
-            }
+            player = collision.GetComponent<Player>();
+            playerInside = true;
 
         }
     }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == ("Player"))
+        {
+
+            playerInside = false;
+
+        }
+    }
+
 }
