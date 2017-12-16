@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     int life = 100;
     [SerializeField]
     int maxLife = 100;
+    [SerializeField]
+    GameObject particles;
     bool isDead;
     Vector2 movementSpeed = Vector2.zero;
     Vector2 speed = new Vector2(5, 5);
@@ -251,7 +253,16 @@ public class Player : MonoBehaviour
             life = maxLife;
         }
     }
+    public void StartParticles()
+    {
+        particles.SetActive(true);
 
+    }
+    public void StopParticles()
+    {
+
+        particles.SetActive(false);
+    }
 
     public int Life { get { return life; } }
     public bool IsDead { get { return isDead; } }

@@ -11,22 +11,6 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1680175376290632}
   m_IsPrefabParent: 1
---- !u!1 &1537210563852258
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4268454803011882}
-  - component: {fileID: 212862031777472862}
-  m_Layer: 0
-  m_Name: placeholdertile
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1680175376290632
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,15 +28,31 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4268454803011882
+--- !u!1 &1902957267954416
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4162432909444234}
+  - component: {fileID: 212187227702968554}
+  m_Layer: 0
+  m_Name: plantExplosive
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4162432909444234
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1537210563852258}
+  m_GameObject: {fileID: 1902957267954416}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4990046819481324}
   m_RootOrder: 0
@@ -64,10 +64,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1680175376290632}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.669046, y: -3.0550144, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_Children:
-  - {fileID: 4268454803011882}
+  - {fileID: 4162432909444234}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -94,8 +94,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 2}
-  m_EdgeRadius: 0
+  m_Size: {x: 1.28, y: 0.75}
+  m_EdgeRadius: 0.09
 --- !u!114 &114914541085303838
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -107,18 +107,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 808295b3f5a80cd418ec631df5687e2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plantShootPrefab: {fileID: 1318126375192846, guid: 83582552c95e02b459bd89702948bd92,
+  plantShootPrefab: {fileID: 1927581780263190, guid: 83582552c95e02b459bd89702948bd92,
     type: 2}
-  Right: 0
+  Right: 1
   Left: 1
-  Top: 0
-  Bottom: 0
---- !u!212 &212862031777472862
+  Top: 1
+  Bottom: 1
+--- !u!212 &212187227702968554
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1537210563852258}
+  m_GameObject: {fileID: 1902957267954416}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -146,13 +146,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: d5d3f01c418b87f4789d45032ed2104f, type: 3}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: e89cb9c2499e68446884496ae50f3e6d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 2
-  m_Size: {x: 1, y: 2}
+  m_DrawMode: 0
+  m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
