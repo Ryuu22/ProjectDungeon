@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     [Header("Player Fields")]
     [SerializeField]
     int life = 100;
+    bool isDead;
     Vector2 movementSpeed = Vector2.zero;
     Vector2 speed = new Vector2(5, 5);
 
@@ -22,12 +23,12 @@ public class Player : MonoBehaviour
     float dashCounter;
     bool isDashing;
 
-    float attackCooldown = 0.7f;
+    float attackCooldown = 1;
     float attackCounter;
     int damage = 10;
     float arrowCooldown = 1.5f;
     float arrowCounter;
-
+    Animator myAnim;
     public GameObject arrowGameObject;
 
     public Vector2 attackBoxPos;
@@ -38,6 +39,7 @@ public class Player : MonoBehaviour
     {
         inputM = GameObject.FindGameObjectWithTag("InputMaster").GetComponent<InputMaster>();
         collisionM = GetComponent<CollisionMaster>();
+        myAnim = GetComponentInChildren<Animator>();
     }
 
 	void FixedUpdate ()
@@ -49,7 +51,7 @@ public class Player : MonoBehaviour
     {
         if(attackCooldown > 0)
         {
-            attackCooldown -= Time.deltaTime;
+            attackCounter -= Time.deltaTime;
         }
         if(arrowCounter > 0)
         {
@@ -63,41 +65,69 @@ public class Player : MonoBehaviour
 
     void Movement()
     {
-        if (isDashing)
+        if(!isDead)
         {
-            Dash(dashDirection);
-        }
-        else
-        {
-            Vector3 provisionalPos;
-
-            provisionalPos = this.transform.position;
-            movementSpeed = speed;
-
-            if (collisionM.IsLeftWalled && inputM.GetAxis().x < 0) movementSpeed.x = 0;
-
-            if (collisionM.IsRightWalled && inputM.GetAxis().x > 0) movementSpeed.x = 0;
-
-            if (collisionM.IsTopWalled && inputM.GetAxis().y > 0) movementSpeed.y = 0;
-
-            if (collisionM.IsBottomWalled && inputM.GetAxis().y < 0) movementSpeed.y = 0;
-
-            provisionalPos.x += inputM.GetAxis().x * Time.deltaTime * movementSpeed.x;
-            provisionalPos.y += inputM.GetAxis().y * Time.deltaTime * movementSpeed.y;
-
-            this.transform.position = provisionalPos;
-
-            if(inputM.GetAxis().x > 0.1)
+            if (isDashing)
             {
-                this.gameObject.transform.localScale = new Vector3(1, 1, 1);
-                attackBoxPos.x = 0.75f;
+                Dash(dashDirection);
             }
-            if (inputM.GetAxis().x < -0.1)
+            else
             {
-                this.gameObject.transform.localScale = new Vector3(-1, 1, 1);
-                attackBoxPos.x = -0.75f;
+                Vector3 provisionalPos;
+
+                provisionalPos = this.transform.position;
+                movementSpeed = speed;
+
+                if(inputM.GetAxis().x > 0.1 || inputM.GetAxis().y > 0.1 || inputM.GetAxis().x < -0.1 || inputM.GetAxis().y < -0.1)
+                {
+                    myAnim.SetBool("Moving", true);
+                }
+                if (inputM.GetAxis().x < 0.1 && inputM.GetAxis().x > -0.1 && inputM.GetAxis().y < 0.1 && inputM.GetAxis().y > -0.1)
+                {
+                    myAnim.SetBool("Moving", false);
+                }
+
+                if (collisionM.IsLeftWalled && inputM.GetAxis().x < 0)
+                {
+                    movementSpeed.x = 0;
+                    myAnim.SetBool("Moving", false);
+                }
+
+                if (collisionM.IsRightWalled && inputM.GetAxis().x > 0)
+                {
+                    movementSpeed.x = 0;
+                    myAnim.SetBool("Moving", false);
+                }
+
+                if (collisionM.IsTopWalled && inputM.GetAxis().y > 0)
+                {
+                    movementSpeed.y = 0;
+                    myAnim.SetBool("Moving", false);
+                }
+
+                if (collisionM.IsBottomWalled && inputM.GetAxis().y < 0)
+                {
+                    movementSpeed.y = 0;
+                    myAnim.SetBool("Moving", false);
+                }
+
+                provisionalPos.x += inputM.GetAxis().x * Time.deltaTime * movementSpeed.x;
+                provisionalPos.y += inputM.GetAxis().y * Time.deltaTime * movementSpeed.y;
+
+                this.transform.position = provisionalPos;
+
+                if(inputM.GetAxis().x > 0.1)
+                {
+                    this.gameObject.transform.localScale = new Vector3(1, 1, 1);
+                    attackBoxPos.x = 0.75f;
+                }
+                if (inputM.GetAxis().x < -0.1)
+                {
+                    this.gameObject.transform.localScale = new Vector3(-1, 1, 1);
+                    attackBoxPos.x = -0.75f;
+                }
             }
-        }
+        }        
     }
 
     public void Attack()
@@ -105,6 +135,7 @@ public class Player : MonoBehaviour
         if (attackCounter <= 0)
         {
             attackCounter = attackCooldown;
+            myAnim.SetTrigger("Attack");
 
             Vector3 pos = this.transform.position + (Vector3)attackBoxPos;
             Collider2D[] results = new Collider2D[5];
@@ -170,6 +201,7 @@ public class Player : MonoBehaviour
             dashCooldownCounter = dashCooldown;
 
             isDashing = true;
+            myAnim.SetTrigger("Dash");
 
             if (inputM.GetAxis().x > 0.1) dashDirection.x = 1;
             if (inputM.GetAxis().x < -0.1) dashDirection.x = -1;
@@ -205,11 +237,12 @@ public class Player : MonoBehaviour
 
         if (life <= 0)
         {
-            //DeadState();
+            isDead = true;
         }
     }
 
     public int Life { get { return life; } }
+    public bool IsDead { get { return isDead; } }
     public float DashCooldownCounter { get { return dashCooldownCounter; } }
 
     void OnDrawGizmosSelected()

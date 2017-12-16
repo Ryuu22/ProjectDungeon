@@ -14,19 +14,22 @@ public class InputMaster : MonoBehaviour
 
     void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if(!player.IsDead)
         {
-            player.Attack();
-        }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                player.Attack();
+            }
 
-        if(Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            player.BeginDash();
-        }
+            if(Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                player.BeginDash();
+            }
 
-        if(Input.GetMouseButtonDown(0))
-        {
-            player.Shoot();
+            if(Input.GetMouseButtonDown(0))
+            {
+                player.Shoot();
+            }
         }
     }
 
