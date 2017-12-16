@@ -383,6 +383,11 @@ Prefab:
       propertyPath: m_EdgeRadius
       value: 0.08
       objectReference: {fileID: 0}
+    - target: {fileID: 114006797921052392, guid: 52260243a7622c24582538ed90b58534,
+        type: 2}
+      propertyPath: particles
+      value: 
+      objectReference: {fileID: 1943920184}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 52260243a7622c24582538ed90b58534, type: 2}
   m_IsPrefabParent: 0
@@ -566,12 +571,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 808295b3f5a80cd418ec631df5687e2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plantShootPrefab: {fileID: 1318126375192846, guid: 83582552c95e02b459bd89702948bd92,
+  plantShootPrefab: {fileID: 1927581780263190, guid: 83582552c95e02b459bd89702948bd92,
     type: 2}
-  Right: 0
+  Right: 1
   Left: 1
-  Top: 0
-  Bottom: 0
+  Top: 1
+  Bottom: 1
 --- !u!61 &1271725970
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -790,8 +795,8 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 0
 --- !u!4 &1943920185
 Transform:
   m_ObjectHideFlags: 0
@@ -919,7 +924,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 923969224
+  randomSeed: 1013349652
   InitialModule:
     serializedVersion: 3
     enabled: 1
