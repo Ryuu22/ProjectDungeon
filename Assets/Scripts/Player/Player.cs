@@ -256,7 +256,7 @@ public class Player : MonoBehaviour
     public void StartParticles()
     {
         particles.SetActive(true);
-        Debug.Log("active");
+
     }
     public void StopParticles()
     {
