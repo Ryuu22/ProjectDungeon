@@ -17,8 +17,8 @@
    inkscape:export-filename="C:\Users\Ryuu\Documents\GitHub\project2\Assets\Textures\Particles\HealingRune.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
-   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
-   sodipodi:docname="HealingPointParticle.svg">
+   sodipodi:docname="HealingPointParticle.svg"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)">
   <defs
      id="defs2">
     <filter
@@ -231,11 +231,11 @@
      inkscape:current-layer="layer1"
      showgrid="false"
      units="px"
-     inkscape:window-width="1920"
-     inkscape:window-height="1018"
-     inkscape:window-x="1358"
-     inkscape:window-y="360"
-     inkscape:window-maximized="1" />
+     inkscape:window-width="700"
+     inkscape:window-height="463"
+     inkscape:window-x="1945"
+     inkscape:window-y="503"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -520,5 +520,52 @@
        x="23.554794"
        y="260.20526"
        ry="2.928062" />
+    <rect
+       ry="1.8403872"
+       y="261.29294"
+       x="-33.671741"
+       height="3.6807745"
+       width="12.962728"
+       id="rect5157"
+       style="fill:#00ff00;fill-opacity:1;stroke-width:0.15842523"
+       inkscape:export-filename="C:\Users\Ryuu\Documents\GitHub\project2\Assets\Textures\Particles\HealSymbol.png"
+       inkscape:export-xdpi="102.34957"
+       inkscape:export-ydpi="102.34957" />
+    <rect
+       transform="matrix(0.62853426,0,0,0.62853426,-48.476739,97.745008)"
+       style="fill:#00ff00;fill-opacity:1;stroke-width:0.25205505;filter:url(#filter5069)"
+       id="rect5159"
+       width="20.623741"
+       height="5.8561239"
+       x="23.554794"
+       y="260.20526"
+       ry="2.928062"
+       inkscape:export-filename="C:\Users\Ryuu\Documents\GitHub\project2\Assets\Textures\Particles\HealSymbol.png"
+       inkscape:export-xdpi="102.34957"
+       inkscape:export-ydpi="102.34957" />
+    <rect
+       transform="rotate(90)"
+       style="fill:#00ff00;fill-opacity:1;stroke-width:0.15842523"
+       id="rect5161"
+       width="12.962728"
+       height="3.6807745"
+       x="256.65195"
+       y="25.35"
+       ry="1.8403872"
+       inkscape:export-filename="C:\Users\Ryuu\Documents\GitHub\project2\Assets\Textures\Particles\HealSymbol.png"
+       inkscape:export-xdpi="102.34957"
+       inkscape:export-ydpi="102.34957" />
+    <rect
+       ry="2.928062"
+       y="260.20526"
+       x="23.554794"
+       height="5.8561239"
+       width="20.623741"
+       id="rect5163"
+       style="fill:#00ff00;fill-opacity:1;stroke-width:0.25205505;filter:url(#filter5069)"
+       transform="matrix(0,0.62853426,-0.62853426,0,138.19793,241.84696)"
+       inkscape:export-filename="C:\Users\Ryuu\Documents\GitHub\project2\Assets\Textures\Particles\HealSymbol.png"
+       inkscape:export-xdpi="102.34957"
+       inkscape:export-ydpi="102.34957" />
   </g>
 </svg>
