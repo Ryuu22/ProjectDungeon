@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class Pause : MonoBehaviour
 {
+    [SerializeField]
     GameObject pausePanel;
 
     void Start()
     {
-        pausePanel = GameObject.FindGameObjectWithTag("PauseCanvas");
-        pausePanel.SetActive(false);
+        //pausePanel = GameObject.FindGameObjectWithTag("PauseCanvas");
     }
 
     void Update()
     {
+        Debug.Log(pausePanel);
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (!pausePanel.activeInHierarchy)
