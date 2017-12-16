@@ -87,6 +87,7 @@ AnimationClip:
     genericBindings:
     - serializedVersion: 2
       path: 1529145355
+<<<<<<< HEAD
       attribute: 1
       script: {fileID: 0}
       typeID: 4
@@ -101,6 +102,8 @@ AnimationClip:
       isPPtrCurve: 0
     - serializedVersion: 2
       path: 1529145355
+=======
+>>>>>>> 0faa75b6fbafe4415b81d1f62fca29c0c3038417
       attribute: 2086281974
       script: {fileID: 0}
       typeID: 1
@@ -114,7 +117,18 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
+<<<<<<< HEAD
     - {fileID: 21300000, guid: e746394633ca92c4b80d184625383add, type: 3}
+=======
+    - {fileID: 21300000, guid: 5636f2619e38dfa42a53f346eae4691f, type: 3}
+    - {fileID: 21300000, guid: e746394633ca92c4b80d184625383add, type: 3}
+    - {fileID: 21300000, guid: 6c34dbce05f50dc4498b80518ff86d7e, type: 3}
+    - {fileID: 21300000, guid: e6b6d35937356204b8bd2e991c3b5e2e, type: 3}
+    - {fileID: 21300000, guid: 524f2ac42260c134f875691291e67114, type: 3}
+    - {fileID: 21300000, guid: 745989e776e84d341ac28b8580341f26, type: 3}
+    - {fileID: 21300000, guid: 27b7de29fdec3554eb22fb24202fdef2, type: 3}
+    - {fileID: 21300000, guid: e4debccac45f6ea4cafda190d271a529, type: 3}
+>>>>>>> 0faa75b6fbafe4415b81d1f62fca29c0c3038417
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
