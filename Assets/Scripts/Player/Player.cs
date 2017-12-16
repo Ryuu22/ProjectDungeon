@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     [Header("Player Fields")]
     [SerializeField]
     int life = 100;
+    [SerializeField]
+    int maxLife = 100;
     bool isDead;
     Vector2 movementSpeed = Vector2.zero;
     Vector2 speed = new Vector2(5, 5);
@@ -240,6 +242,16 @@ public class Player : MonoBehaviour
             isDead = true;
         }
     }
+    public void RecieveHP(int HP)
+    {
+        life += HP;
+
+        if (life >= maxLife)
+        {
+            life = maxLife;
+        }
+    }
+
 
     public int Life { get { return life; } }
     public bool IsDead { get { return isDead; } }
