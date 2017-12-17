@@ -39,11 +39,16 @@ public class SceneMaster : MonoBehaviour
     {
         anyButtonCounter += Time.deltaTime;
 
+        if(counter >= 3)
+        {
+            pressAnyButton.gameObject.SetActive(true);
+        }
+
         if (anyButtonCounter >= 0.5f && !started && pressAnyButton != null)
         {
-            pressAnyButton.color = new Color(255, 255, 255, 255);
+            pressAnyButton.color = new Color(255, 255, 255, 1);
 
-            if(anyButtonCounter >= 1)
+            if(anyButtonCounter >= 2)
             {
                 pressAnyButton.color = new Color(255, 255, 255, 0);
                 anyButtonCounter = 0;

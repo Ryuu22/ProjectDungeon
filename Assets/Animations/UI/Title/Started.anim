@@ -21,9 +21,9 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: -175
-        inSlope: -0
-        outSlope: -0
+        value: -205.2
+        inSlope: 0
+        outSlope: 0
         tangentMode: 136
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -37,9 +37,9 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: -175
-        inSlope: -0
-        outSlope: -0
+        value: -205.2
+        inSlope: 0
+        outSlope: 0
         tangentMode: 136
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -53,9 +53,9 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: -111
-        inSlope: -0
-        outSlope: -0
+        value: -160.4
+        inSlope: 0
+        outSlope: 0
         tangentMode: 136
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -69,9 +69,9 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: -111
-        inSlope: -0
-        outSlope: -0
+        value: -160.4
+        inSlope: 0
+        outSlope: 0
         tangentMode: 136
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -85,9 +85,9 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: -52
-        inSlope: -0
-        outSlope: -0
+        value: -111.2
+        inSlope: 0
+        outSlope: 0
         tangentMode: 136
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -101,15 +101,79 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: -52
-        inSlope: -0
-        outSlope: -0
+        value: -111.2
+        inSlope: 0
+        outSlope: 0
         tangentMode: 136
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
     path: StartButton
+    classID: 224
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 55
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_AnchoredPosition.y
+    path: TitleImage
+    classID: 224
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 55
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.y
+    path: TitleImage
+    classID: 224
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: -252
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.y
+    path: PressAnyButton
+    classID: 224
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: -252
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_AnchoredPosition.y
+    path: PressAnyButton
     classID: 224
     script: {fileID: 0}
   m_PPtrCurves: []
@@ -162,6 +226,34 @@ AnimationClip:
       typeID: 224
       customType: 0
       isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1566474991
+      attribute: 538195251
+      script: {fileID: 0}
+      typeID: 224
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1566474991
+      attribute: 3762036201
+      script: {fileID: 0}
+      typeID: 224
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 524767865
+      attribute: 3762036201
+      script: {fileID: 0}
+      typeID: 224
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 524767865
+      attribute: 538195251
+      script: {fileID: 0}
+      typeID: 224
+      customType: 0
+      isPPtrCurve: 0
     pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
@@ -189,9 +281,9 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: -175
-        inSlope: -0
-        outSlope: -0
+        value: -205.2
+        inSlope: 0
+        outSlope: 0
         tangentMode: 136
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -205,9 +297,9 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: -175
-        inSlope: -0
-        outSlope: -0
+        value: -205.2
+        inSlope: 0
+        outSlope: 0
         tangentMode: 136
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -221,9 +313,9 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: -111
-        inSlope: -0
-        outSlope: -0
+        value: -160.4
+        inSlope: 0
+        outSlope: 0
         tangentMode: 136
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -237,9 +329,9 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: -111
-        inSlope: -0
-        outSlope: -0
+        value: -160.4
+        inSlope: 0
+        outSlope: 0
         tangentMode: 136
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -253,9 +345,9 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: -52
-        inSlope: -0
-        outSlope: -0
+        value: -111.2
+        inSlope: 0
+        outSlope: 0
         tangentMode: 136
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -269,15 +361,79 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: -52
-        inSlope: -0
-        outSlope: -0
+        value: -111.2
+        inSlope: 0
+        outSlope: 0
         tangentMode: 136
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
     path: StartButton
+    classID: 224
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 55
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_AnchoredPosition.y
+    path: TitleImage
+    classID: 224
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 55
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.y
+    path: TitleImage
+    classID: 224
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: -252
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.y
+    path: PressAnyButton
+    classID: 224
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: -252
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_AnchoredPosition.y
+    path: PressAnyButton
     classID: 224
     script: {fileID: 0}
   m_EulerEditorCurves: []
