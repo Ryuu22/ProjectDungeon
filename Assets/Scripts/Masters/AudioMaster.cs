@@ -30,4 +30,10 @@ public class AudioMaster : MonoBehaviour {
         sourceMaster.Play();
     }
 
+    public void slimeWalk()
+    {
+        sourceMaster.clip = slimeMovement;
+        sourceMaster.pitch = Random.Range(0.9f, 1.1f);
+        sourceMaster.Play();
+    }
 }
