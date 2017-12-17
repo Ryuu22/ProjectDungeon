@@ -27,13 +27,19 @@ public class GameplayInterface : MonoBehaviour
     {
         healthBar.sizeDelta = new Vector2(player.Life * 2, 10);
         energyBar.sizeDelta = new Vector2(100 - player.DashCooldownCounter * 20, 6);
-        bossPos = boss.gameObject.transform.position;
+
+        if(boss != null)
+        {
+            bossPos = boss.gameObject.transform.position;
+        }
 
         if (Camera.main.WorldToViewportPoint(bossPos).x > 0 && Camera.main.WorldToViewportPoint(bossPos).x < 1 && Camera.main.WorldToViewportPoint(bossPos).y > 0 && Camera.main.WorldToViewportPoint(bossPos).y < 1)
         {
             bossBar.SetActive(true);
         }
         else bossBar.SetActive(false);
+
+        if(boss == null) bossBar.SetActive(false);
 
         bossHealthBar.localPosition = new Vector3(200 - boss.Life, bossHealthBar.localPosition.y, 0);
     }

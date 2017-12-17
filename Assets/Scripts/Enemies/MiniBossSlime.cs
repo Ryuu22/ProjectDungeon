@@ -6,26 +6,33 @@ public class MiniBossSlime : MonoBehaviour
 {
     [Header("Game Elements")]
     MoveMaster moveM;
+    SceneMaster sceneM;
 
     [Header("Boss Slime Fields")]
-    public bool miniRangedBoss;
     [SerializeField]
-    int life = 100;
+    bool miniRangedBoss;
+    [SerializeField]
+    int life = 60;
     int rangeDamage = 15;
     float rangeCooldown = 7;
     float rangeCounter = 1;
     float shootRatecounter;
-    int meleeDamage = 20;
+    int meleeDamage = 10;
     float meleeCooldown = 2;
     float meleeCounter;
-    float speed = 1.5f;
+    float speed = 0.6f;
     Vector2 slimeBossPos;
-    float detectionRadius = 14;
+    float detectionRadius = 11;
     bool isFacingRight;
     float idleTime;
     [SerializeField]
     GameObject spitPrefab;
     BossSpite spitScript;
+    [SerializeField]
+    Sprite leftBoss;
+    [SerializeField]
+    Sprite rightBoss;
+    float deadTime = 0.5f;
 
     [Header("Player Fields")]
     [SerializeField]
@@ -44,14 +51,23 @@ public class MiniBossSlime : MonoBehaviour
 
     void Start ()
     {
+        moveM = GameObject.FindGameObjectWithTag("MoveMaster").GetComponent<MoveMaster>();
+        sceneM = GameObject.FindGameObjectWithTag("SceneMaster").GetComponent<SceneMaster>();
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<Player>();
         spitScript = spitPrefab.GetComponent<BossSpite>();
+        
+        if(miniRangedBoss)
+        {
+            GetComponentInChildren<SpriteRenderer>().sprite = leftBoss;
+        }
+        else GetComponentInChildren<SpriteRenderer>().sprite = rightBoss;
     }
 
 	void Update ()
     {
         playerPos = player.transform.position;
+        slimeBossPos = this.transform.position;
 
         switch (currentMiniBossSlimeState)
         {
@@ -93,11 +109,21 @@ public class MiniBossSlime : MonoBehaviour
             {
                 moveM.Move(this.gameObject, playerPos, speed);
 
-                if (Vector2.Distance(playerPos, slimeBossPos) <= 1.5)
+                if (Vector2.Distance(playerPos, slimeBossPos) <= 3)
                 {
                     AttackState();
                 }
             }
+        }
+
+        if (this.gameObject.transform.position.x - playerPos.x > 0 && isFacingRight)
+        {
+            Flip();
+        }
+
+        if (this.gameObject.transform.position.x - playerPos.x < 0 && !isFacingRight)
+        {
+            Flip();
         }
     }
 
@@ -131,17 +157,33 @@ public class MiniBossSlime : MonoBehaviour
                 playerScript.RecieveDamage(meleeDamage);
             }
 
-            if (Vector2.Distance(playerPos, slimeBossPos) > 1.5)
+            if (Vector2.Distance(playerPos, slimeBossPos) > 3)
             {
                 IdleState();
             }
+        }
+
+        if (this.gameObject.transform.position.x - playerPos.x > 0 && isFacingRight)
+        {
+            Flip();
+        }
+
+        if (this.gameObject.transform.position.x - playerPos.x < 0 && !isFacingRight)
+        {
+            Flip();
         }
 
     }
 
     void Dead()
     {
+        deadTime -= Time.deltaTime;
 
+        if (deadTime <= 0)
+        {
+            sceneM.MiniBossDied();
+            Destroy(this.gameObject);
+        }
     }
 
     #endregion
@@ -164,6 +206,11 @@ public class MiniBossSlime : MonoBehaviour
     }
 
     #endregion
+
+    public void WhatMiniBossIs(bool isRanged)
+    {
+        miniRangedBoss = isRanged;
+    }
 
     void Flip()
     {

@@ -19,6 +19,8 @@ TagManager:
   - PauseCanvas
   - BossSpite
   - BossSlime
+  - MiniBossSlime
+  - SceneMaster
   layers:
   - Default
   - TransparentFX

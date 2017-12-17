@@ -24,6 +24,10 @@ public class BossSlime : MonoBehaviour
     [SerializeField]
     GameObject spitPrefab;
     BossSpite spitScript;
+    [SerializeField]
+    GameObject miniBossPrefab;
+    float deadTime = 0.5f;
+    Animator myAnim;
 
     [Header("Player Fields")]
     Transform player;
@@ -43,6 +47,7 @@ public class BossSlime : MonoBehaviour
 
 	void Start ()
     {
+        myAnim = GetComponentInChildren<Animator>();
         moveM = GameObject.FindGameObjectWithTag("MoveMaster").GetComponent<MoveMaster>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -145,6 +150,8 @@ public class BossSlime : MonoBehaviour
 
     void RangedAttack()
     {
+        myAnim.SetTrigger("Attack");
+
         spitScript.InitializateStats(1, rangeDamage, isFacingRight, false);
         Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
         spitScript.InitializateStats(2, rangeDamage, isFacingRight, false);
@@ -170,7 +177,17 @@ public class BossSlime : MonoBehaviour
 
     void Dead()
     {
+        deadTime -= Time.deltaTime;
+        myAnim.SetTrigger("Dead");
 
+        if (deadTime <= 0)
+        {
+            miniBossPrefab.GetComponent<MiniBossSlime>().WhatMiniBossIs(false);
+            Instantiate(miniBossPrefab, new Vector3(this.transform.position.x, this.transform.position.y - 1, 0), new Quaternion(0, 0, 0, 0));
+            miniBossPrefab.GetComponent<MiniBossSlime>().WhatMiniBossIs(true);
+            Instantiate(miniBossPrefab, new Vector3(this.transform.position.x, this.transform.position.y + 1, 0), new Quaternion(0, 0, 0, 0));
+            Destroy(this.gameObject);
+        }        
     }
 
     #endregion
@@ -212,6 +229,7 @@ public class BossSlime : MonoBehaviour
 
     void MeleeAttack()
     {
+        myAnim.SetTrigger("Attack");
         playerScript.RecieveDamage(meleeDamage);
     }
 

@@ -172,6 +172,10 @@ public class Player : MonoBehaviour
                 {
                     Damage(results[i].gameObject, "BossSpite");
                 }
+                if (results[i].gameObject.tag == "MiniBossSlime")
+                {
+                    Damage(results[i].gameObject, "MiniBossSlime");
+                }
             }
         }
     }
@@ -211,6 +215,10 @@ public class Player : MonoBehaviour
         if (targetType == ("BossSpite"))
         {
             target.GetComponent<BossSpite>().Hit();
+        }
+        if (targetType == ("MiniBossSlime"))
+        {
+            target.GetComponent<MiniBossSlime>().RecieveDamage(damage);
         }
     }
 

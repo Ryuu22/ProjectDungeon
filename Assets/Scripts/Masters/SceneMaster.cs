@@ -22,6 +22,7 @@ public class SceneMaster : MonoBehaviour
     public float fade;
     public bool fadeOut = false;
     public bool titleScreen = false;
+    int miniBossesAlive = 2;
     Player player;
 
     public float counter;
@@ -107,6 +108,11 @@ public class SceneMaster : MonoBehaviour
             }
         }
 
+        if(miniBossesAlive <= 0)
+        {
+            EndingPanel(true);
+        }
+
     }
 
     public void EndingPanel(bool victory)
@@ -169,5 +175,10 @@ public class SceneMaster : MonoBehaviour
     public void CloseOptionsMenu(Animator menu)
     {
         menu.SetTrigger("Close");
+    }
+
+    public void MiniBossDied()
+    {
+        miniBossesAlive--;
     }
 }
