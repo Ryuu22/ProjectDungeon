@@ -9,13 +9,13 @@ public class BossSlime : MonoBehaviour
 
     [Header("Boss Slime Fields")]
     [SerializeField]
-    int life = 500;
+    int life = 200;
     float speed = 0.8f;
     int meleeDamage = 25;
     float meleeCooldown = 2;
     float meleeCounter;
     int rangeDamage = 15;
-    float rangeCooldown = 10;
+    float rangeCooldown = 7;
     float rangeCounter = 1;
     Vector2 slimeBossPos;
     float detectionRadius = 14;
@@ -225,4 +225,6 @@ public class BossSlime : MonoBehaviour
         }
 
     }
+
+    public int Life { get { return life; } }
 }
