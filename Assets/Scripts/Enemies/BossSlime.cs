@@ -18,7 +18,7 @@ public class BossSlime : MonoBehaviour
     float rangeCooldown = 7;
     float rangeCounter = 1;
     Vector2 slimeBossPos;
-    float detectionRadius = 14;
+    float detectionRadius = 11;
     bool isFacingRight;
     float idleTime;
     [SerializeField]
@@ -145,23 +145,23 @@ public class BossSlime : MonoBehaviour
 
     void RangedAttack()
     {
-        spitScript.InitializateStats(1, rangeDamage, isFacingRight);
+        spitScript.InitializateStats(1, rangeDamage, isFacingRight, false);
         Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
-        spitScript.InitializateStats(2, rangeDamage, isFacingRight);
+        spitScript.InitializateStats(2, rangeDamage, isFacingRight, false);
         Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
-        spitScript.InitializateStats(3, rangeDamage, isFacingRight);
+        spitScript.InitializateStats(3, rangeDamage, isFacingRight, false);
         Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
-        spitScript.InitializateStats(4, rangeDamage, isFacingRight);
+        spitScript.InitializateStats(4, rangeDamage, isFacingRight, false);
         Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
-        spitScript.InitializateStats(5, rangeDamage, isFacingRight);
+        spitScript.InitializateStats(5, rangeDamage, isFacingRight, false);
         Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
-        spitScript.InitializateStats(6, rangeDamage, isFacingRight);
+        spitScript.InitializateStats(6, rangeDamage, isFacingRight, false);
         Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
-        spitScript.InitializateStats(7, rangeDamage, isFacingRight);
+        spitScript.InitializateStats(7, rangeDamage, isFacingRight, false);
         Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
-        spitScript.InitializateStats(8, rangeDamage, isFacingRight);
+        spitScript.InitializateStats(8, rangeDamage, isFacingRight, false);
         Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
-        spitScript.InitializateStats(9, rangeDamage, isFacingRight);
+        spitScript.InitializateStats(9, rangeDamage, isFacingRight, false);
         Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
 
         IdleState();
