@@ -16,3 +16,11 @@
 ## PAUSE
 
 ![image](https://github.com/RyuuSukeChan/ProjectDungeon/blob/master/Mockups/PauseMockUp.png)
+
+## VICTORY
+
+![image](https://github.com/RyuuSukeChan/ProjectDungeon/blob/master/Mockups/winEnding.png)
+
+## LOSE
+
+![image](https://github.com/RyuuSukeChan/ProjectDungeon/blob/master/Mockups/loseEnding.png)
