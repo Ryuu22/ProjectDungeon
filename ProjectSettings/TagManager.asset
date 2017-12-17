@@ -17,6 +17,8 @@ TagManager:
   - Options
   - EndingText
   - PauseCanvas
+  - BossSpite
+  - BossSlime
   layers:
   - Default
   - TransparentFX

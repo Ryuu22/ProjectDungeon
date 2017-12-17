@@ -5,19 +5,25 @@ using UnityEngine;
 public class BossSlime : MonoBehaviour
 {
     [Header("Game Elements")]
-    MoveMaster mov;
+    MoveMaster moveM;
 
     [Header("Boss Slime Fields")]
     [SerializeField]
-    float life = 500;
-    float speed = 5;
+    int life = 500;
+    float speed = 1;
     int meleeDamage = 25;
     float meleeCooldown = 2;
     float meleeCounter;
     int rangeDamage = 15;
     float rangeCooldown = 10;
-    float rangeCounter;
+    float rangeCounter = 1;
+    Vector2 slimeBossPos;
+    float detectionRadius = 10;
     bool isFacingRight;
+    float idleTime;
+    [SerializeField]
+    GameObject spitPrefab;
+    BossSpite spitScript;
 
     [Header("Player Fields")]
     Transform player;
@@ -37,9 +43,10 @@ public class BossSlime : MonoBehaviour
 
 	void Start ()
     {
-        mov = GameObject.FindGameObjectWithTag("MoveMaster").GetComponent<MoveMaster>();
+        moveM = GameObject.FindGameObjectWithTag("MoveMaster").GetComponent<MoveMaster>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        spitScript = spitPrefab.GetComponent<BossSpite>();
     }
 
 	void Update ()
@@ -77,22 +84,88 @@ public class BossSlime : MonoBehaviour
 
     void Idle()
     {
+        idleTime -= Time.deltaTime;
 
+        if (Vector2.Distance(playerPos, slimeBossPos) < detectionRadius && idleTime <= 0)
+        {
+            ChasingState();
+        }
     }
 
     void Chasing()
     {
+        moveM.Move(this.gameObject, playerPos, speed);
+        slimeBossPos = this.gameObject.transform.position;
 
+        rangeCounter -= Time.deltaTime;
+
+        if(rangeCounter <= 0)
+        {
+            rangeCounter = rangeCooldown;
+            RangedAttackState();
+        }
+
+        if (Vector2.Distance(playerPos, slimeBossPos) > detectionRadius)
+        {
+            IdleState();
+        }
+
+        if (Vector2.Distance(playerPos, slimeBossPos) <= 4.5)
+        {
+            AttackState();
+        }
+
+        if (this.gameObject.transform.position.x - playerPos.x > 0 && isFacingRight)
+        {
+            Flip();
+        }
+
+        if (this.gameObject.transform.position.x - playerPos.x < 0 && !isFacingRight)
+        {
+            Flip();
+        }
     }
 
     void Attack()
     {
+        meleeCounter -= Time.deltaTime;
 
+        if(meleeCounter <= 0)
+        {
+            meleeCounter = meleeCooldown;
+
+            MeleeAttack();
+        }
+
+        if (Vector2.Distance(playerPos, slimeBossPos) > 4.5)
+        {
+            IdleState();
+        }
     }
 
     void RangedAttack()
     {
+        spitScript.InitializateStats(1, rangeDamage, isFacingRight);
+        Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
+        spitScript.InitializateStats(2, rangeDamage, isFacingRight);
+        Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
+        spitScript.InitializateStats(3, rangeDamage, isFacingRight);
+        Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
+        spitScript.InitializateStats(4, rangeDamage, isFacingRight);
+        Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
+        spitScript.InitializateStats(5, rangeDamage, isFacingRight);
+        Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
+        spitScript.InitializateStats(6, rangeDamage, isFacingRight);
+        Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
+        spitScript.InitializateStats(7, rangeDamage, isFacingRight);
+        Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
+        spitScript.InitializateStats(8, rangeDamage, isFacingRight);
+        Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
+        spitScript.InitializateStats(9, rangeDamage, isFacingRight);
+        Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
 
+        IdleState();
+        idleTime = 2;
     }
 
     void Dead()
@@ -130,4 +203,26 @@ public class BossSlime : MonoBehaviour
     }
 
     #endregion
+
+    void Flip()
+    {
+        this.gameObject.transform.localScale = new Vector3((this.gameObject.transform.localScale.x * -1), this.gameObject.transform.localScale.y, this.gameObject.transform.localScale.z);
+        isFacingRight = !isFacingRight;
+    }
+
+    void MeleeAttack()
+    {
+        playerScript.RecieveDamage(meleeDamage);
+    }
+
+    public void RecieveDamage(int damage)
+    {
+        life -= damage;
+
+        if (life <= 0)
+        {
+            DeadState();
+        }
+
+    }
 }

@@ -9,21 +9,19 @@ public class Pause : MonoBehaviour
 
     void Start()
     {
-        //pausePanel = GameObject.FindGameObjectWithTag("PauseCanvas");
     }
 
     void Update()
     {
-        Debug.Log(pausePanel);
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!pausePanel.activeInHierarchy)
-            {
-                PauseGame();
-            }
             if (pausePanel.activeInHierarchy)
             {
                 ContinueGame();
+            }
+            else if (!pausePanel.activeInHierarchy)
+            {
+                PauseGame();
             }
         }
     }

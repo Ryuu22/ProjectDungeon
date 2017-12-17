@@ -164,6 +164,14 @@ public class Player : MonoBehaviour
                 {
                     Damage(results[i].gameObject, "Destructible");
                 }
+                if (results[i].gameObject.tag == "BossSlime")
+                {
+                    Damage(results[i].gameObject, "BossSlime");
+                }
+                if (results[i].gameObject.tag == "BossSpite")
+                {
+                    Damage(results[i].gameObject, "BossSpite");
+                }
             }
         }
     }
@@ -195,6 +203,14 @@ public class Player : MonoBehaviour
         if (targetType == ("Destructible"))
         {
             target.GetComponent<DestructibleBehaviour>().GetDestroyed();
+        }
+        if (targetType == ("BossSlime"))
+        {
+            target.GetComponent<BossSlime>().RecieveDamage(damage);
+        }
+        if (targetType == ("BossSpite"))
+        {
+            target.GetComponent<BossSpite>().Hit();
         }
     }
 

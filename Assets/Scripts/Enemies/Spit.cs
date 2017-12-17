@@ -6,6 +6,7 @@ public class Spit : MonoBehaviour
 {
     Vector2 direction;
     float speed = 15;
+    [SerializeField]
     int damage = 10;
     Transform player;
     Vector2 playerPos;
@@ -24,14 +25,15 @@ public class Spit : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Zasca escupitajo: " + other);
-
         if (other.gameObject.tag == "Player")
         {
             other.GetComponent<Player>().RecieveDamage(damage);
         }
+        if (other.gameObject.tag == "BossSlime")
+        {
+            other.GetComponent<BossSlime>().RecieveDamage(damage);
+        }
 
         Destroy(this.gameObject);
-
     }
 }
