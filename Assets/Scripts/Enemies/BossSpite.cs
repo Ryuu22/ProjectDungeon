@@ -7,6 +7,11 @@ public class BossSpite : MonoBehaviour
     [SerializeField]
     Vector2 direction;
     [SerializeField]
+    bool targetPlayer;
+    GameObject player;
+    [SerializeField]
+    Vector2 playerPos;
+    [SerializeField]
     float speed;
     [SerializeField]
     int damage;
@@ -14,9 +19,16 @@ public class BossSpite : MonoBehaviour
     void Start()
     {
         speed = Random.Range(3.0f, 4.0f);
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerPos = player.transform.position;
+
+        if(targetPlayer)
+        {
+            direction = (new Vector2(playerPos.x, playerPos.y + 1) - new Vector2(this.transform.position.x, this.transform.position.y)).normalized;
+        }
     }
 
-	void Update ()
+    void Update ()
     {
         this.transform.Translate(new Vector2(direction.x, direction.y) * speed * Time.deltaTime);
     }
@@ -27,11 +39,12 @@ public class BossSpite : MonoBehaviour
         this.gameObject.layer = LayerMask.NameToLayer("Player");
     }
 
-    public void InitializateStats(int intDirection, int spitDamage, bool isFacingRight)
+    public void InitializateStats(int intDirection, int spitDamage, bool isFacingRight, bool _targetPlayer)
     {
         damage = spitDamage;
+        targetPlayer = _targetPlayer;
 
-        if(isFacingRight)
+        if (isFacingRight && !targetPlayer)
         {
             if(intDirection == 1)
             {
@@ -70,7 +83,7 @@ public class BossSpite : MonoBehaviour
                 direction = new Vector2(1, -0.6f);
             }
         }
-        else
+        if (!isFacingRight && !targetPlayer)
         {
             if (intDirection == 1)
             {
