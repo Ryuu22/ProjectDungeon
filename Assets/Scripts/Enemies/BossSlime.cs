@@ -10,7 +10,7 @@ public class BossSlime : MonoBehaviour
     [Header("Boss Slime Fields")]
     [SerializeField]
     int life = 500;
-    float speed = 1;
+    float speed = 0.8f;
     int meleeDamage = 25;
     float meleeCooldown = 2;
     float meleeCounter;
@@ -18,7 +18,7 @@ public class BossSlime : MonoBehaviour
     float rangeCooldown = 10;
     float rangeCounter = 1;
     Vector2 slimeBossPos;
-    float detectionRadius = 10;
+    float detectionRadius = 14;
     bool isFacingRight;
     float idleTime;
     [SerializeField]

@@ -6,9 +6,15 @@ public class BossSpite : MonoBehaviour
 {
     [SerializeField]
     Vector2 direction;
-    float speed = 5;
+    [SerializeField]
+    float speed;
     [SerializeField]
     int damage;
+
+    void Start()
+    {
+        speed = Random.Range(3.0f, 4.0f);
+    }
 
 	void Update ()
     {

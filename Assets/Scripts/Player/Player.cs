@@ -260,6 +260,7 @@ public class Player : MonoBehaviour
             isDead = true;
         }
     }
+
     public void RecieveHP(int HP)
     {
         life += HP;
@@ -269,14 +270,14 @@ public class Player : MonoBehaviour
             life = maxLife;
         }
     }
+
     public void StartParticles()
     {
         particles.SetActive(true);
-
     }
+
     public void StopParticles()
     {
-
         particles.SetActive(false);
     }
 

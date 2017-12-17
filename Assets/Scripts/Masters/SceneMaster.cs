@@ -39,7 +39,7 @@ public class SceneMaster : MonoBehaviour
     {
         anyButtonCounter += Time.deltaTime;
 
-        if(counter >= 3)
+        if(counter >= 3 && pressAnyButton != null)
         {
             pressAnyButton.gameObject.SetActive(true);
         }

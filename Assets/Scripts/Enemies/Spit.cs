@@ -29,10 +29,6 @@ public class Spit : MonoBehaviour
         {
             other.GetComponent<Player>().RecieveDamage(damage);
         }
-        if (other.gameObject.tag == "BossSlime")
-        {
-            other.GetComponent<BossSlime>().RecieveDamage(damage);
-        }
 
         Destroy(this.gameObject);
     }

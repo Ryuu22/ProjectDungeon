@@ -22,8 +22,6 @@ public class PlayerArrow : MonoBehaviour
 
     void OnTriggerEnter2D (Collider2D other)
     {
-        Debug.Log("Zasca flechazo: " + other);
-
         if(other.gameObject.tag == "Slime")
         {
             other.GetComponent<Slime>().RecieveDamage(damage);
