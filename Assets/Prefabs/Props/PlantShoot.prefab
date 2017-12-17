@@ -65,7 +65,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1927581780263190}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.35, y: -0.120000005, z: 0}
+  m_LocalPosition: {x: 58.54572, y: 8.64, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4358022271914308}
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ea8052577b2c6b4db2ea72cb5c279d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootDirection: {x: 0, y: 1}
+  shootDirection: {x: 0, y: -1}
 --- !u!212 &212790178597807098
 SpriteRenderer:
   m_ObjectHideFlags: 1
