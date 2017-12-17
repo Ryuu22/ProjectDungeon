@@ -6,6 +6,7 @@ public class Slime : MonoBehaviour
 {
     [Header("Game Elements")]
     MoveMaster moveM;
+    AudioMaster audioM;
 
     [Header("Slime Fields")]
     [SerializeField]
@@ -65,6 +66,7 @@ public class Slime : MonoBehaviour
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         myAnim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        audioM = GameObject.FindGameObjectWithTag("SoundMaster").GetComponent<AudioMaster>();
     }
 
     void Update ()

@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     [Header("Game Elements")]
     InputMaster inputM;
     CollisionMaster collisionM;
+    AudioMaster audioM;
 
     [Header("Player Fields")]
     [SerializeField]
@@ -42,6 +43,9 @@ public class Player : MonoBehaviour
     void Start ()
     {
         inputM = GameObject.FindGameObjectWithTag("InputMaster").GetComponent<InputMaster>();
+
+        audioM = GameObject.FindGameObjectWithTag("SoundMaster").GetComponent<AudioMaster>();
+
         collisionM = GetComponent<CollisionMaster>();
         myAnim = GetComponentInChildren<Animator>();
     }
@@ -139,7 +143,10 @@ public class Player : MonoBehaviour
         if (attackCounter <= 0)
         {
             attackCounter = attackCooldown;
+
             myAnim.SetTrigger("Attack");
+
+            audioM.SwordSound();
 
             Vector3 pos = this.transform.position + (Vector3)attackBoxPos;
             Collider2D[] results = new Collider2D[5];
@@ -262,6 +269,8 @@ public class Player : MonoBehaviour
     public void RecieveDamage(int damage)
     {
         life -= damage;
+
+        audioM.PlayerDamageSound();
 
         if (life <= 0)
         {

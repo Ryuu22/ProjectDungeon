@@ -3,24 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Wall
-  - InputMaster
-  - GameMaster
-  - Slime
-  - MoveMaster
-  - Arrow
-  - Spit
-  - SpitterSlime
-  - PassiveSlime
-  - Destructible
-  - Options
-  - EndingText
-  - PauseCanvas
-  - BossSpite
-  - BossSlime
-  - MiniBossSlime
-  - SceneMaster
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -30,13 +13,13 @@ TagManager:
   - UI
   - 
   - 
-  - Wall
-  - Player
-  - Enemy
-  - Prop
-  - Arrow
-  - Spit
-  - Void
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
@@ -55,21 +38,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Collider
-    uniqueID: 3894846999
-    locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: TopWalls
-    uniqueID: 281761547
-    locked: 0
-  - name: Wall
-    uniqueID: 3971186407
-    locked: 0
-  - name: Floors
-    uniqueID: 3743697971
-    locked: 0
-  - name: Character
-    uniqueID: 2454843463
     locked: 0
