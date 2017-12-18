@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 61988268256224720}
   - component: {fileID: 114987858959298578}
   - component: {fileID: 50433327877574648}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: MiniBossSlime
   m_TagString: MiniBossSlime
   m_Icon: {fileID: 0}

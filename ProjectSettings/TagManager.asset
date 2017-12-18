@@ -3,7 +3,22 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - SceneMaster
+  - EndingText
+  - MoveMaster
+  - InputMaster
+  - SpitterSlime
+  - Spit
+  - PassiveSlime
+  - BossSlime
+  - MiniBossSlime
+  - BossSpite
+  - Options
+  - PauseCanvas
+  - Slime
+  - Arrow
+  - SoundMaster
   layers:
   - Default
   - TransparentFX
@@ -13,11 +28,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - Player
+  - Spit
+  - PlantSpit
+  - Arrow
   - 
   - 
   - 

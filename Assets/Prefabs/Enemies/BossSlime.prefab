@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 50461130931456524}
   - component: {fileID: 114457881021165694}
   - component: {fileID: 61829859163586764}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: BossSlime
   m_TagString: BossSlime
   m_Icon: {fileID: 0}

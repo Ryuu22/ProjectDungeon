@@ -211,7 +211,7 @@ MonoBehaviour:
   life: 100
   maxLife: 100
   particles: {fileID: 1731878434840756}
-  arrowGameObject: {fileID: 1351652154067042, guid: 261a65aba8dcda7448297a7bb9138512,
+  arrowGameObject: {fileID: 1221261623266756, guid: bde2c2fcd9e653344b66e4d7b2ccb797,
     type: 2}
   attackBoxPos: {x: 0.75, y: 1}
   attackBoxSize: {x: 1.5, y: 3}

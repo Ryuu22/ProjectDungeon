@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 50822155886783332}
   - component: {fileID: 58696409886294878}
   - component: {fileID: 58714559305251212}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: BossSpit
   m_TagString: BossSpite
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: -1, y: -0.6}
-  targetPlayer: 1
+  targetPlayer: 0
   playerPos: {x: 0, y: 0}
   speed: 0
   damage: 15

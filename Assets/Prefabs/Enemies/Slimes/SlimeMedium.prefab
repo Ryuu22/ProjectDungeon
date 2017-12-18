@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 70082470534489024}
   - component: {fileID: 114027634284588788}
   - component: {fileID: 61785922395962292}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: SlimeMedium
   m_TagString: Slime
   m_Icon: {fileID: 0}
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   phase: 2
   slimePrefab: {fileID: 1094310310594066}
-  slimeMediumPrefab: {fileID: 1224021589510636}
+  slimeMediumPrefab: {fileID: 0}
   slimeSmallPrefab: {fileID: 1156527456943396, guid: cef8ef8eafd83a94db5d5f63cefa8269,
     type: 2}
   currentSlimeState: 0

@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4446109867682182}
   - component: {fileID: 61810370053870496}
+  - component: {fileID: 114423629077510182}
   - component: {fileID: 50769189206818966}
   m_Layer: 12
   m_Name: Arrow
@@ -51,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1221261623266756}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.46, y: -4.64, z: 0.094468914}
+  m_LocalPosition: {x: -9.311747, y: 1.1009964, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4616129769232846}
@@ -116,6 +117,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.2}
   m_EdgeRadius: 0
+--- !u!114 &114423629077510182
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1221261623266756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cdd08e1c580e6c4d95c9c7dfa2a71bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212799985616106586
 SpriteRenderer:
   m_ObjectHideFlags: 1
