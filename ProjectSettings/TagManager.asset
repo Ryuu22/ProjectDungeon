@@ -19,6 +19,8 @@ TagManager:
   - Slime
   - Arrow
   - SoundMaster
+  - Wall
+  - Destructible
   layers:
   - Default
   - TransparentFX
@@ -33,8 +35,8 @@ TagManager:
   - Spit
   - PlantSpit
   - Arrow
-  - 
-  - 
+  - Wall
+  - Void
   - 
   - 
   - 
