@@ -7,6 +7,8 @@ public class BossSlime : MonoBehaviour
     [Header("Game Elements")]
     MoveMaster moveM;
 
+    [SerializeField]AudioSource audioSource;
+
     [Header("Boss Slime Fields")]
     [SerializeField]
     int life = 200;
@@ -151,6 +153,7 @@ public class BossSlime : MonoBehaviour
     void RangedAttack()
     {
         myAnim.SetTrigger("Attack");
+        audioSource.Play(); //Fit this into a method later.
 
         spitScript.InitializateStats(1, rangeDamage, isFacingRight, false);
         Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
