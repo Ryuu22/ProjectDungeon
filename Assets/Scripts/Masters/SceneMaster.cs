@@ -113,7 +113,7 @@ public class SceneMaster : MonoBehaviour
             EndingPanel(true);
         }
 
-        if(Input.GetKey(KeyCode.LeftAlt))
+        if(Input.GetKey(KeyCode.LeftControl))
         {
             if(Input.GetKeyDown(KeyCode.Q))
             {
