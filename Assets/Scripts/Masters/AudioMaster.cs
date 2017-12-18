@@ -15,7 +15,11 @@ public class AudioMaster : MonoBehaviour {
     {
 
     }
-
+    public void slimeDividingSound()
+    {
+        sourceMaster.clip = slimeDividing;
+        sourceMaster.Play();
+    }
 
     public void PlayerDamageSound()
     {

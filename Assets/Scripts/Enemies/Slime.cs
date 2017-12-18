@@ -197,7 +197,7 @@ public class Slime : MonoBehaviour
     void Attack()
     {
         attackCounter -= Time.deltaTime;
-
+        audioM.slimeWalk();
         if(attackCounter <= 0)
         {
             attackCounter = attackCooldown;
@@ -379,6 +379,7 @@ public class Slime : MonoBehaviour
 
     private void Divide()
     {
+        audioM.slimeDividingSound();
         if(phase == 3)
         {
             Instantiate(slimeMediumPrefab, new Vector3(slimePos.x, slimePos.y + 0.5f, 0), new Quaternion(0, 0, 0, 0));
