@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     AudioMaster audioM;
 
     [Header("Player Fields")]
+    bool godMode;
     [SerializeField]
     int life = 100;
     [SerializeField]
@@ -69,6 +70,28 @@ public class Player : MonoBehaviour
         {
             dashCooldownCounter -= Time.deltaTime;
         }
+        if(Input.GetKeyDown(KeyCode.G))
+        {
+            godMode = !godMode;
+        }
+        if(godMode)
+        {
+            speed = new Vector2(8, 8);
+            dashCooldown = 0.2f;
+            attackCooldown = 0;
+            arrowCooldown = 0;
+            damage = 50;
+            this.gameObject.layer = 1;
+        }
+        else
+        {
+            speed = new Vector2(5, 5);
+            dashCooldown = 5;
+            attackCooldown = 1;
+            arrowCooldown = 1.5f;
+            damage = 10;
+            this.gameObject.layer = LayerMask.NameToLayer("Player");
+        }
     }
 
     void Movement()
@@ -85,38 +108,40 @@ public class Player : MonoBehaviour
 
                 provisionalPos = this.transform.position;
                 movementSpeed = speed;
+            if(!godMode)
+                {
+                    if(inputM.GetAxis().x > 0.1 || inputM.GetAxis().y > 0.1 || inputM.GetAxis().x < -0.1 || inputM.GetAxis().y < -0.1)
+                    {
+                        myAnim.SetBool("Moving", true);
+                    }
+                    if (inputM.GetAxis().x < 0.1 && inputM.GetAxis().x > -0.1 && inputM.GetAxis().y < 0.1 && inputM.GetAxis().y > -0.1)
+                    {
+                        myAnim.SetBool("Moving", false);
+                    }
 
-                if(inputM.GetAxis().x > 0.1 || inputM.GetAxis().y > 0.1 || inputM.GetAxis().x < -0.1 || inputM.GetAxis().y < -0.1)
-                {
-                    myAnim.SetBool("Moving", true);
-                }
-                if (inputM.GetAxis().x < 0.1 && inputM.GetAxis().x > -0.1 && inputM.GetAxis().y < 0.1 && inputM.GetAxis().y > -0.1)
-                {
-                    myAnim.SetBool("Moving", false);
-                }
+                    if (collisionM.IsLeftWalled && inputM.GetAxis().x < 0)
+                    {
+                        movementSpeed.x = 0;
+                        myAnim.SetBool("Moving", false);
+                    }
 
-                if (collisionM.IsLeftWalled && inputM.GetAxis().x < 0)
-                {
-                    movementSpeed.x = 0;
-                    myAnim.SetBool("Moving", false);
-                }
+                    if (collisionM.IsRightWalled && inputM.GetAxis().x > 0)
+                    {
+                        movementSpeed.x = 0;
+                        myAnim.SetBool("Moving", false);
+                    }
 
-                if (collisionM.IsRightWalled && inputM.GetAxis().x > 0)
-                {
-                    movementSpeed.x = 0;
-                    myAnim.SetBool("Moving", false);
-                }
+                    if (collisionM.IsTopWalled && inputM.GetAxis().y > 0)
+                    {
+                        movementSpeed.y = 0;
+                        myAnim.SetBool("Moving", false);
+                    }
 
-                if (collisionM.IsTopWalled && inputM.GetAxis().y > 0)
-                {
-                    movementSpeed.y = 0;
-                    myAnim.SetBool("Moving", false);
-                }
-
-                if (collisionM.IsBottomWalled && inputM.GetAxis().y < 0)
-                {
-                    movementSpeed.y = 0;
-                    myAnim.SetBool("Moving", false);
+                    if (collisionM.IsBottomWalled && inputM.GetAxis().y < 0)
+                    {
+                        movementSpeed.y = 0;
+                        myAnim.SetBool("Moving", false);
+                    }
                 }
 
                 provisionalPos.x += inputM.GetAxis().x * Time.deltaTime * movementSpeed.x;
@@ -268,9 +293,13 @@ public class Player : MonoBehaviour
 
     public void RecieveDamage(int damage)
     {
-        life -= damage;
+        if(!godMode)
+        {
+            life -= damage;
 
-        audioM.PlayerDamageSound();
+            audioM.PlayerDamageSound();
+        }
+
 
         if (life <= 0)
         {
