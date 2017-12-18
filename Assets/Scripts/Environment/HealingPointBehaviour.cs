@@ -30,7 +30,7 @@ public class HealingPointBehaviour : MonoBehaviour {
         {
             player = collision.GetComponent<Player>();
             playerInside = true;
-            player.StartParticles();
+            player.StartLifeParticles();
 
         }
     }
@@ -40,7 +40,7 @@ public class HealingPointBehaviour : MonoBehaviour {
         {
 
             playerInside = false;
-            player.StopParticles();
+            player.StopLifeParticles();
 
         }
     }

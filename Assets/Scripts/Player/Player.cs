@@ -16,7 +16,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     int maxLife = 100;
     [SerializeField]
-    GameObject particles;
+    GameObject lifeParticles;
+    [SerializeField]
+    GameObject bloodParticles;
+    ParticleSystem blood;
     bool isDead;
     Vector2 movementSpeed = Vector2.zero;
     Vector2 speed = new Vector2(5, 5);
@@ -47,6 +50,7 @@ public class Player : MonoBehaviour
 
         audioM = GameObject.FindGameObjectWithTag("SoundMaster").GetComponent<AudioMaster>();
 
+        blood = bloodParticles.GetComponent<ParticleSystem>();
         collisionM = GetComponent<CollisionMaster>();
         myAnim = GetComponentInChildren<Animator>();
     }
@@ -296,7 +300,7 @@ public class Player : MonoBehaviour
         if(!godMode)
         {
             life -= damage;
-
+            blood.Emit(30);
             audioM.PlayerDamageSound();
         }
 
@@ -317,14 +321,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void StartParticles()
+    public void StartLifeParticles()
     {
-        particles.SetActive(true);
+        lifeParticles.SetActive(true);
     }
 
-    public void StopParticles()
+    public void StopLifeParticles()
     {
-        particles.SetActive(false);
+        lifeParticles.SetActive(false);
     }
 
     public int Life { get { return life; } }
