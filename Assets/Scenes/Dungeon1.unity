@@ -54987,7 +54987,7 @@ GameObject:
   - component: {fileID: 2115730454}
   - component: {fileID: 2115730453}
   - component: {fileID: 2115730452}
-  m_Layer: 8
+  m_Layer: 13
   m_Name: WallColliders
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -55051,7 +55051,7 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -400120297
+  m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -16
   m_ChunkSize: {x: 32, y: 32, z: 32}
