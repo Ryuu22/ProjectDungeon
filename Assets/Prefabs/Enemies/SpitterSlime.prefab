@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 50962325948604308}
   - component: {fileID: 70997601507547924}
   - component: {fileID: 114273362410453560}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: SpitterSlime
   m_TagString: SpitterSlime
   m_Icon: {fileID: 0}

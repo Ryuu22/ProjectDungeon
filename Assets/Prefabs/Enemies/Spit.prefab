@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 50517225193441028}
   - component: {fileID: 58954130046520724}
   - component: {fileID: 114659825936945678}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: Spit
   m_TagString: Spit
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1991084417764518}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.32}
   m_LocalScale: {x: 0.35, y: 0.35, z: 1}
   m_Children: []
   m_Father: {fileID: 4519232914795988}
@@ -66,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1981432122036182}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 57.495556, y: -16.152208, z: 0}
+  m_LocalPosition: {x: 59.5, y: -1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4029785319403236}
