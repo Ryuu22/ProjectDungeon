@@ -113,6 +113,22 @@ public class SceneMaster : MonoBehaviour
             EndingPanel(true);
         }
 
+        if(Input.GetKey(KeyCode.LeftAlt))
+        {
+            if(Input.GetKeyDown(KeyCode.Q))
+            {
+                LoadLogoScreen();
+            }
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                LoadTitleScreen();
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                LoadGameplayScreen();
+            }
+        }
+
     }
 
     public void EndingPanel(bool victory)
@@ -144,12 +160,12 @@ public class SceneMaster : MonoBehaviour
 
     public void LoadTitleScreen()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     public void LoadGameplayScreen()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     public void ExitGame()
