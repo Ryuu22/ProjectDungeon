@@ -9,6 +9,9 @@ public class EssenceBehaviour : MonoBehaviour {
     [Header("Game Elements")]
     MoveMaster moveM;
 
+    [SerializeField] int essenceValue;
+    [SerializeField] bool playerDetected;
+
     public Transform playerTransform;
     public Vector2 playerPos;
     public float speed;
@@ -26,7 +29,28 @@ public class EssenceBehaviour : MonoBehaviour {
     {
         playerPos = playerTransform.position;
 
-        moveM.Move(this.gameObject, playerPos, speed);
+        if (Vector2.Distance(playerPos, this.transform.position) < radius && !playerDetected)
+        {
+            this.GetComponent<AudioSource>().Play();
+            playerDetected = true;
+        }
+
+            if (playerDetected)
+        {
+            moveM.Move(this.gameObject, playerPos, speed);
+        }
+
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            other.GetComponent<Player>().ReceiveEssences(essenceValue);
+            Destroy(this.gameObject);
+        }
+        
+
+
     }
 
     private void OnDrawGizmos()

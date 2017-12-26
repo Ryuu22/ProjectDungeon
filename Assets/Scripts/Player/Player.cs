@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     int life = 100;
     [SerializeField]
+    int essences = 100;
+    [SerializeField]
     int maxLife = 100;
     [SerializeField]
     GameObject lifeParticles;
@@ -319,6 +321,11 @@ public class Player : MonoBehaviour
         {
             life = maxLife;
         }
+    }
+
+    public void ReceiveEssences(int numberOfEssences)
+    {
+        essences += numberOfEssences;
     }
 
     public void StartLifeParticles()
