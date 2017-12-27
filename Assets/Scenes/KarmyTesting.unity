@@ -558,7 +558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 1538894698}
   cameraTransform: {fileID: 0}
-  freq: 1
+  freq: 0.1
 --- !u!1001 &955865679
 Prefab:
   m_ObjectHideFlags: 0

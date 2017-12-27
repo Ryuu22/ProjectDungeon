@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     InputMaster inputM;
     CollisionMaster collisionM;
     AudioMaster audioM;
+    public CameraBehaviour cameraBeh;
 
     [Header("Player Fields")]
     bool godMode;
@@ -304,6 +305,7 @@ public class Player : MonoBehaviour
             life -= damage;
             blood.Emit(30);
             audioM.PlayerDamageSound();
+         
         }
 
 
