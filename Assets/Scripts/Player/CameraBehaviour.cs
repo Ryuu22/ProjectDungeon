@@ -11,8 +11,11 @@ public class CameraBehaviour : MonoBehaviour {
 
     private bool shaking;
     private float magnitude;
+    private float magnitudeRotation;
+    private float shakingCounter;
 
-    private Vector2 cameraPos;
+
+    private Vector3 cameraPos;
 
     void Start ()
     {
@@ -22,37 +25,60 @@ public class CameraBehaviour : MonoBehaviour {
         cameraTransform = this.GetComponent<Transform>();
 	}
 
-	void Update ()
+    void Update()
     {
-        
+        cameraPos = Vector3.Lerp(cameraTransform.position, playerTransform.position, freq);
+        cameraPos.z = -10;
+        this.transform.position = cameraPos;
 
-        if(Input.GetKey(KeyCode.AltGr))
+        if (Input.GetKey(KeyCode.AltGr))
         {
-            ShakeCamera(5.0f);
+            ShakeCamera(0.5f, 30.0f, 1.0f);
         }
-        else
+
+
+        if (shaking)
+        {
+            ShakeUpdate();
+            shakingCounter-=Time.deltaTime;            
+        }
+        if (shakingCounter < 0)
         {
             shaking = false;
-            cameraPos = Vector2.Lerp(cameraTransform.position, playerTransform.position, freq);
-
-            cameraTransform.position = new Vector3(cameraPos.x, cameraPos.y, -10);
+            this.transform.rotation = Quaternion.Euler(Vector3.zero);
         }
-        
-        if(shaking)
-        {
-            float height = Mathf.PingPong(Random.value, Random.value); //magnitude * Mathf.PerlinNoise(Time.time * magnitude , -magnitude);
-            float width = Mathf.PingPong(Random.value, Random.value);//magnitude * Mathf.PerlinNoise(Time.time * magnitude, -magnitude);
 
-            Vector3 pos = new Vector3(playerTransform.position.x, playerTransform.position.y,-10);
-            pos.y = playerTransform.position.y + height;
-            pos.x = playerTransform.position.x + width;
-            
-            this.transform.position = pos;
-        }
-	}
-    public void ShakeCamera(float newMagnitude)
+    }
+    private void ShakeUpdate()
+    {
+        //Translate Noise
+        #region Translate
+        float height = Mathf.PingPong(Mathf.PerlinNoise(Random.value, -Random.value) * magnitude, Mathf.PerlinNoise(Random.value, -Random.value) * -magnitude);
+        float width = Mathf.PingPong(Mathf.PerlinNoise(Random.value, -Random.value) * magnitude, Mathf.PerlinNoise(Random.value, -Random.value) * -magnitude);
+
+        Vector3 pos = new Vector3(playerTransform.position.x, playerTransform.position.y, -10);
+        pos.y = playerTransform.position.y + height + magnitude;
+        pos.x = playerTransform.position.x + width + magnitude;
+
+        this.transform.position = pos;
+        #endregion
+
+        //Rotation Noise
+        #region Rotation
+        Vector3 newRotation = Vector3.zero;
+        newRotation.z = Mathf.PingPong(Mathf.PerlinNoise(Random.value, Random.value) * magnitudeRotation *-1, Mathf.PerlinNoise(Random.value, Random.value) * magnitudeRotation);
+
+
+        this.transform.rotation = Quaternion.Euler(newRotation);
+        #endregion
+    }
+
+    public void ShakeCamera(float newMagnitude, float newMagnitudeRotation, float time)
     {
         shaking = true;
         magnitude = newMagnitude;
+        magnitudeRotation = newMagnitudeRotation;
+
+        shakingCounter = time;
     }
 }
