@@ -6,8 +6,13 @@ public class BossSlime : MonoBehaviour
 {
     [Header("Game Elements")]
     MoveMaster moveM;
+    [SerializeField]
+    AudioSource audioSource;
 
-    [SerializeField]AudioSource audioSource;
+    [Header("Player Fields")]
+    Transform player;
+    Vector2 playerPos;
+    Player playerScript;
 
     [Header("Boss Slime Fields")]
     [SerializeField]
@@ -30,11 +35,6 @@ public class BossSlime : MonoBehaviour
     GameObject miniBossPrefab;
     float deadTime = 0.5f;
     Animator myAnim;
-
-    [Header("Player Fields")]
-    Transform player;
-    Vector2 playerPos;
-    Player playerScript;
 
     [SerializeField]
     BossSlimeState currentBossSlimeState;
@@ -224,6 +224,8 @@ public class BossSlime : MonoBehaviour
 
     #endregion
 
+    #region MECHANICS METHODS
+
     void Flip()
     {
         this.gameObject.transform.localScale = new Vector3((this.gameObject.transform.localScale.x * -1), this.gameObject.transform.localScale.y, this.gameObject.transform.localScale.z);
@@ -247,5 +249,12 @@ public class BossSlime : MonoBehaviour
 
     }
 
+    #endregion
+
+    #region GETTERS/SETTERS
+
     public int Life { get { return life; } }
+
+    #endregion
+
 }

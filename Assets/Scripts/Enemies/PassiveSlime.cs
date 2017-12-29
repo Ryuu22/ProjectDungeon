@@ -21,8 +21,6 @@ public class PassiveSlime : MonoBehaviour
     Vector2 patrolTarget;
     Animator myAnim;
     float randomScale;
-
-    //provisional
     float deadTime = 0.5f;
 
     [SerializeField]
@@ -139,6 +137,8 @@ public class PassiveSlime : MonoBehaviour
 
     #endregion
 
+    #region MECHANICS METHODS
+
     public void RecieveDamage(int damage)
     {
         life -= damage;
@@ -165,4 +165,7 @@ public class PassiveSlime : MonoBehaviour
             Damage(other.gameObject);
         }
     }
+
+    #endregion
+
 }

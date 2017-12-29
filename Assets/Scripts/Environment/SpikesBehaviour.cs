@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpikesBehaviour : MonoBehaviour {
-
+public class SpikesBehaviour : MonoBehaviour
+{
     public enum State { Inactive, OnHold, Active};
     public State state;
     public Sprite[] sprites;
@@ -12,13 +12,16 @@ public class SpikesBehaviour : MonoBehaviour {
     public float inactiveTime = 0;
     public float onHoldTime = 0;
     public float activeTime = 0;
-	// Use this for initialization
-	void Start ()
+    public float damageTime = 0;
+    float damageCounter;
+    [SerializeField]
+    BoxCollider2D collider2d;
+
+    void Start ()
     {
         SetInactive();
 	}
-	
-	// Update is called once per frame
+
 	void Update ()
     {
         switch(state)
@@ -36,6 +39,7 @@ public class SpikesBehaviour : MonoBehaviour {
                 break;
         }
     }
+
     #region Upadters
 
     void UpdateInactive()
@@ -53,6 +57,7 @@ public class SpikesBehaviour : MonoBehaviour {
         if(timeCounter > onHoldTime)
         {
             SetActive();
+            collider2d.enabled = true;
         }
     }
     void UpdateActive()
@@ -61,6 +66,7 @@ public class SpikesBehaviour : MonoBehaviour {
         if(timeCounter > activeTime)
         {
             SetInactive();
+            collider2d.enabled = false;
         }
     }
 #endregion
@@ -94,12 +100,23 @@ public class SpikesBehaviour : MonoBehaviour {
         {
             if (state == State.Active)
             {
-                Debug.Log("Received 15 damage");
                 other.GetComponent<Player>().RecieveDamage(15);
             }
-            else if (state == State.OnHold)
+        }
+    }
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.tag == ("Player"))
+        {
+            if (state == State.Active)
             {
-                other.GetComponent<Player>().RecieveDamage(5);
+                damageCounter -= Time.deltaTime;
+
+                if(damageCounter <= 0)
+                {
+                    damageCounter = damageTime;
+                    other.GetComponent<Player>().RecieveDamage(15);
+                }
             }
         }
     }

@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class SpitterSlime : MonoBehaviour
 {
+
+    [Header("Player Fields")]
+    Transform player;
+    Vector2 playerPos;
+
     [Header("Slime Fields")]
     [SerializeField]
     int life = 20;
@@ -14,14 +19,8 @@ public class SpitterSlime : MonoBehaviour
     [SerializeField]
     GameObject spitGameObject;
     Animator myAnim;
-
-    //provisional
     float deadTime = 0.5f;
     float deadCounter;
-
-    [Header("Player Fields")]
-    Transform player;
-    Vector2 playerPos;
 
     [SerializeField]
     SpitterSlimeState currentSpitterSlimeState;
@@ -120,6 +119,8 @@ public class SpitterSlime : MonoBehaviour
 
     #endregion
 
+    #region MECHANICS METHODS
+
     public void RecieveDamage(int damage)
     {
         life -= damage;
@@ -130,6 +131,8 @@ public class SpitterSlime : MonoBehaviour
             deadCounter = deadTime;
         }
     }
+
+    #endregion
 
     private void OnDrawGizmos()
     {

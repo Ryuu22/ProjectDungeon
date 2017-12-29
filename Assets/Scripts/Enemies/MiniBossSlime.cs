@@ -8,6 +8,12 @@ public class MiniBossSlime : MonoBehaviour
     MoveMaster moveM;
     SceneMaster sceneM;
 
+    [Header("Player Fields")]
+    [SerializeField]
+    GameObject player;
+    Vector2 playerPos;
+    Player playerScript;
+
     [Header("Boss Slime Fields")]
     [SerializeField]
     bool miniRangedBoss;
@@ -33,12 +39,6 @@ public class MiniBossSlime : MonoBehaviour
     [SerializeField]
     Sprite rightBoss;
     float deadTime = 0.5f;
-
-    [Header("Player Fields")]
-    [SerializeField]
-    GameObject player;
-    Vector2 playerPos;
-    Player playerScript;
 
     [SerializeField]
     MiniBossSlimeState currentMiniBossSlimeState;
@@ -207,6 +207,8 @@ public class MiniBossSlime : MonoBehaviour
 
     #endregion
 
+    #region MECHANICS METHODS
+
     public void WhatMiniBossIs(bool isRanged)
     {
         miniRangedBoss = isRanged;
@@ -217,7 +219,7 @@ public class MiniBossSlime : MonoBehaviour
         this.gameObject.transform.localScale = new Vector3((this.gameObject.transform.localScale.x * -1), this.gameObject.transform.localScale.y, this.gameObject.transform.localScale.z);
         isFacingRight = !isFacingRight;
     }
-    
+
     public void RecieveDamage(int damage)
     {
         life -= damage;
@@ -228,4 +230,7 @@ public class MiniBossSlime : MonoBehaviour
         }
 
     }
+
+    #endregion
+        
 }

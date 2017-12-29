@@ -6,13 +6,17 @@ public class BossSpite : MonoBehaviour
 {
     [SerializeField]
     Vector2 direction;
+
     [SerializeField]
     bool targetPlayer;
     GameObject player;
+
     [SerializeField]
     Vector2 playerPos;
+
     [SerializeField]
     float speed;
+
     [SerializeField]
     int damage;
 
@@ -31,12 +35,6 @@ public class BossSpite : MonoBehaviour
     void Update ()
     {
         this.transform.Translate(new Vector2(direction.x, direction.y) * speed * Time.deltaTime);
-    }
-
-    public void Hit()
-    {
-        direction.x = -direction.x;
-        this.gameObject.layer = LayerMask.NameToLayer("Player");
     }
 
     public void InitializateStats(int intDirection, int spitDamage, bool isFacingRight, bool _targetPlayer)
@@ -122,6 +120,12 @@ public class BossSpite : MonoBehaviour
                 direction = new Vector2(-1, -0.6f);
             }
         }
+    }
+
+    public void Hit()
+    {
+        direction.x = -direction.x;
+        this.gameObject.layer = LayerMask.NameToLayer("Player");
     }
 
     void OnTriggerEnter2D(Collider2D other)

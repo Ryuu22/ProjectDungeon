@@ -8,6 +8,16 @@ public class Slime : MonoBehaviour
     MoveMaster moveM;
     AudioMaster audioM;
 
+    [Header("Player Fields")]
+    Transform player;
+    Vector2 playerPos;
+    Player playerScript;
+
+    [Header("Slime Prefab")]
+    [SerializeField] GameObject slimePrefab;
+    [SerializeField] GameObject slimeMediumPrefab;
+    [SerializeField] GameObject slimeSmallPrefab;
+
     [Header("Slime Fields")]
     [SerializeField]
     int phase;
@@ -31,16 +41,6 @@ public class Slime : MonoBehaviour
     float randomScale;
     Animator myAnim;
     Rigidbody2D rb;
-
-    [Header("Player Fields")]
-    Transform player;
-    Vector2 playerPos;
-    Player playerScript;
-
-    [Header("Slime Prefab")]
-    [SerializeField] GameObject slimePrefab;
-    [SerializeField] GameObject slimeMediumPrefab;
-    [SerializeField] GameObject slimeSmallPrefab;
 
     [SerializeField]
     SlimeState currentSlimeState;
@@ -350,6 +350,8 @@ public class Slime : MonoBehaviour
 
     #endregion
 
+    #region MECHANICS METHODS
+
     void Flip()
     {
         this.gameObject.transform.localScale = new Vector3((this.gameObject.transform.localScale.x * -1), this.gameObject.transform.localScale.y, this.gameObject.transform.localScale.z);
@@ -397,4 +399,7 @@ public class Slime : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(slimePos, detectionRadius);       
     }
+
+    #endregion
+
 }
