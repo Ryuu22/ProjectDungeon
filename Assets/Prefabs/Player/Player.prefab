@@ -117,7 +117,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1581869419119038}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.2374468, y: -1.3739516, z: -0.059295967}
+  m_LocalPosition: {x: -8, y: -1.2591975, z: -0.059295967}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4565489047712106}
@@ -239,7 +239,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4f24d7418d46c74a9b94885b98a004d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraBeh: {fileID: 0}
   life: 100
+  essences: 0
   maxLife: 100
   lifeParticles: {fileID: 1731878434840756}
   bloodParticles: {fileID: 1727830610894980}
