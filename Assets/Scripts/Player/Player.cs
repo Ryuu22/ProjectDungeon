@@ -47,6 +47,16 @@ public class Player : MonoBehaviour
     public Vector2 attackBoxSize;
     public ContactFilter2D filter;
 
+    PlayerState currentPlayerState;
+    enum PlayerState
+    {
+        Idle,
+        Move,
+        Dash,
+        Cast,
+        Dead,
+    }
+
     void Start ()
     {
         inputM = GameObject.FindGameObjectWithTag("InputMaster").GetComponent<InputMaster>();
@@ -58,13 +68,34 @@ public class Player : MonoBehaviour
         myAnim = GetComponentInChildren<Animator>();
     }
 
-	void FixedUpdate ()
+    void Update()
     {
-        Movement();
-    }
+        switch (currentPlayerState)
+        {
+            case PlayerState.Idle:
+                Idle();
+                break;
 
-    private void Update()
-    {
+            case PlayerState.Move:
+                Move();
+                break;
+
+            case PlayerState.Dash:
+                Dash();
+                break;
+
+            case PlayerState.Cast:
+                Cast();
+                break;
+
+            case PlayerState.Dead:
+                Dead();
+                break;
+
+            default:
+                break;
+        }
+
         if(attackCooldown > 0)
         {
             attackCounter -= Time.deltaTime;
@@ -101,78 +132,134 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Movement()
+    #region UPDATE METHODS
+
+    void Idle()
     {
-        if(!isDead)
+        if (inputM.GetAxis().x > 0.1 || inputM.GetAxis().y > 0.1 || inputM.GetAxis().x < -0.1 || inputM.GetAxis().y < -0.1) //PLAYER MOVES
         {
-            if (isDashing)
-            {
-                Dash(dashDirection);
-            }
-            else
-            {
-                Vector3 provisionalPos;
-
-                provisionalPos = this.transform.position;
-                movementSpeed = speed;
-            if(!godMode)
-                {
-                    if(inputM.GetAxis().x > 0.1 || inputM.GetAxis().y > 0.1 || inputM.GetAxis().x < -0.1 || inputM.GetAxis().y < -0.1)
-                    {
-                        myAnim.SetBool("Moving", true);
-                    }
-                    if (inputM.GetAxis().x < 0.1 && inputM.GetAxis().x > -0.1 && inputM.GetAxis().y < 0.1 && inputM.GetAxis().y > -0.1)
-                    {
-                        myAnim.SetBool("Moving", false);
-                    }
-
-                    if (collisionM.IsLeftWalled && inputM.GetAxis().x < 0)
-                    {
-                        movementSpeed.x = 0;
-                        myAnim.SetBool("Moving", false);
-                    }
-
-                    if (collisionM.IsRightWalled && inputM.GetAxis().x > 0)
-                    {
-                        movementSpeed.x = 0;
-                        myAnim.SetBool("Moving", false);
-                    }
-
-                    if (collisionM.IsTopWalled && inputM.GetAxis().y > 0)
-                    {
-                        movementSpeed.y = 0;
-                        myAnim.SetBool("Moving", false);
-                    }
-
-                    if (collisionM.IsBottomWalled && inputM.GetAxis().y < 0)
-                    {
-                        movementSpeed.y = 0;
-                        myAnim.SetBool("Moving", false);
-                    }
-                }
-
-                provisionalPos.x += inputM.GetAxis().x * Time.deltaTime * movementSpeed.x;
-                provisionalPos.y += inputM.GetAxis().y * Time.deltaTime * movementSpeed.y;
-
-                this.transform.position = provisionalPos;
-
-                if(inputM.GetAxis().x > 0.1)
-                {
-                    this.gameObject.transform.localScale = new Vector3(1, 1, 1);
-                    attackBoxPos.x = 0.75f;
-                }
-                if (inputM.GetAxis().x < -0.1)
-                {
-                    this.gameObject.transform.localScale = new Vector3(-1, 1, 1);
-                    attackBoxPos.x = -0.75f;
-                }
-            }
-        }        
+            myAnim.SetBool("Moving", true);
+            MoveState();
+        }
     }
 
-    public void Attack()
+    void Move()
     {
-        if (attackCounter <= 0)
+        Vector3 provisionalPos;
+
+        provisionalPos = this.transform.position;
+        movementSpeed = speed;
+
+        if (inputM.GetAxis().x < 0.1 && inputM.GetAxis().x > -0.1 && inputM.GetAxis().y < 0.1 && inputM.GetAxis().y > -0.1) //PLAYER STOP
+        {
+            myAnim.SetBool("Moving", false);
+            IdleState();
+        }
+
+        if (collisionM.IsLeftWalled && inputM.GetAxis().x < 0) //LEFT WALL
+        {
+            movementSpeed.x = 0;
+            myAnim.SetBool("Moving", false);
+        }
+
+        if (collisionM.IsRightWalled && inputM.GetAxis().x > 0) //RIGHT WALL
+        {
+            movementSpeed.x = 0;
+            myAnim.SetBool("Moving", false);
+        }
+
+        if (collisionM.IsTopWalled && inputM.GetAxis().y > 0) //TOP WALL
+        {
+            movementSpeed.y = 0;
+            myAnim.SetBool("Moving", false);
+        }
+
+        if (collisionM.IsBottomWalled && inputM.GetAxis().y < 0) //BOTTOM WALL
+        {
+            movementSpeed.y = 0;
+            myAnim.SetBool("Moving", false);
+        }
+
+        if (inputM.GetAxis().x > 0.1) //FLIP RIGHT
+        {
+            this.gameObject.transform.localScale = new Vector3(1, 1, 1);
+            attackBoxPos.x = 0.75f;
+        }
+
+        if (inputM.GetAxis().x < -0.1) //FLIP LEFT
+        {
+            this.gameObject.transform.localScale = new Vector3(-1, 1, 1);
+            attackBoxPos.x = -0.75f;
+        }
+
+        provisionalPos.x += inputM.GetAxis().x * Time.deltaTime * movementSpeed.x;
+        provisionalPos.y += inputM.GetAxis().y * Time.deltaTime * movementSpeed.y;
+        this.transform.position = provisionalPos;
+    }
+
+    void Dash()
+    {
+        Vector3 provisionalPos;
+        provisionalPos = this.transform.position;
+        dashCounter += Time.deltaTime;
+
+        provisionalPos.x += dashDirection.x * Time.deltaTime * dashSpeed;
+        provisionalPos.y += dashDirection.y * Time.deltaTime * dashSpeed;
+
+        this.transform.position = provisionalPos;
+
+        if (dashCounter >= dashTime)
+        {
+            dashCounter = 0;
+            IdleState();
+        }
+    }
+
+    void Cast()
+    {
+
+    }
+
+    void Dead()
+    {
+
+
+    }
+
+    #endregion
+
+    #region STATE METHODS
+
+    public void IdleState()
+    {
+        currentPlayerState = PlayerState.Idle;
+    }
+
+    public void MoveState()
+    {
+        currentPlayerState = PlayerState.Move;
+    }
+
+    public void DashState()
+    {
+        currentPlayerState = PlayerState.Dash;
+    }
+
+    public void CastState()
+    {
+        currentPlayerState = PlayerState.Cast;
+    }
+
+    public void DeadState()
+    {
+        currentPlayerState = PlayerState.Dead;
+    }
+
+    #endregion
+
+    public void Attack() //ATTACK IF PLAYER IS IDLE OR MOVING
+    {
+        if (attackCounter <= 0 && currentPlayerState == PlayerState.Idle || attackCounter <= 0 && currentPlayerState == PlayerState.Move)
         {
             attackCounter = attackCooldown;
 
@@ -219,9 +306,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Shoot()
+    public void Shoot() //SHOOT IF PLAYER IS IDLE OR MOVING
     {
-        if(arrowCounter <= 0)
+        if(arrowCounter <= 0 && currentPlayerState == PlayerState.Idle || arrowCounter <= 0 && currentPlayerState == PlayerState.Move)
         {
             arrowCounter = arrowCooldown;
             arrowGameObject.transform.position = new Vector3(this.transform.position.x + attackBoxPos.x, this.transform.position.y + 1, 0);
@@ -229,7 +316,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Damage (GameObject target, string targetType)
+    void Damage (GameObject target, string targetType) //OBJECTIVE RECIEVES THE HIT
     {
         if(targetType == ("Slime"))
         {
@@ -261,43 +348,24 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void BeginDash()
+    public void BeginDash() //SET THE DIRECTION OF THE DASH
     {
-        if(dashCooldownCounter <= 0)
+        if(dashCooldownCounter <= 0 && currentPlayerState == PlayerState.Move)
         {
             dashCooldownCounter = dashCooldown;
-
-            isDashing = true;
-            myAnim.SetTrigger("Dash");
 
             if (inputM.GetAxis().x > 0.1) dashDirection.x = 1;
             if (inputM.GetAxis().x < -0.1) dashDirection.x = -1;
             if (inputM.GetAxis().x > -0.1 && inputM.GetAxis().x < 0.1) dashDirection.x = 0;
-
             if (inputM.GetAxis().y > 0.1) dashDirection.y = 1;
             if (inputM.GetAxis().y < -0.1) dashDirection.y = -1;
             if (inputM.GetAxis().y > -0.1 && inputM.GetAxis().y < 0.1) dashDirection.y = 0;
+
+            myAnim.SetTrigger("Dash");
+            DashState();
         }
     }
-
-    void Dash(Vector2 direction)
-    {
-        Vector3 provisionalPos;
-        provisionalPos = this.transform.position;
-        dashCounter += Time.deltaTime;
-
-        provisionalPos.x += direction.x * Time.deltaTime * dashSpeed;
-        provisionalPos.y += direction.y * Time.deltaTime * dashSpeed;
-
-        this.transform.position = provisionalPos;
-
-        if (dashCounter >= dashTime)
-        {
-            dashCounter = 0;
-            isDashing = false;
-        }
-    }
-
+    
     public void RecieveDamage(int damage)
     {
         if(!godMode)
@@ -305,13 +373,12 @@ public class Player : MonoBehaviour
             life -= damage;
             blood.Emit(30);
             audioM.PlayerDamageSound();
-         
         }
-
 
         if (life <= 0)
         {
             isDead = true;
+            DeadState();
         }
     }
 
@@ -341,8 +408,8 @@ public class Player : MonoBehaviour
     }
 
     public int Life { get { return life; } }
-    public bool IsDead { get { return isDead; } }
     public float DashCooldownCounter { get { return dashCooldownCounter; } }
+    public bool IsDead { get { return isDead; } }
 
     void OnDrawGizmosSelected()
     {
