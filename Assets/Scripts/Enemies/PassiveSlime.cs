@@ -6,6 +6,7 @@ public class PassiveSlime : MonoBehaviour
 {
     [Header("Game Elements")]
     MoveMaster moveM;
+    public GameObject[] essence;
 
     [Header("Slime Fields")]
     [SerializeField]
@@ -132,6 +133,7 @@ public class PassiveSlime : MonoBehaviour
 
     void DeadState()
     {
+        DropEssences();
         currentPassiveSlimeState = PassiveSlimeState.Dead;
     }
 
@@ -156,6 +158,17 @@ public class PassiveSlime : MonoBehaviour
             damageCounter = damageCooldown;
             player.GetComponent<Player>().RecieveDamage(damage);
         }
+    }
+    void DropEssences()
+    {
+        for (int i = 0; i < essence.Length; i++)
+        {
+            essence[i].SetActive(true); //step 1: Activation
+            essence[i].GetComponent<AudioSource>().Play();
+            essence[i].GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.value ,Random.value),ForceMode2D.Impulse); //step 2: Random force
+            essence[i].transform.parent = null; //step 3: Unparenting
+        }
+
     }
 
     void OnTriggerStay2D(Collider2D other)
