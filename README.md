@@ -1,5 +1,5 @@
 
-<i align="center">![alt text](/WikiResources/Banner01.png)</i>
+<i align="center">![alt text](https://github.com/RyuuSukeChan/ProjectDungeon/blob/master/ArtSources/NewTitle.png?raw=true)</i>
 
 **Synopsis**
 --------
