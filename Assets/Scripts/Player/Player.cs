@@ -57,11 +57,11 @@ public class Player : MonoBehaviour
         Dead,
     }
 
-    void Start ()
+    void Start()
     {
         inputM = GameObject.FindGameObjectWithTag("InputMaster").GetComponent<InputMaster>();
 
-        audioM = GameObject.FindGameObjectWithTag("SoundMaster").GetComponent<AudioMaster>();
+        //audioM = GameObject.FindGameObjectWithTag("SoundMaster").GetComponent<AudioMaster>();
 
         blood = bloodParticles.GetComponent<ParticleSystem>();
         collisionM = GetComponent<CollisionMaster>();
@@ -100,18 +100,22 @@ public class Player : MonoBehaviour
         {
             attackCounter -= Time.deltaTime;
         }
+
         if(arrowCounter > 0)
         {
             arrowCounter -= Time.deltaTime;
         }
+
         if (dashCooldownCounter > 0)
         {
             dashCooldownCounter -= Time.deltaTime;
         }
+
         if(Input.GetKeyDown(KeyCode.G))
         {
             godMode = !godMode;
         }
+
         if(godMode)
         {
             speed = new Vector2(8, 8);
@@ -223,7 +227,6 @@ public class Player : MonoBehaviour
     void Dead()
     {
 
-
     }
 
     #endregion
@@ -257,6 +260,8 @@ public class Player : MonoBehaviour
 
     #endregion
 
+    #region MECHANICS METHODS
+
     public void Attack() //ATTACK IF PLAYER IS IDLE OR MOVING
     {
         if (attackCounter <= 0 && currentPlayerState == PlayerState.Idle || attackCounter <= 0 && currentPlayerState == PlayerState.Move)
@@ -265,7 +270,7 @@ public class Player : MonoBehaviour
 
             myAnim.SetTrigger("Attack");
 
-            audioM.SwordSound();
+            //audioM.SwordSound();
 
             Vector3 pos = this.transform.position + (Vector3)attackBoxPos;
             Collider2D[] results = new Collider2D[5];
@@ -372,7 +377,7 @@ public class Player : MonoBehaviour
         {
             life -= damage;
             blood.Emit(30);
-            audioM.PlayerDamageSound();
+            //audioM.PlayerDamageSound();
         }
 
         if (life <= 0)
@@ -407,9 +412,15 @@ public class Player : MonoBehaviour
         lifeParticles.SetActive(false);
     }
 
+    #endregion
+
+    #region GETTERS/SETTERS
+
     public int Life { get { return life; } }
     public float DashCooldownCounter { get { return dashCooldownCounter; } }
     public bool IsDead { get { return isDead; } }
+
+    #endregion
 
     void OnDrawGizmosSelected()
     {

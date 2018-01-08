@@ -144,7 +144,7 @@ public class PassiveSlime : MonoBehaviour
     public void RecieveDamage(int damage)
     {
         life -= damage;
-
+        Debug.Log("AH");
         if (life <= 0)
         {
             DeadState();
@@ -159,6 +159,7 @@ public class PassiveSlime : MonoBehaviour
             player.GetComponent<Player>().RecieveDamage(damage);
         }
     }
+
     void DropEssences()
     {
         for (int i = 0; i < essence.Length; i++)
@@ -168,7 +169,6 @@ public class PassiveSlime : MonoBehaviour
             essence[i].GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.value ,Random.value),ForceMode2D.Impulse); //step 2: Random force
             essence[i].transform.parent = null; //step 3: Unparenting
         }
-
     }
 
     void OnTriggerStay2D(Collider2D other)

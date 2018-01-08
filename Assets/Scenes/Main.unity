@@ -208,6 +208,11 @@ Prefab:
       propertyPath: m_Name
       value: PassiveSlime (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 82860976686317758, guid: 0e1019d87612db740b932dfed8fb2b97,
+        type: 2}
+      propertyPath: spreadCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0e1019d87612db740b932dfed8fb2b97, type: 2}
   m_IsPrefabParent: 0
@@ -249,6 +254,11 @@ Prefab:
     - target: {fileID: 4373079473484836, guid: 52260243a7622c24582538ed90b58534, type: 2}
       propertyPath: m_RootOrder
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114006797921052392, guid: 52260243a7622c24582538ed90b58534,
+        type: 2}
+      propertyPath: filter.layerMask.m_Bits
+      value: 34048
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 52260243a7622c24582538ed90b58534, type: 2}
@@ -450,6 +460,11 @@ Prefab:
       propertyPath: m_Name
       value: PassiveSlime (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 82860976686317758, guid: 0e1019d87612db740b932dfed8fb2b97,
+        type: 2}
+      propertyPath: spreadCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0e1019d87612db740b932dfed8fb2b97, type: 2}
   m_IsPrefabParent: 0
@@ -499,34 +514,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0e1019d87612db740b932dfed8fb2b97, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &779861870
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 779861872}
-  m_Layer: 0
-  m_Name: SoundMaster
-  m_TagString: SoundMaster
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &779861872
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 779861870}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.192151, y: -3.9305692, z: 0.03429392}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 17
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1058898666
 Prefab:
   m_ObjectHideFlags: 0

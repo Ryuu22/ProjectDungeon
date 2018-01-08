@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 58379337229212580}
   - component: {fileID: 58072249523279612}
   - component: {fileID: 114741066448628306}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: PassiveSlime
   m_TagString: PassiveSlime
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1357635326087576}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.9079, y: 3.1004367, z: -0.015625}
+  m_LocalPosition: {x: -16.086174, y: 5.055245, z: -0.015625}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4706773898839138}
