@@ -30,6 +30,11 @@ public class InputMaster : MonoBehaviour
             {
                 player.Shoot();
             }
+
+            if(Input.GetKeyDown(KeyCode.R))
+            {
+                player.BeginSkill1();
+            }
         }
     }
 

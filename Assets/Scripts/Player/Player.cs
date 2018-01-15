@@ -35,6 +35,14 @@ public class Player : MonoBehaviour
     float dashCounter;
     bool isDashing;
 
+    float skill1ChargeTime = 1;
+    float skill1Cooldown = 4;
+    float skill1CooldownCounter;
+    float chargeCounter;
+    float skill2ChargeTime = 1;
+    float skill2Cooldown = 4;
+    float skill2CooldownCounter;
+
     float attackCooldown = 1;
     float attackCounter;
     int damage = 10;
@@ -53,8 +61,16 @@ public class Player : MonoBehaviour
         Idle,
         Move,
         Dash,
-        Cast,
+        Cast1,
+        Cast2,
         Dead,
+    }
+
+    Skill currentskill1;
+    Skill currentskill2;
+    enum Skill
+    {
+        ChargedStrike,
     }
 
     void Start()
@@ -84,8 +100,12 @@ public class Player : MonoBehaviour
                 Dash();
                 break;
 
-            case PlayerState.Cast:
-                Cast();
+            case PlayerState.Cast1:
+                Cast1();
+                break;
+
+            case PlayerState.Cast2:
+                Cast2();
                 break;
 
             case PlayerState.Dead:
@@ -111,7 +131,17 @@ public class Player : MonoBehaviour
             dashCooldownCounter -= Time.deltaTime;
         }
 
-        if(Input.GetKeyDown(KeyCode.G))
+        if (skill1CooldownCounter > 0)
+        {
+            skill1CooldownCounter -= Time.deltaTime;
+
+            if(skill1CooldownCounter <= 0)
+            {
+                skill1CooldownCounter = 0;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
         {
             godMode = !godMode;
         }
@@ -219,9 +249,28 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Cast()
+    void Cast1()
     {
+        switch (currentskill1)
+        {
+            case Skill.ChargedStrike:
+                ChargedStrike(skill1ChargeTime, skill1Cooldown, true);
+                break;
+            default:
+                break;
+        }
+    }
 
+    void Cast2()
+    {
+        switch (currentskill2)
+        {
+            case Skill.ChargedStrike:
+                ChargedStrike(skill2ChargeTime, skill2Cooldown, false);
+                break;
+            default:
+                break;
+        }
     }
 
     void Dead()
@@ -248,9 +297,14 @@ public class Player : MonoBehaviour
         currentPlayerState = PlayerState.Dash;
     }
 
-    public void CastState()
+    public void Cast1State()
     {
-        currentPlayerState = PlayerState.Cast;
+        currentPlayerState = PlayerState.Cast1;
+    }
+
+    public void Cast2State()
+    {
+        currentPlayerState = PlayerState.Cast2;
     }
 
     public void DeadState()
@@ -264,7 +318,7 @@ public class Player : MonoBehaviour
 
     public void Attack() //ATTACK IF PLAYER IS IDLE OR MOVING
     {
-        if (attackCounter <= 0 && currentPlayerState == PlayerState.Idle || attackCounter <= 0 && currentPlayerState == PlayerState.Move)
+        if (attackCounter <= 0 && currentPlayerState == PlayerState.Idle || attackCounter <= 0 && currentPlayerState == PlayerState.Move || attackCounter <= 0 && currentPlayerState == PlayerState.Cast1 || attackCounter <= 0 && currentPlayerState == PlayerState.Cast2)
         {
             attackCounter = attackCooldown;
 
@@ -370,6 +424,14 @@ public class Player : MonoBehaviour
             DashState();
         }
     }
+
+    public void BeginSkill1()
+    {
+        if (skill1CooldownCounter <= 0)
+        {
+            Cast1State();
+        }
+    }
     
     public void RecieveDamage(int damage)
     {
@@ -419,6 +481,37 @@ public class Player : MonoBehaviour
     public int Life { get { return life; } }
     public float DashCooldownCounter { get { return dashCooldownCounter; } }
     public bool IsDead { get { return isDead; } }
+
+    #endregion
+
+    #region SKILLS
+
+    void ChargedStrike(float chargeTime, float cooldown, bool skill)
+    {
+        chargeCounter += Time.deltaTime;
+        Debug.Log("Charging");
+        Vector2 provisionalSpeed = speed;
+        speed = new Vector2(speed.x/2, speed.y/2);
+        Move();
+
+        if(chargeCounter >= chargeTime)
+        {
+            chargeCounter = 0;
+            speed = provisionalSpeed;
+            int provisionalDamage = damage;
+            damage = 25;
+            Attack();
+            damage = provisionalDamage;
+
+            if (skill)
+            {
+                skill1CooldownCounter = cooldown;
+            }
+            else skill2CooldownCounter = cooldown;
+            Debug.Log("AH");
+            IdleState();
+        }
+    }
 
     #endregion
 
