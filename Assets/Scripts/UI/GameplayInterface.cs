@@ -20,7 +20,7 @@ public class GameplayInterface : MonoBehaviour
     void Start ()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        boss = GameObject.FindGameObjectWithTag("BossSlime").GetComponent<BossSlime>();
+        //boss = GameObject.FindGameObjectWithTag("BossSlime").GetComponent<BossSlime>();
     }
 
 	void Update ()
@@ -41,6 +41,6 @@ public class GameplayInterface : MonoBehaviour
 
         if(boss == null) bossBar.SetActive(false);
 
-        bossHealthBar.localPosition = new Vector3(200 - boss.Life, bossHealthBar.localPosition.y, 0);
+        //bossHealthBar.localPosition = new Vector3(200 - boss.Life, bossHealthBar.localPosition.y, 0);
     }
 }

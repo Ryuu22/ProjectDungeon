@@ -8,11 +8,14 @@ public class CameraBehaviour : MonoBehaviour {
     [SerializeField] private Transform cameraTransform;
 
     [SerializeField] private float freq;
+    [SerializeField] private float offsetX;
+    [SerializeField] private float offsetY;
 
     private bool shaking;
     private float magnitude;
     private float magnitudeRotation;
     private float shakingCounter;
+    
 
 
     private Vector3 cameraPos;
@@ -29,7 +32,7 @@ public class CameraBehaviour : MonoBehaviour {
     {
         cameraPos = Vector3.Lerp(cameraTransform.position, playerTransform.position, freq);
         cameraPos.z = -10;
-        this.transform.position = cameraPos;
+        this.transform.position = new Vector3(cameraPos.x + offsetX, cameraPos.y + offsetY, cameraPos.z);
 
         if (Input.GetKey(KeyCode.AltGr))
         {
