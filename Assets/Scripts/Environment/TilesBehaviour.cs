@@ -7,10 +7,13 @@ public class TilesBehaviour : MonoBehaviour {
     public Color randomColor;
     public float randomNumber;
 
+    public float minimumTone;
+    public float maximunTone;
+
 	// Use this for initialization
 	void Start ()
     {
-        randomNumber = Random.Range(0.7f, 1.0f);
+        randomNumber = Random.Range(minimumTone, maximunTone);
 
         randomColor = new Color(randomNumber, randomNumber, randomNumber, 255);
 
