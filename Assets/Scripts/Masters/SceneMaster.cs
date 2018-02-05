@@ -11,6 +11,12 @@ public class SceneMaster : MonoBehaviour
     [SerializeField]
     GameObject optionsPanel;
 
+    public Text pressAnyButton;
+    float pressAnyButtonAlpha;
+    bool alphaFilled;
+
+    bool findController;
+
     float alphaBlackScreen;
     bool fadeToBlack;
 
@@ -61,7 +67,7 @@ public class SceneMaster : MonoBehaviour
         {
             if(alphaBlackScreen > 0)
             {
-                alphaBlackScreen -= Time.deltaTime/3;
+                alphaBlackScreen -= Time.deltaTime / 3;
             }
             else
             {
@@ -99,11 +105,44 @@ public class SceneMaster : MonoBehaviour
 
             case CurrentScene.Title:
 
+                if(!findController)
+                {
+                    pressAnyButton = GameObject.Find("PressAnyButton").GetComponent<Text>();
+                    pressAnyButton.gameObject.SetActive(false);
+                    findController = true;
+                }
+
                 titleCounter += Time.deltaTime;
+                pressAnyButton.color = new Color(pressAnyButton.color.r, pressAnyButton.color.g, pressAnyButton.color.b, pressAnyButtonAlpha);
+
+                if(pressAnyButtonAlpha < 1 && !alphaFilled)
+                {
+                    pressAnyButtonAlpha += Random.Range(Time.deltaTime, Time.deltaTime / 3);
+
+                    if(pressAnyButtonAlpha >= 1)
+                    {
+                        alphaFilled = true;
+                    }
+                }
+                if (pressAnyButtonAlpha > 0 && alphaFilled)
+                {
+                    pressAnyButtonAlpha -= Random.Range(Time.deltaTime, Time.deltaTime / 3);
+
+                    if (pressAnyButtonAlpha <= 0)
+                    {
+                        alphaFilled = false;
+                    }
+                }
 
                 if(titleCounter >= 3)
                 {
-                    GameObject.Find("TitleCanvas").GetComponent<Animator>().SetTrigger("Start");
+                    pressAnyButton.gameObject.SetActive(true);
+
+                    if(Input.anyKey)
+                    {
+                        GameObject.Find("TitleCanvas").GetComponent<Animator>().SetTrigger("Start");
+                        pressAnyButton.gameObject.SetActive(false);
+                    }
                 }
 
                 break;
@@ -125,21 +164,22 @@ public class SceneMaster : MonoBehaviour
         Screen.fullScreen = !Screen.fullScreen;
     }
 
-    public void OpenCloseMenu(GameObject menu)
+    public void OpenOptionsMenu()
     {
-        if(menu.activeInHierarchy)
+        if(!optionsPanel.activeInHierarchy)
         {
-            menu.gameObject.SetActive(false);
-        }
-        else
-        {
-            menu.gameObject.SetActive(true);
+            optionsPanel.gameObject.SetActive(true);
         }
     }
 
-    public void CloseOptionsMenu(Animator menu)
+    public void CloseOptionsMenu()
     {
-        menu.SetTrigger("Close");
+        optionsPanel.GetComponent<Animator>().SetTrigger("Close");
+    }
+
+    public void ExitGame()
+    {
+
     }
 
     #endregion

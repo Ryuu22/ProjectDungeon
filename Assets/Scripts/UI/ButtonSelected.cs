@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class ButtonSelected : MonoBehaviour
 {
-    [SerializeField]
     Animator myAnim;
+    public SceneMaster sceneM;
     
+    void Start()
+    {
+        myAnim = GetComponent<Animator>();
+        sceneM = GameObject.FindGameObjectWithTag("SceneMaster").GetComponent<SceneMaster>();
+    }
+
     public void NewGame()
     {
         myAnim.SetTrigger("NewGame");
@@ -27,4 +33,23 @@ public class ButtonSelected : MonoBehaviour
         myAnim.SetTrigger("Nothing");
     }
 
+    public void PressedStart()
+    {
+        sceneM.LoadGameplayScreen();
+    }
+
+    public void PressedOptions()
+    {
+        sceneM.OpenOptionsMenu();
+    }
+
+    public void ClosedOptions()
+    {
+        sceneM.CloseOptionsMenu();
+    }
+
+    public void PressedExit()
+    {
+        sceneM.ExitGame();
+    }
 }
