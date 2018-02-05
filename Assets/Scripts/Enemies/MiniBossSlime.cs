@@ -181,7 +181,6 @@ public class MiniBossSlime : MonoBehaviour
 
         if (deadTime <= 0)
         {
-            sceneM.MiniBossDied();
             Destroy(this.gameObject);
         }
     }

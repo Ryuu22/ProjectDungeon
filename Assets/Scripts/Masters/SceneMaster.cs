@@ -9,109 +9,37 @@ public class SceneMaster : MonoBehaviour
     [SerializeField]
     Image blackScreen;
     [SerializeField]
-    GameObject endingPanel;
-    [SerializeField]
-    Image logo;
-    [SerializeField]
-    Text pressAnyButton;
-    float anyButtonCounter;
-    bool started;
-    [SerializeField]
-    Animator myAnim;
-    public float logoFade;
-    public float fade;
-    public bool fadeOut = false;
-    public bool titleScreen = false;
-    int miniBossesAlive = 2;
-    Player player;
+    GameObject optionsPanel;
 
-    public float counter;
-    float alphaCounter;
+    float alphaBlackScreen;
+    bool fadeToBlack;
+
+    float logoCounter;
+    float titleCounter;
+
+    CurrentScene currentScene;
+    enum CurrentScene
+    {
+        Logo,
+        Title,
+        Gameplay,
+    }
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
 
     private void Start()
     {
-        counter = 0;
-        fade = 1;
-        blackScreen.color = new Color(0, 0, 0, fade);
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        currentScene = CurrentScene.Logo;
+        alphaBlackScreen = 1;
+        logoCounter = 8;
     }
 
     private void Update()
     {
-        anyButtonCounter += Time.deltaTime;
-
-        if(counter >= 3 && pressAnyButton != null)
-        {
-            pressAnyButton.gameObject.SetActive(true);
-        }
-
-        if (anyButtonCounter >= 0.5f && !started && pressAnyButton != null)
-        {
-            pressAnyButton.color = new Color(255, 255, 255, 1);
-
-            if(anyButtonCounter >= 2)
-            {
-                pressAnyButton.color = new Color(255, 255, 255, 0);
-                anyButtonCounter = 0;
-            }
-        }
-
-        if(Input.anyKeyDown && myAnim != null)
-        {
-            pressAnyButton.color = new Color(255, 255, 255, 0);
-            started = true;
-            myAnim.SetTrigger("Start");
-        }
-
-        counter += Time.deltaTime;
-
-        if(counter >= 2 && logo != null)
-        {
-            if(logoFade < 1) logoFade += Time.deltaTime / 2;
-
-            if(counter >= 8) FadeOut(false);
-
-            logo.color = new Color(255, 255, 255, logoFade);
-        }
-
-        if (fade > 0 && !fadeOut) fade -= Time.deltaTime / 3;
-
-        blackScreen.color = new Color(0, 0, 0, fade);
-
-        if(fadeOut)
-        {
-            logoFade -= Time.deltaTime;
-
-            if(fade < 1)
-            {
-                fade += Time.deltaTime / 2;
-            }
-
-            blackScreen.color = new Color(0, 0, 0, fade);
-
-            if(fade >= 1 && !titleScreen)
-            {
-                LoadTitleScreen();
-            }
-
-            if(fade >= 1 && titleScreen)
-            {
-                LoadGameplayScreen();
-            }
-        }
-
-        if(player != null)
-        {
-            if(player.IsDead)
-            {
-                EndingPanel(false);
-            }
-        }
-
-        if(miniBossesAlive <= 0)
-        {
-            EndingPanel(true);
-        }
+        blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, alphaBlackScreen);
 
         if(Input.GetKey(KeyCode.LeftControl))
         {
@@ -129,63 +57,84 @@ public class SceneMaster : MonoBehaviour
             }
         }
 
-    }
-
-    public void EndingPanel(bool victory)
-    {
-        if (victory)
+        if(!fadeToBlack)
         {
-            endingPanel.SetActive(true);
-            GameObject.FindGameObjectWithTag("EndingText").GetComponent<Text>().text = "victory";
-            GameObject.FindGameObjectWithTag("EndingText").GetComponent<Text>().color = new Color(0, 255, 0);
+            if(alphaBlackScreen > 0)
+            {
+                alphaBlackScreen -= Time.deltaTime/3;
+            }
+            else
+            {
+                alphaBlackScreen = 0;
+            }
         }
         else
         {
-            endingPanel.SetActive(true);
-            GameObject.FindGameObjectWithTag("EndingText").GetComponent<Text>().text = "defeat";
-            GameObject.FindGameObjectWithTag("EndingText").GetComponent<Text>().color = new Color(255, 0, 0);
+            if(alphaBlackScreen < 1)
+            {
+                alphaBlackScreen += Time.deltaTime / 3;
+            }
+            else
+            {
+                alphaBlackScreen = 1;
+            }
         }
+
+        switch(currentScene)
+        {
+            case CurrentScene.Logo:
+
+                logoCounter -= Time.deltaTime;
+
+                if(logoCounter <= 3)
+                {
+                    fadeToBlack = true;
+                }
+                if(logoCounter <= 0)
+                {                    
+                    LoadTitleScreen();
+                }
+
+                break;
+
+            case CurrentScene.Title:
+
+                titleCounter += Time.deltaTime;
+
+                if(titleCounter >= 3)
+                {
+                    GameObject.Find("TitleCanvas").GetComponent<Animator>().SetTrigger("Start");
+                }
+
+                break;
+
+            case CurrentScene.Gameplay:
+
+                break;
+
+            default:
+                break;
+        }
+
     }
 
-    public void FadeOut(bool isTitleScreen)
-    {
-        fadeOut = true;
-        titleScreen = isTitleScreen;
-    }
-
-    public void LoadLogoScreen()
-    {
-        SceneManager.LoadScene(0);
-    }
-
-    public void LoadTitleScreen()
-    {
-        SceneManager.LoadScene(1);
-    }
-
-    public void LoadGameplayScreen()
-    {
-        SceneManager.LoadScene(2);
-    }
-
-    public void ExitGame()
-    {
-        
-    }
+    #region OPTIONS MENU METHODS
 
     public void FullScreen()
     {
         Screen.fullScreen = !Screen.fullScreen;
     }
 
-    public void OpenMenu(GameObject menu)
+    public void OpenCloseMenu(GameObject menu)
     {
-        menu.gameObject.SetActive(true);
-    }
-
-    public void CloseMenu(GameObject menu)
-    {
-        menu.gameObject.SetActive(false);
+        if(menu.activeInHierarchy)
+        {
+            menu.gameObject.SetActive(false);
+        }
+        else
+        {
+            menu.gameObject.SetActive(true);
+        }
     }
 
     public void CloseOptionsMenu(Animator menu)
@@ -193,8 +142,34 @@ public class SceneMaster : MonoBehaviour
         menu.SetTrigger("Close");
     }
 
-    public void MiniBossDied()
+    #endregion
+
+    #region SCENE MANAGEMENT METHODS
+
+    public void LoadLogoScreen()
     {
-        miniBossesAlive--;
+        currentScene = CurrentScene.Logo;
+        fadeToBlack = false;
+        alphaBlackScreen = 1;
+        logoCounter = 8;
+        SceneManager.LoadScene(0);
     }
+
+    public void LoadTitleScreen()
+    {
+        currentScene = CurrentScene.Title;
+        fadeToBlack = false;
+        alphaBlackScreen = 1;
+        SceneManager.LoadScene(1);
+    }
+
+    public void LoadGameplayScreen()
+    {
+        currentScene = CurrentScene.Gameplay;
+        fadeToBlack = false;
+        alphaBlackScreen = 1;
+        SceneManager.LoadScene(2);
+    }
+
+    #endregion
 }
