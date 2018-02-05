@@ -17,16 +17,11 @@ public class GravityTrigger : MonoBehaviour
     {
         positionYList = new List<float>();
 
-        positionYList.Add(6.5f);
-        positionYList.Add(5.5f);
-        positionYList.Add(4.5f);
-        positionYList.Add(3.5f);
         positionYList.Add(2.5f);
         positionYList.Add(1.5f);
         positionYList.Add(0.5f);
         positionYList.Add(-1.5f);
-        positionYList.Add(-2.5f);
-        positionYList.Add(-3.5f);
+
 
     }
 
@@ -53,7 +48,7 @@ public class GravityTrigger : MonoBehaviour
     {
         if(collision.gameObject.tag == ("Destructible"))
         {
-            collision.GetComponent<Rigidbody2D>().gravityScale = 1;
+            collision.GetComponent<TilesBehaviour>().StartFalling();
         }
     }
 }
