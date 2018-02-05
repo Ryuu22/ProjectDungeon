@@ -17,9 +17,17 @@ public class TilesBehaviour : MonoBehaviour {
 
         randomColor = new Color(randomNumber, randomNumber, randomNumber, 255);
 
-        this.gameObject.GetComponent<SpriteRenderer>().color = randomColor;
+        GetComponentInChildren<SpriteRenderer>().color = randomColor;
         
 	}
-	
+	public void StartFalling()
+    {
+        this.GetComponent<Rigidbody2D>().gravityScale = 1;
+        
+    }
+    public void StopFalling()
+    {
+        this.gameObject.SetActive(false);
+    }
 
 }
