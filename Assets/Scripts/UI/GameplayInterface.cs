@@ -26,7 +26,6 @@ public class GameplayInterface : MonoBehaviour
 	void Update ()
     {
         healthBar.sizeDelta = new Vector2(player.Life * 2, 10);
-        energyBar.sizeDelta = new Vector2(100 - player.DashCooldownCounter * 20, 6);
 
         if(boss != null)
         {

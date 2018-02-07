@@ -26,22 +26,7 @@ public class Player : MonoBehaviour
     bool isDead;
     Vector2 movementSpeed = Vector2.zero;
     Vector2 speed = new Vector2(5, 5);
-
-    Vector2 dashDirection;
-    float dashCooldown = 5;
-    float dashCooldownCounter;
-    float dashSpeed = 15;
-    float dashTime = 0.1f;
-    float dashCounter;
-    bool isDashing;
-
-    float skill1ChargeTime = 1;
-    float skill1Cooldown = 4;
-    float skill1CooldownCounter;
-    float chargeCounter;
-    float skill2ChargeTime = 1;
-    float skill2Cooldown = 4;
-    float skill2CooldownCounter;
+    float deadCounter = 0;
 
     float attackCooldown = 1;
     float attackCounter;
@@ -60,9 +45,6 @@ public class Player : MonoBehaviour
     {
         Idle,
         Move,
-        Dash,
-        Cast1,
-        Cast2,
         Dead,
     }
 
@@ -96,18 +78,6 @@ public class Player : MonoBehaviour
                 Move();
                 break;
 
-            case PlayerState.Dash:
-                Dash();
-                break;
-
-            case PlayerState.Cast1:
-                Cast1();
-                break;
-
-            case PlayerState.Cast2:
-                Cast2();
-                break;
-
             case PlayerState.Dead:
                 Dead();
                 break;
@@ -126,21 +96,6 @@ public class Player : MonoBehaviour
             arrowCounter -= Time.deltaTime;
         }
 
-        if (dashCooldownCounter > 0)
-        {
-            dashCooldownCounter -= Time.deltaTime;
-        }
-
-        if (skill1CooldownCounter > 0)
-        {
-            skill1CooldownCounter -= Time.deltaTime;
-
-            if(skill1CooldownCounter <= 0)
-            {
-                skill1CooldownCounter = 0;
-            }
-        }
-
         if (Input.GetKeyDown(KeyCode.G))
         {
             godMode = !godMode;
@@ -149,7 +104,6 @@ public class Player : MonoBehaviour
         if(godMode)
         {
             speed = new Vector2(8, 8);
-            dashCooldown = 0.2f;
             attackCooldown = 0;
             arrowCooldown = 0;
             damage = 50;
@@ -158,7 +112,6 @@ public class Player : MonoBehaviour
         else
         {
             speed = new Vector2(5, 5);
-            dashCooldown = 5;
             attackCooldown = 1;
             arrowCooldown = 1.5f;
             damage = 10;
@@ -232,51 +185,14 @@ public class Player : MonoBehaviour
         this.transform.position = provisionalPos;
     }
 
-    void Dash()
-    {
-        Vector3 provisionalPos;
-        provisionalPos = this.transform.position;
-        dashCounter += Time.deltaTime;
-
-        provisionalPos.x += dashDirection.x * Time.deltaTime * dashSpeed;
-        provisionalPos.y += dashDirection.y * Time.deltaTime * dashSpeed;
-
-        this.transform.position = provisionalPos;
-
-        if (dashCounter >= dashTime)
-        {
-            dashCounter = 0;
-            IdleState();
-        }
-    }
-
-    void Cast1()
-    {
-        switch (currentskill1)
-        {
-            case Skill.ChargedStrike:
-                ChargedStrike(skill1ChargeTime, skill1Cooldown, true);
-                break;
-            default:
-                break;
-        }
-    }
-
-    void Cast2()
-    {
-        switch (currentskill2)
-        {
-            case Skill.ChargedStrike:
-                ChargedStrike(skill2ChargeTime, skill2Cooldown, false);
-                break;
-            default:
-                break;
-        }
-    }
-
     void Dead()
     {
+        deadCounter += Time.deltaTime;
 
+        if(deadCounter >= 2)
+        {
+            Debug.Log("GAME OVER");
+        }
     }
 
     #endregion
@@ -293,21 +209,6 @@ public class Player : MonoBehaviour
         currentPlayerState = PlayerState.Move;
     }
 
-    public void DashState()
-    {
-        currentPlayerState = PlayerState.Dash;
-    }
-
-    public void Cast1State()
-    {
-        currentPlayerState = PlayerState.Cast1;
-    }
-
-    public void Cast2State()
-    {
-        currentPlayerState = PlayerState.Cast2;
-    }
-
     public void DeadState()
     {
         currentPlayerState = PlayerState.Dead;
@@ -319,7 +220,7 @@ public class Player : MonoBehaviour
 
     public void Attack() //ATTACK IF PLAYER IS IDLE OR MOVING
     {
-        if (attackCounter <= 0 && currentPlayerState == PlayerState.Idle || attackCounter <= 0 && currentPlayerState == PlayerState.Move || attackCounter <= 0 && currentPlayerState == PlayerState.Cast1 || attackCounter <= 0 && currentPlayerState == PlayerState.Cast2)
+        if (attackCounter <= 0 && currentPlayerState == PlayerState.Idle || attackCounter <= 0 && currentPlayerState == PlayerState.Move || attackCounter <= 0)
         {
             attackCounter = attackCooldown;
 
@@ -366,16 +267,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Shoot() //SHOOT IF PLAYER IS IDLE OR MOVING
-    {
-        if(arrowCounter <= 0 && currentPlayerState == PlayerState.Idle || arrowCounter <= 0 && currentPlayerState == PlayerState.Move)
-        {
-            arrowCounter = arrowCooldown;
-            arrowGameObject.transform.position = new Vector3(this.transform.position.x + attackBoxPos.x, this.transform.position.y + 1, 0);
-            Instantiate(arrowGameObject);
-        }
-    }
-
     void Damage (GameObject target, string targetType) //OBJECTIVE RECIEVES THE HIT
     {
         if(targetType == ("Slime"))
@@ -405,32 +296,6 @@ public class Player : MonoBehaviour
         if (targetType == ("MiniBossSlime"))
         {
             target.GetComponent<MiniBossSlime>().RecieveDamage(damage);
-        }
-    }
-
-    public void BeginDash() //SET THE DIRECTION OF THE DASH
-    {
-        if(dashCooldownCounter <= 0 && currentPlayerState == PlayerState.Move)
-        {
-            dashCooldownCounter = dashCooldown;
-
-            if (inputM.GetAxis().x > 0.1) dashDirection.x = 1;
-            if (inputM.GetAxis().x < -0.1) dashDirection.x = -1;
-            if (inputM.GetAxis().x > -0.1 && inputM.GetAxis().x < 0.1) dashDirection.x = 0;
-            if (inputM.GetAxis().y > 0.1) dashDirection.y = 1;
-            if (inputM.GetAxis().y < -0.1) dashDirection.y = -1;
-            if (inputM.GetAxis().y > -0.1 && inputM.GetAxis().y < 0.1) dashDirection.y = 0;
-
-            myAnim.SetTrigger("Dash");
-            DashState();
-        }
-    }
-
-    public void BeginSkill1()
-    {
-        if (skill1CooldownCounter <= 0)
-        {
-            Cast1State();
         }
     }
     
@@ -475,46 +340,18 @@ public class Player : MonoBehaviour
         lifeParticles.SetActive(false);
     }
 
+    public void Fall()
+    {
+        this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 5;
+        DeadState();
+    }
+
     #endregion
 
     #region GETTERS/SETTERS
 
     public int Life { get { return life; } }
-    public float DashCooldownCounter { get { return dashCooldownCounter; } }
     public bool IsDead { get { return isDead; } }
-
-    #endregion
-
-    #region SKILLS
-
-    void ChargedStrike(float chargeTime, float cooldown, bool skill)
-    {
-        chargeCounter += Time.deltaTime;
-        Debug.Log("Charging");
-        Vector2 provisionalSpeed = speed;
-        speed = new Vector2(speed.x/2, speed.y/2);
-        Move();
-
-        if(chargeCounter >= chargeTime)
-        {
-            chargeCounter = 0;
-            speed = provisionalSpeed;
-            int provisionalDamage = damage;
-            damage = 25;
-            Attack();
-            damage = provisionalDamage;
-
-            if (skill)
-            {
-                skill1CooldownCounter = cooldown;
-            }
-            else skill2CooldownCounter = cooldown;
-            Debug.Log("AH");
-            IdleState();
-        }
-    }
-
-
 
     #endregion
 

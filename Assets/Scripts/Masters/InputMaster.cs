@@ -20,20 +20,9 @@ public class InputMaster : MonoBehaviour
             {
                 player.Attack();
             }
-
-            if(Input.GetKeyDown(KeyCode.LeftShift))
+            if(Input.GetKeyDown(KeyCode.G))
             {
-                player.BeginDash();
-            }
-
-            if(Input.GetMouseButtonDown(0))
-            {
-                player.Shoot();
-            }
-
-            if(Input.GetKeyDown(KeyCode.R))
-            {
-                player.BeginSkill1();
+                player.Fall();
             }
         }
     }
