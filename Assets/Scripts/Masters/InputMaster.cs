@@ -24,6 +24,10 @@ public class InputMaster : MonoBehaviour
             {
                 player.Fall();
             }
+            if(Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                player.BeginDash();
+            }
         }
     }
 

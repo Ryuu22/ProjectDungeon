@@ -26,13 +26,16 @@ public class Player : MonoBehaviour
     bool isDead;
     Vector2 movementSpeed = Vector2.zero;
     Vector2 speed = new Vector2(5, 5);
+    Vector2 dashSpeed = new Vector2(15, 15);
+    Vector2 dashDirection;
     float deadCounter = 0;
 
     float attackCooldown = 1;
     float attackCounter;
     int damage = 10;
-    float arrowCooldown = 1.5f;
-    float arrowCounter;
+    float dashCooldown;
+    float dashCounter = 0.2f;
+
     Animator myAnim;
     public GameObject arrowGameObject;
 
@@ -45,14 +48,8 @@ public class Player : MonoBehaviour
     {
         Idle,
         Move,
+        Dash,
         Dead,
-    }
-
-    Skill currentskill1;
-    Skill currentskill2;
-    enum Skill
-    {
-        ChargedStrike,
     }
 
     void Start()
@@ -78,6 +75,10 @@ public class Player : MonoBehaviour
                 Move();
                 break;
 
+            case PlayerState.Dash:
+                Dash();
+                break;
+
             case PlayerState.Dead:
                 Dead();
                 break;
@@ -90,11 +91,7 @@ public class Player : MonoBehaviour
         {
             attackCounter -= Time.deltaTime;
         }
-
-        if(arrowCounter > 0)
-        {
-            arrowCounter -= Time.deltaTime;
-        }
+        dashCooldown -= Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.G))
         {
@@ -105,7 +102,6 @@ public class Player : MonoBehaviour
         {
             speed = new Vector2(8, 8);
             attackCooldown = 0;
-            arrowCooldown = 0;
             damage = 50;
             this.gameObject.layer = 1;
         }
@@ -113,7 +109,6 @@ public class Player : MonoBehaviour
         {
             speed = new Vector2(5, 5);
             attackCooldown = 1;
-            arrowCooldown = 1.5f;
             damage = 10;
             this.gameObject.layer = LayerMask.NameToLayer("Player");
         }
@@ -185,6 +180,27 @@ public class Player : MonoBehaviour
         this.transform.position = provisionalPos;
     }
 
+    void Dash()
+    {
+        Vector3 provisionalPos;
+        provisionalPos = this.transform.position;
+
+        if (dashCounter > 0)
+        {
+            dashCounter -= Time.deltaTime;
+            Debug.Log("Dash");
+            provisionalPos.x += dashDirection.x * Time.deltaTime * dashSpeed.x;
+            provisionalPos.y += dashDirection.y * Time.deltaTime * dashSpeed.y;
+
+            this.transform.position = provisionalPos;
+        }
+        else
+        {
+            dashCounter = 0.2f;
+            IdleState();
+        }
+    }
+
     void Dead()
     {
         deadCounter += Time.deltaTime;
@@ -209,6 +225,11 @@ public class Player : MonoBehaviour
         currentPlayerState = PlayerState.Move;
     }
 
+    public void DashState()
+    {
+        currentPlayerState = PlayerState.Dash;
+    }
+
     public void DeadState()
     {
         currentPlayerState = PlayerState.Dead;
@@ -217,6 +238,21 @@ public class Player : MonoBehaviour
     #endregion
 
     #region MECHANICS METHODS
+    
+    public void BeginDash()
+    {
+        if(dashCooldown < 0)
+        {
+            if (inputM.GetAxis().x < 0) dashDirection.x = -1;
+            if (inputM.GetAxis().x > 0) dashDirection.x = 1;
+
+            if (inputM.GetAxis().y < 0) dashDirection.y = -1;
+            if (inputM.GetAxis().y > 0) dashDirection.y = 1;
+
+            dashCooldown = 5;
+            DashState();
+        }
+    }
 
     public void Attack() //ATTACK IF PLAYER IS IDLE OR MOVING
     {
