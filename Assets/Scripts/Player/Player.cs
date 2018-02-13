@@ -39,9 +39,7 @@ public class Player : MonoBehaviour
     Animator myAnim;
     Rigidbody rb;
 
-    public Vector2 attackBoxPos;
-    public Vector2 attackBoxSize;
-    public ContactFilter2D filter;
+    public GameObject triggerGameObject;
 
     PlayerState currentPlayerState;
     enum PlayerState
@@ -166,13 +164,13 @@ public class Player : MonoBehaviour
         if (inputM.GetAxis().x > 0.1) //FLIP RIGHT
         {
             this.gameObject.transform.localScale = new Vector3(1, 1, 1);
-            attackBoxPos.x = 0.75f;
+
         }
 
         if (inputM.GetAxis().x < -0.1) //FLIP LEFT
         {
             this.gameObject.transform.localScale = new Vector3(-1, 1, 1);
-            attackBoxPos.x = -0.75f;
+
         }
 
         provisionalPos.x += inputM.GetAxis().x * Time.deltaTime * movementSpeed.x;
@@ -267,44 +265,9 @@ public class Player : MonoBehaviour
 
             myAnim.SetTrigger("Attack");
 
-            //audioM.SwordSound();
+            triggerGameObject.SetActive(true);
+            triggerGameObject.GetComponent<AttackTriggerBehaviour>().attacking = true;
 
-            Vector3 pos = this.transform.position + (Vector3)attackBoxPos;
-            Collider2D[] results = new Collider2D[5];
-
-            int numColliders = Physics2D.OverlapBox(pos, attackBoxSize, 0, filter, results);
-
-            for (int i = 0; i < numColliders; i++)
-            {
-                if (results[i].gameObject.tag == "Slime")
-                {
-                    Damage(results[i].gameObject, "Slime");
-                }
-                if (results[i].gameObject.tag == "SpitterSlime")
-                {
-                    Damage(results[i].gameObject, "SpitterSlime");
-                }
-                if (results[i].gameObject.tag == "PassiveSlime")
-                {
-                    Damage(results[i].gameObject, "PassiveSlime");
-                }
-                if (results[i].gameObject.tag == "Destructible")
-                {
-                    Damage(results[i].gameObject, "Destructible");
-                }
-                if (results[i].gameObject.tag == "BossSlime")
-                {
-                    Damage(results[i].gameObject, "BossSlime");
-                }
-                if (results[i].gameObject.tag == "BossSpite")
-                {
-                    Damage(results[i].gameObject, "BossSpite");
-                }
-                if (results[i].gameObject.tag == "MiniBossSlime")
-                {
-                    Damage(results[i].gameObject, "MiniBossSlime");
-                }
-            }
         }
     }
 
@@ -399,7 +362,6 @@ public class Player : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.white;
-        Vector3 pos = this.transform.position + (Vector3)attackBoxPos;
-        Gizmos.DrawWireCube(pos, attackBoxSize);
+
     }
 }
