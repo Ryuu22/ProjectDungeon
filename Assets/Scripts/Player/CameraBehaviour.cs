@@ -6,7 +6,7 @@ public class CameraBehaviour : MonoBehaviour {
 
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform cameraTransform;
-
+    [SerializeField] private float distanceFromPlayer;
     [SerializeField] private float freq;
     [SerializeField] private float offsetX;
     [SerializeField] private float offsetY;
@@ -31,7 +31,7 @@ public class CameraBehaviour : MonoBehaviour {
     void Update()
     {
         cameraPos = Vector3.Lerp(cameraTransform.position, playerTransform.position, freq);
-        cameraPos.z = -10;
+        cameraPos.z = distanceFromPlayer;
         this.transform.position = new Vector3(cameraPos.x + offsetX, cameraPos.y + offsetY, cameraPos.z);
 
         if (Input.GetKey(KeyCode.AltGr))

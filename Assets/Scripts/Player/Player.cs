@@ -175,7 +175,6 @@ public class Player : MonoBehaviour
         }
 
         provisionalPos.x += inputM.GetAxis().x * Time.deltaTime * movementSpeed.x;
-        provisionalPos.y += inputM.GetAxis().y * Time.deltaTime * movementSpeed.y;
         provisionalPos.z += inputM.GetAxis().y * Time.deltaTime * movementSpeed.y;
         this.transform.position = provisionalPos;
     }
