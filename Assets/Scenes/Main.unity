@@ -693,6 +693,11 @@ Prefab:
       propertyPath: triggerGameObject
       value: 
       objectReference: {fileID: 1807720626}
+    - target: {fileID: 114279305316166946, guid: 52260243a7622c24582538ed90b58534,
+        type: 2}
+      propertyPath: checkWall
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 52260243a7622c24582538ed90b58534, type: 2}
   m_IsPrefabParent: 0
@@ -711,7 +716,7 @@ Prefab:
     - target: {fileID: 224926546477511212, guid: bdd030379bdf31d4c98e02a18ac21e95,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: -30.110537
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224926546477511212, guid: bdd030379bdf31d4c98e02a18ac21e95,
         type: 2}

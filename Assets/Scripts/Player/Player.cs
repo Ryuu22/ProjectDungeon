@@ -182,6 +182,7 @@ public class Player : MonoBehaviour
     {
         Vector3 provisionalPos;
         provisionalPos = this.transform.position;
+        myAnim.SetTrigger("Dash");
 
         if (dashCounter > 0)
         {
