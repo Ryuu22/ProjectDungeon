@@ -16,8 +16,6 @@ public class TilesBehaviour : MonoBehaviour {
         randomNumber = Random.Range(minimumTone, maximunTone);
 
         randomColor = new Color(randomNumber, randomNumber, randomNumber, 255);
-
-        GetComponentInChildren<SpriteRenderer>().color = randomColor;
         
 	}
 	public void StartFalling()

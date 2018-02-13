@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
     float dashCounter = 0.2f;
 
     Animator myAnim;
-    public GameObject arrowGameObject;
+    Rigidbody rb;
 
     public Vector2 attackBoxPos;
     public Vector2 attackBoxSize;
@@ -58,6 +58,7 @@ public class Player : MonoBehaviour
 
         //audioM = GameObject.FindGameObjectWithTag("SoundMaster").GetComponent<AudioMaster>();
 
+        rb = GetComponent<Rigidbody>();
         blood = bloodParticles.GetComponent<ParticleSystem>();
         collisionM = GetComponent<CollisionMaster>();
         myAnim = GetComponentInChildren<Animator>();
@@ -187,15 +188,15 @@ public class Player : MonoBehaviour
         if (dashCounter > 0)
         {
             dashCounter -= Time.deltaTime;
-            Debug.Log("Dash");
             provisionalPos.x += dashDirection.x * Time.deltaTime * dashSpeed.x;
-            provisionalPos.y += dashDirection.y * Time.deltaTime * dashSpeed.y;
-
+            provisionalPos.z += dashDirection.y * Time.deltaTime * dashSpeed.y;
+            rb.useGravity = false;
             this.transform.position = provisionalPos;
         }
         else
         {
             dashCounter = 0.2f;
+            rb.useGravity = true;
             IdleState();
         }
     }
@@ -242,11 +243,16 @@ public class Player : MonoBehaviour
     {
         if(dashCooldown < 0)
         {
+            if (inputM.GetAxis().x > -0.2f && inputM.GetAxis().x < 0.2f) dashDirection.x = 0;
             if (inputM.GetAxis().x < 0) dashDirection.x = -1;
             if (inputM.GetAxis().x > 0) dashDirection.x = 1;
 
+            if (inputM.GetAxis().y > -0.2f && inputM.GetAxis().y < 0.2f) dashDirection.y = 0;
             if (inputM.GetAxis().y < 0) dashDirection.y = -1;
             if (inputM.GetAxis().y > 0) dashDirection.y = 1;
+
+            Debug.Log("x " + dashDirection.x);
+            Debug.Log("y " + dashDirection.y);
 
             dashCooldown = 5;
             DashState();
