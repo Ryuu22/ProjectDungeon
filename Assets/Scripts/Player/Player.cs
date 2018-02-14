@@ -111,6 +111,10 @@ public class Player : MonoBehaviour
             damage = 10;
             this.gameObject.layer = LayerMask.NameToLayer("Player");
         }
+        if(this.transform.position.y <= -2)
+        {
+            Fall();
+        }
     }
 
     #region UPDATE METHODS
@@ -242,11 +246,11 @@ public class Player : MonoBehaviour
     {
         if(dashCooldown < 0)
         {
-            if (inputM.GetAxis().x > -0.2f && inputM.GetAxis().x < 0.2f) dashDirection.x = 0;
+            if (inputM.GetAxis().x > -0.4f && inputM.GetAxis().x < 0.4f) dashDirection.x = 0;
             if (inputM.GetAxis().x < 0) dashDirection.x = -1;
             if (inputM.GetAxis().x > 0) dashDirection.x = 1;
 
-            if (inputM.GetAxis().y > -0.2f && inputM.GetAxis().y < 0.2f) dashDirection.y = 0;
+            if (inputM.GetAxis().y > -0.4f && inputM.GetAxis().y < 0.4f) dashDirection.y = 0;
             if (inputM.GetAxis().y < 0) dashDirection.y = -1;
             if (inputM.GetAxis().y > 0) dashDirection.y = 1;
 
@@ -260,7 +264,7 @@ public class Player : MonoBehaviour
 
     public void Attack() //ATTACK IF PLAYER IS IDLE OR MOVING
     {
-        if (attackCounter <= 0 && currentPlayerState == PlayerState.Idle || attackCounter <= 0 && currentPlayerState == PlayerState.Move || attackCounter <= 0)
+        if (attackCounter <= 0 && currentPlayerState == PlayerState.Idle || attackCounter <= 0 && currentPlayerState == PlayerState.Move)
         {
             attackCounter = attackCooldown;
 
@@ -347,7 +351,6 @@ public class Player : MonoBehaviour
 
     public void Fall()
     {
-        this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 5;
         DeadState();
     }
 

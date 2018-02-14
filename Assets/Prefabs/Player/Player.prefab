@@ -106,13 +106,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4725219447081032}
   - component: {fileID: 65012550478899932}
+  - component: {fileID: 114875064569258066}
   m_Layer: 9
   m_Name: AttackTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4373079473484836
 Transform:
   m_ObjectHideFlags: 1
@@ -257,22 +258,7 @@ MonoBehaviour:
   maxLife: 100
   lifeParticles: {fileID: 1731878434840756}
   bloodParticles: {fileID: 1727830610894980}
-  attackBoxPos: {x: 0.75, y: 1.5, z: 0}
-  attackBoxSize: {x: 2.5, y: 2.5, z: 1}
-  filter:
-    useTriggers: 0
-    useLayerMask: 1
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 34048
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
+  triggerGameObject: {fileID: 1887533172151286}
 --- !u!114 &114279305316166946
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -308,6 +294,20 @@ MonoBehaviour:
   topBoxSize: {x: 0.5, y: 0.1}
   bottomBoxPos: {x: 0, y: 0}
   bottomBoxSize: {x: 0.5, y: 0.1}
+--- !u!114 &114875064569258066
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1887533172151286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c532203bd48669d49b6bfdf9f60540f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attacking: 0
+  counter: 0
+  maxTime: 0.3
 --- !u!136 &136521176374158188
 CapsuleCollider:
   m_ObjectHideFlags: 1

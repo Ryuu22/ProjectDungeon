@@ -11,17 +11,33 @@ public class GravityTrigger : MonoBehaviour
     bool noise;
     float noiseCounter;
 
-    List<float> positionYList;
+    List<int> positionZList;
 
 	void Start ()
     {
-        positionYList = new List<float>();
+        positionZList = new List<int>();
 
-        positionYList.Add(2.5f);
-        positionYList.Add(1.5f);
-        positionYList.Add(0.5f);
-        positionYList.Add(-1.5f);
-
+        positionZList.Add(10);
+        positionZList.Add(9);
+        positionZList.Add(8);
+        positionZList.Add(7);
+        positionZList.Add(6);
+        positionZList.Add(5);
+        positionZList.Add(4);
+        positionZList.Add(3);
+        positionZList.Add(2);
+        positionZList.Add(1);
+        positionZList.Add(0);
+        positionZList.Add(-1);
+        positionZList.Add(-2);
+        positionZList.Add(-3);
+        positionZList.Add(-4);
+        positionZList.Add(-5);
+        positionZList.Add(-6);
+        positionZList.Add(-7);
+        positionZList.Add(-8);
+        positionZList.Add(-9);
+        positionZList.Add(-10);
 
     }
 
@@ -35,7 +51,7 @@ public class GravityTrigger : MonoBehaviour
             {
                 noiseCounter = 0;
 
-                this.transform.position = new Vector3(this.transform.position.x, positionYList[Random.Range(0, positionYList.Count)], this.transform.position.z);
+                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, positionZList[Random.Range(0, positionZList.Count)]);
             }
         }
         else
@@ -44,11 +60,11 @@ public class GravityTrigger : MonoBehaviour
         }
 	}
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.tag == ("Destructible"))
+        if(other.gameObject.tag == ("Wall"))
         {
-            collision.GetComponent<TilesBehaviour>().StartFalling();
+            other.GetComponent<TilesBehaviour>().StartFalling();
         }
     }
 }

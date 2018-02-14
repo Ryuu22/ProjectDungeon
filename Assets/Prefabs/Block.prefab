@@ -25,9 +25,9 @@ GameObject:
   - component: {fileID: 54159598588805390}
   - component: {fileID: 65921894372560698}
   - component: {fileID: 114639393747824370}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Block
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,7 +99,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 122
   m_CollisionDetection: 0
 --- !u!65 &65921894372560698
 BoxCollider:
