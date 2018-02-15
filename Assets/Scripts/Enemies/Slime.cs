@@ -22,9 +22,9 @@ public class Slime : MonoBehaviour
     [SerializeField]
     int phase;
     int life = 30;
-    float detectionRadius = 3;
+    float detectionRadius = 4;
     float speed = 1;
-    float attackCooldown = 2;
+    float attackCooldown;
     int damage = 3;
     Vector3 slimePos;
     float patrolMoveCounter;
@@ -63,6 +63,7 @@ public class Slime : MonoBehaviour
     {
         playerPos = player.transform.position;
         slimePos = this.transform.position;
+        attackCooldown -= Time.deltaTime;
 
         switch(currentSlimeState)
         {
@@ -95,10 +96,24 @@ public class Slime : MonoBehaviour
 
     void Chasing()
     {
-        moveM.Move(this.gameObject, playerPos, speed);
+        if(Vector2.Distance(playerPos, slimePos) > 2)
+        {
+            moveM.Move(this.gameObject, playerPos, speed);
 
-        float posZ;
-        posZ = this.transform.position.z;
+            float posZ;
+            posZ = this.transform.position.z;
+
+            if (this.gameObject.transform.position.z < playerPos.z)
+            {
+                posZ += speed/2 * Time.deltaTime;
+                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, posZ);
+            }
+            if (this.gameObject.transform.position.z > playerPos.z)
+            {
+                posZ -= speed/2 * Time.deltaTime;
+                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, posZ);
+            }
+        }
 
         if(this.gameObject.transform.position.x - playerPos.x > 0 && isFacingRight)
         {
@@ -108,17 +123,6 @@ public class Slime : MonoBehaviour
         {
             Flip();
         }
-        if (this.gameObject.transform.position.z < playerPos.z)
-        {
-            posZ += speed/2 * Time.deltaTime;
-            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, posZ);
-        }
-        if (this.gameObject.transform.position.z > playerPos.z)
-        {
-            posZ -= speed/2 * Time.deltaTime;
-            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, posZ);
-        }
-
     }
     
     void Dead()
@@ -155,12 +159,13 @@ public class Slime : MonoBehaviour
 
     #region COLLISION METHODS
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if(other.tag == ("Player") && currentSlimeState == SlimeState.Chasing)
+        if(other.tag == ("Player") && currentSlimeState == SlimeState.Chasing && attackCooldown <= 0)
         {
             myAnim.SetTrigger("Attack");
-            playerScript.RecieveDamage(damage);
+            playerScript.RecieveDamage();
+            attackCooldown = 2;
         }
     }
 

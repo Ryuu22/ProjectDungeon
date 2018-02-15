@@ -9,20 +9,20 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1290298460264376}
+  m_RootGameObject: {fileID: 1802214268125672}
   m_IsPrefabParent: 1
---- !u!1 &1290298460264376
+--- !u!1 &1802214268125672
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4921775379572722}
-  - component: {fileID: 114310198061141254}
-  - component: {fileID: 54517983299080474}
-  - component: {fileID: 136096742098439854}
-  - component: {fileID: 135576861628520440}
+  - component: {fileID: 4487494732874090}
+  - component: {fileID: 114431690045499168}
+  - component: {fileID: 54590859565507674}
+  - component: {fileID: 136264286325012292}
+  - component: {fileID: 135272049731639956}
   m_Layer: 8
   m_Name: Slime
   m_TagString: Slime
@@ -30,16 +30,16 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1857731608326854
+--- !u!1 &1924892875983708
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4224632875590822}
-  - component: {fileID: 212352926023590832}
-  - component: {fileID: 95700622774671330}
+  - component: {fileID: 4027891415818148}
+  - component: {fileID: 212479825392713462}
+  - component: {fileID: 95745537705126288}
   m_Layer: 0
   m_Name: SlimeTile
   m_TagString: Untagged
@@ -47,39 +47,39 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4224632875590822
+--- !u!4 &4027891415818148
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1857731608326854}
+  m_GameObject: {fileID: 1924892875983708}
   m_LocalRotation: {x: 0.16268697, y: -0, z: -0, w: 0.98667777}
   m_LocalPosition: {x: 0, y: 1.064, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4921775379572722}
+  m_Father: {fileID: 4487494732874090}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 18.726002, y: 0, z: 0}
---- !u!4 &4921775379572722
+--- !u!4 &4487494732874090
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1290298460264376}
+  m_GameObject: {fileID: 1802214268125672}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.31, y: 1.17, z: 0}
+  m_LocalPosition: {x: 7.33, y: 0.51, z: 0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4224632875590822}
+  - {fileID: 4027891415818148}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &54517983299080474
+--- !u!54 &54590859565507674
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1290298460264376}
+  m_GameObject: {fileID: 1802214268125672}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -89,13 +89,13 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!95 &95700622774671330
+--- !u!95 &95745537705126288
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1857731608326854}
+  m_GameObject: {fileID: 1924892875983708}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: b4fad3c1952833d4c8efcac32436abe7, type: 2}
@@ -106,42 +106,40 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114310198061141254
+--- !u!114 &114431690045499168
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1290298460264376}
+  m_GameObject: {fileID: 1802214268125672}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26799bc4afa0a4c418e9e057fd36d687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slimePrefab: {fileID: 1290298460264376}
-  slimeMediumPrefab: {fileID: 1094310310594066, guid: 389a44ed47e7acc43a36541f54e926bc,
-    type: 2}
-  slimeSmallPrefab: {fileID: 1156527456943396, guid: cef8ef8eafd83a94db5d5f63cefa8269,
-    type: 2}
+  slimePrefab: {fileID: 1802214268125672}
+  slimeMediumPrefab: {fileID: 0}
+  slimeSmallPrefab: {fileID: 0}
   phase: 3
   currentSlimeState: 0
---- !u!135 &135576861628520440
+--- !u!135 &135272049731639956
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1290298460264376}
+  m_GameObject: {fileID: 1802214268125672}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1.6330767
   m_Center: {x: 0, y: 1, z: 0.1569233}
---- !u!136 &136096742098439854
+--- !u!136 &136264286325012292
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1290298460264376}
+  m_GameObject: {fileID: 1802214268125672}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -149,12 +147,12 @@ CapsuleCollider:
   m_Height: 1.89
   m_Direction: 0
   m_Center: {x: 0, y: 0.7, z: 0}
---- !u!212 &212352926023590832
+--- !u!212 &212479825392713462
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1857731608326854}
+  m_GameObject: {fileID: 1924892875983708}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0

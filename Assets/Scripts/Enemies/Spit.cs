@@ -27,7 +27,7 @@ public class Spit : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            other.GetComponent<Player>().RecieveDamage(damage);
+            other.GetComponent<Player>().RecieveDamage();
         }
 
         Destroy(this.gameObject);

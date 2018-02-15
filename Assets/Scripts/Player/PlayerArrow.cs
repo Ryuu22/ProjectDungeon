@@ -36,7 +36,7 @@ public class PlayerArrow : MonoBehaviour
         }
         if (other.gameObject.tag == "BossSlime")
         {
-            other.GetComponent<BossSlime>().RecieveDamage(damage);
+            other.GetComponent<BossSlime>().RecieveDamage();
         }
         if (other.gameObject.tag == "MiniBossSlime")
         {

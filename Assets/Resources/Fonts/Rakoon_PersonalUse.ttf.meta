@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 192d41e696fbb234d8f25fb4ceb72047
+timeCreated: 1518733510
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Rakoon Personal Use
+  fontNames:
+  - Rakoon Personal Use
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

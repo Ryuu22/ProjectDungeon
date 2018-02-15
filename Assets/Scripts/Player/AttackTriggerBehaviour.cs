@@ -27,9 +27,13 @@ public class AttackTriggerBehaviour : MonoBehaviour
     private void OnTriggerStay(Collider collision)
     {
 
-        if (collision.gameObject.tag == ("Slime"))
+        if(collision.gameObject.tag == ("Slime"))
         {
             collision.gameObject.GetComponent<Slime>().RecieveDamage();
+        }
+        if(collision.gameObject.tag == ("Fly"))
+        {
+            collision.gameObject.GetComponent<Fly>().DieInstantly();
         }
         if (collision.gameObject.tag == ("Destructible"))
         {
@@ -37,7 +41,7 @@ public class AttackTriggerBehaviour : MonoBehaviour
         }
         if (collision.gameObject.tag == ("BossSlime"))
         {
-            collision.gameObject.GetComponent<BossSlime>().RecieveDamage(damage);
+            collision.gameObject.GetComponent<BossSlime>().RecieveDamage();
         }
     }
 

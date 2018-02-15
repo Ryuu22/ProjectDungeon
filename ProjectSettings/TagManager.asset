@@ -21,6 +21,7 @@ TagManager:
   - SoundMaster
   - Wall
   - Destructible
+  - Fly
   layers:
   - Default
   - TransparentFX

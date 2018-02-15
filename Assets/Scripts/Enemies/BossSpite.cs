@@ -132,11 +132,11 @@ public class BossSpite : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            other.GetComponent<Player>().RecieveDamage(damage);
+            other.GetComponent<Player>().RecieveDamage();
         }
         if (other.gameObject.tag == "BossSlime")
         {
-            other.GetComponent<BossSlime>().RecieveDamage(damage);
+
         }
 
         Destroy(this.gameObject);
