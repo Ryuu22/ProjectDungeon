@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     [Header("Player Fields")]
     bool godMode;
     [SerializeField]
-    int life = 100;
+    int life = 3;
     [SerializeField]
     int essences = 100;
     [SerializeField]
@@ -24,13 +24,15 @@ public class Player : MonoBehaviour
     GameObject bloodParticles;
     ParticleSystem blood;
     bool isDead;
+    bool recievedDamage;
+    float inmuneCounter;
     Vector2 movementSpeed = Vector2.zero;
     Vector2 speed = new Vector2(5, 5);
     Vector2 dashSpeed = new Vector2(15, 15);
     Vector2 dashDirection;
     float deadCounter = 0;
 
-    float attackCooldown = 1;
+    float attackCooldown;
     float attackCounter;
     int damage = 10;
     float dashCooldown;
@@ -107,10 +109,23 @@ public class Player : MonoBehaviour
         else
         {
             speed = new Vector2(5, 5);
-            attackCooldown = 1;
+            attackCooldown = 0.4f;
             damage = 10;
             this.gameObject.layer = LayerMask.NameToLayer("Player");
         }
+        if(recievedDamage)
+        {
+            this.gameObject.GetComponent<CapsuleCollider>().radius = 0;
+            inmuneCounter += Time.deltaTime;
+
+            if(inmuneCounter >= 2)
+            {
+                recievedDamage = false;
+                inmuneCounter = 0;
+                this.gameObject.GetComponent<CapsuleCollider>().radius = 0.5f;
+            }
+        }
+
         if(this.transform.position.y <= -2)
         {
             Fall();
@@ -200,6 +215,7 @@ public class Player : MonoBehaviour
         {
             dashCounter = 0.2f;
             rb.useGravity = true;
+            this.gameObject.GetComponent<CapsuleCollider>().radius = 0.5f;
             IdleState();
         }
     }
@@ -254,10 +270,8 @@ public class Player : MonoBehaviour
             if (inputM.GetAxis().y < 0) dashDirection.y = -1;
             if (inputM.GetAxis().y > 0) dashDirection.y = 1;
 
-            Debug.Log("x " + dashDirection.x);
-            Debug.Log("y " + dashDirection.y);
-
             dashCooldown = 5;
+            this.gameObject.GetComponent<CapsuleCollider>().radius = 0;
             DashState();
         }
     }
@@ -274,13 +288,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void RecieveDamage(int damage)
+    public void RecieveDamage()
     {
         if(!godMode)
         {
-            life -= damage;
+            life --;
             blood.Emit(30);
             //audioM.PlayerDamageSound();
+            recievedDamage = true;
         }
 
         if (life <= 0)

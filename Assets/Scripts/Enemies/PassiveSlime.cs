@@ -156,7 +156,7 @@ public class PassiveSlime : MonoBehaviour
         if(damageCounter <= 0)
         {
             damageCounter = damageCooldown;
-            player.GetComponent<Player>().RecieveDamage(damage);
+            player.GetComponent<Player>().RecieveDamage();
         }
     }
 
