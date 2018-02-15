@@ -10,7 +10,7 @@ public class Slime : MonoBehaviour
 
     [Header("Player Fields")]
     Transform player;
-    Vector2 playerPos;
+    Vector3 playerPos;
     Player playerScript;
 
     [Header("Slime Prefab")]
@@ -22,13 +22,11 @@ public class Slime : MonoBehaviour
     [SerializeField]
     int phase;
     int life = 30;
-    float detectionRadius;
+    float detectionRadius = 3;
     float speed = 1;
     float attackCooldown = 2;
     int damage = 3;
-    Vector2 slimeStartPos;
-    Vector2 slimePos;
-    Vector2 patrolTarget;
+    Vector3 slimePos;
     float patrolMoveCounter;
     float velocityX;
     bool isFacingRight;
@@ -40,33 +38,25 @@ public class Slime : MonoBehaviour
     float deadTime = 0.5f;
     float randomScale;
     Animator myAnim;
-    Rigidbody2D rb;
+    Rigidbody rb;
 
     [SerializeField]
     SlimeState currentSlimeState;
     enum SlimeState
     {
         Idle,
-        TargetPatrol,
-        Patrol,
         Chasing,
-        Attack,
-        Stunned,
-        Dividing,
         Dead
     }
 
     private void Start()
     {
-        InitializateStats();
-        RandomizeScale();
-        this.transform.localScale = new Vector3(randomScale, randomScale, 0);
         moveM = GameObject.FindGameObjectWithTag("MoveMaster").GetComponent<MoveMaster>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         myAnim = GetComponentInChildren<Animator>();
-        rb = GetComponent<Rigidbody2D>();
-        audioM = GameObject.FindGameObjectWithTag("SoundMaster").GetComponent<AudioMaster>();
+        rb = GetComponent<Rigidbody>();
+        //audioM = GameObject.FindGameObjectWithTag("SoundMaster").GetComponent<AudioMaster>();
     }
 
     void Update ()
@@ -80,28 +70,8 @@ public class Slime : MonoBehaviour
                 Idle();
                 break;
 
-            case SlimeState.TargetPatrol:
-                TargetPatrol();
-                break;
-
-            case SlimeState.Patrol:
-                Patrol();
-                break;
-
             case SlimeState.Chasing:
                 Chasing();
-                break;
-
-            case SlimeState.Attack:
-                Attack();
-                break;
-
-            case SlimeState.Stunned:
-                Stunned();
-                break;
-
-            case SlimeState.Dividing:
-                Dividing();
                 break;
 
             case SlimeState.Dead:
@@ -117,59 +87,8 @@ public class Slime : MonoBehaviour
 
     void Idle()
     {
-        IdleCounter += Time.deltaTime;
-
-        if(IdleCounter >= IdleTime)
-        {
-            IdleCounter = 0;
-            IdleTime = Random.Range(4, 9);
-            TargetPatrolState();
-        }
-
         if(Vector2.Distance(playerPos,slimePos) < detectionRadius)
         {
-            ChasingState();
-        }
-    }
-
-    void TargetPatrol()
-    {
-        patrolTarget = new Vector2(slimeStartPos.x + Random.Range(-3, 3), slimeStartPos.y + Random.Range(-2, 2));
-
-        if(this.gameObject.transform.position.x - patrolTarget.x > 0 && isFacingRight)
-        {
-            Flip();
-        }
-        if(this.gameObject.transform.position.x - patrolTarget.x < 0 && !isFacingRight)
-        {
-            Flip();
-        }
-
-        PatrolState();
-    }
-
-    void Patrol()
-    {
-        patrolMoveCounter += Time.deltaTime;
-        moveM.Move(this.gameObject, patrolTarget, speed);
-
-        if(Vector2.Distance(this.transform.position, patrolTarget) < 1 || patrolMoveCounter > 5)
-        {
-            patrolMoveCounter = 0;
-            IdleState();
-        }
-
-        if(Vector2.Distance(playerPos, slimePos) < detectionRadius)
-        {
-            if(this.gameObject.transform.position.x - playerPos.x > 0 && isFacingRight)
-            {
-                Flip();
-            }
-            if(this.gameObject.transform.position.x - playerPos.x < 0 && !isFacingRight)
-            {
-                Flip();
-            }
-
             ChasingState();
         }
     }
@@ -178,10 +97,8 @@ public class Slime : MonoBehaviour
     {
         moveM.Move(this.gameObject, playerPos, speed);
 
-        if(Vector2.Distance(playerPos, slimePos) > detectionRadius)
-        {
-            IdleState();
-        }
+        float posZ;
+        posZ = this.transform.position.z;
 
         if(this.gameObject.transform.position.x - playerPos.x > 0 && isFacingRight)
         {
@@ -191,38 +108,19 @@ public class Slime : MonoBehaviour
         {
             Flip();
         }
-
-    }
-
-    void Attack()
-    {
-        attackCounter -= Time.deltaTime;
-        audioM.slimeWalk();
-        if(attackCounter <= 0)
+        if (this.gameObject.transform.position.z < playerPos.z)
         {
-            attackCounter = attackCooldown;
-
-            playerScript.RecieveDamage(damage);
+            posZ += speed/2 * Time.deltaTime;
+            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, posZ);
         }
-    }
-
-    void Stunned()
-    {
-        stunnedCounter -= Time.deltaTime;
-
-        if (stunnedCounter <= 0)
+        if (this.gameObject.transform.position.z > playerPos.z)
         {
-            stunnedCounter = stunnedTime;
-            IdleState();
+            posZ -= speed/2 * Time.deltaTime;
+            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, posZ);
         }
-    }
 
-    void Dividing()
-    {
-        Divide();
-        DeadState();
     }
-
+    
     void Dead()
     {
         deadTime -= Time.deltaTime;
@@ -230,7 +128,6 @@ public class Slime : MonoBehaviour
 
         if (deadTime <= 0)
         {
-            Divide();
             Destroy(this.gameObject);
         }
     }
@@ -244,34 +141,9 @@ public class Slime : MonoBehaviour
         currentSlimeState = SlimeState.Idle;
     }
 
-    void TargetPatrolState()
-    {
-        currentSlimeState = SlimeState.TargetPatrol;
-    }
-
-    void PatrolState()
-    {
-        currentSlimeState = SlimeState.Patrol;
-    }
-
     void ChasingState()
     {
         currentSlimeState = SlimeState.Chasing;
-    }
-
-    void AttackState()
-    {
-        currentSlimeState = SlimeState.Attack;
-    }
-
-    void StunnedState()
-    {
-        currentSlimeState = SlimeState.Stunned;
-    }
-
-    void DividingState()
-    {
-        currentSlimeState = SlimeState.Dividing;
     }
 
     void DeadState()
@@ -281,70 +153,13 @@ public class Slime : MonoBehaviour
 
     #endregion
 
-    #region START METHODS
-
-    void RandomizeScale()
-    {
-        if(phase == 3)
-        {
-            randomScale = Random.Range(0.9f, 1.2f);
-        }
-        if(phase == 2)
-        {
-            randomScale = Random.Range(0.5f, 0.8f);
-        }
-        if(phase == 1)
-        {
-            randomScale = Random.Range(0.2f, 0.3f);
-        }
-    }
-
-    void InitializateStats()
-    {
-        slimeStartPos = this.transform.position;
-        if(phase == 3)
-        {
-            life = 30;
-            detectionRadius = 7;
-            speed = 0.7f;
-            attackCooldown = 2;
-            damage = 20;
-}
-        if(phase == 2)
-        {
-            life = 15;
-            detectionRadius = 5;
-            speed = 1;
-            attackCooldown = 1.5f;
-            damage = 10;
-        }
-        if(phase == 1)
-        {
-            life = 5;
-            detectionRadius = 3.5f;
-            speed = 1.2f;
-            attackCooldown = 1;
-            damage = 3;
-        }
-    }
-
-    #endregion
-
     #region COLLISION METHODS
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter(Collider other)
     {
         if(other.tag == ("Player") && currentSlimeState == SlimeState.Chasing)
         {
-            AttackState();
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if(other.tag == ("Player") && currentSlimeState == SlimeState.Attack)
-        {
-            ChasingState();
+            playerScript.RecieveDamage(damage);
         }
     }
 
@@ -358,40 +173,9 @@ public class Slime : MonoBehaviour
         isFacingRight = !isFacingRight;
     }
 
-    public void RecieveDamage(int damage)
+    public void RecieveDamage()
     {
-        life -= damage;
-
-        if(life <= 0)
-        {
-            DeadState();
-        }
-
-        else
-        {
-            Vector2 oppositePosition;
-            oppositePosition.x = slimePos.x - playerPos.x;
-            oppositePosition.y = slimePos.y - playerPos.y;
-
-            rb.AddForce(oppositePosition.normalized*3, ForceMode2D.Impulse);
-
-            StunnedState();
-        }
-    }
-
-    private void Divide()
-    {
-        audioM.slimeDividingSound();
-        if(phase == 3)
-        {
-            Instantiate(slimeMediumPrefab, new Vector3(slimePos.x, slimePos.y + 0.5f, 0), new Quaternion(0, 0, 0, 0));
-            Instantiate(slimeMediumPrefab, new Vector3(slimePos.x, slimePos.y - 0.5f, 0), new Quaternion(0, 0, 0, 0));
-        }
-        if(phase == 2)
-        {
-            Instantiate(slimeSmallPrefab, new Vector3(slimePos.x, slimePos.y + 0.1f, 0), new Quaternion(0, 0, 0, 0));
-            Instantiate(slimeSmallPrefab, new Vector3(slimePos.x, slimePos.y - 0.1f, 0), new Quaternion(0, 0, 0, 0));
-        }
+        DeadState();
     }
 
     private void OnDrawGizmos()

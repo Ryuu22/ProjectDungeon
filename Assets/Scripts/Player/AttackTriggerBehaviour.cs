@@ -2,47 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackTriggerBehaviour : MonoBehaviour {
-
-    public bool attacking;
-    public float counter;
-    public float maxTime;
-
-    // Update is called once per frame
+public class AttackTriggerBehaviour : MonoBehaviour
+{
+    float counter = 0.4f;
+    int damage;
 
     private void Start()
     {
         counter = 0;
+        damage = GetComponentInParent<Player>().Damage;
     }
+
     void Update ()
     {
-        Attack();
-	}
-    void Attack()
-    {
-        if(attacking)
-        {
-            if(counter < maxTime)
-            {
-                counter += Time.deltaTime;
-            }
-            else
-            {
-                attacking = false;
-                counter = 0;
-                this.gameObject.SetActive(false);
-            }
+        counter -= Time.deltaTime;
 
-        }
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(attacking)
+        if (counter <= 0)
         {
-            if (collision.tag == "Slime")
-            {
-                collision.GetComponent<Slime>().RecieveDamage(30);
-            }
+            counter = 0.4f;
+            this.gameObject.SetActive(false);
         }
     }
+
+    private void OnTriggerStay(Collider collision)
+    {
+
+        if (collision.gameObject.tag == ("Slime"))
+        {
+            collision.gameObject.GetComponent<Slime>().RecieveDamage();
+        }
+        if (collision.gameObject.tag == ("Destructible"))
+        {
+            collision.gameObject.GetComponent<DestructibleBehaviour>().GetDestroyed();
+        }
+        if (collision.gameObject.tag == ("BossSlime"))
+        {
+            collision.gameObject.GetComponent<BossSlime>().RecieveDamage(damage);
+        }
+    }
+
 }
