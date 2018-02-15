@@ -159,6 +159,7 @@ public class Slime : MonoBehaviour
     {
         if(other.tag == ("Player") && currentSlimeState == SlimeState.Chasing)
         {
+            myAnim.SetTrigger("Attack");
             playerScript.RecieveDamage(damage);
         }
     }
