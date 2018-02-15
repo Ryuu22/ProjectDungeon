@@ -8,6 +8,9 @@ public class Fly : MonoBehaviour {
     MoveMaster moveM;
     Animator myAnim;
 
+    [SerializeField] GameObject particlesObj;
+    ParticleSystem blood;
+
     [Header("Stats")]
 
     public float timeToLive;
@@ -36,6 +39,7 @@ public class Fly : MonoBehaviour {
        moveM = FindObjectOfType<MoveMaster>();
        myAnim = this.GetComponentInChildren<Animator>();
 
+        blood = particlesObj.GetComponent<ParticleSystem>();
        	
 	}
 	
@@ -77,6 +81,7 @@ public class Fly : MonoBehaviour {
         {
             bodyParts[i].gameObject.SetActive(true);
         }
+        blood.Play();
         dead = true;
 
     }
