@@ -154,7 +154,7 @@ public class MiniBossSlime : MonoBehaviour
             if (meleeCounter <= 0)
             {
                 meleeCounter = meleeCooldown;  
-                playerScript.RecieveDamage(meleeDamage);
+                playerScript.RecieveDamage();
             }
 
             if (Vector2.Distance(playerPos, slimeBossPos) > 3)

@@ -71,7 +71,7 @@ public class Fly : MonoBehaviour {
         if(other.tag == ("Player") && !dead)
         {
             myAnim.SetTrigger("Attack");
-            other.GetComponent<Player>().RecieveDamage(damage);
+            other.GetComponent<Player>().RecieveDamage();
         }
     }
     public void DieInstantly()

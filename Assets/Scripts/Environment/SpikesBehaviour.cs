@@ -100,7 +100,7 @@ public class SpikesBehaviour : MonoBehaviour
         {
             if (state == State.Active)
             {
-                other.GetComponent<Player>().RecieveDamage(15);
+                other.GetComponent<Player>().RecieveDamage();
             }
         }
     }
@@ -115,7 +115,7 @@ public class SpikesBehaviour : MonoBehaviour
                 if(damageCounter <= 0)
                 {
                     damageCounter = damageTime;
-                    other.GetComponent<Player>().RecieveDamage(15);
+                    other.GetComponent<Player>().RecieveDamage();
                 }
             }
         }

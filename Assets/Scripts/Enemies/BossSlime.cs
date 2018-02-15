@@ -16,10 +16,13 @@ public class BossSlime : MonoBehaviour
 
     [Header("Boss Slime Fields")]
     float speed = 0.8f;
+    int lives = 3;
     public bool active;
     int timesAttacked;
     int phase;
-
+    bool tired;
+    float tiredCounter;
+    bool recievedDamage;
     int meleeDamage = 25;
     float meleeCooldown = 2;
     float meleeCounter;
@@ -35,6 +38,7 @@ public class BossSlime : MonoBehaviour
     [SerializeField]
     GameObject spitPrefab;
     BossSpite spitScript;
+    GameObject bossAttackTrigger;
     float deadTime = 0.5f;
     Animator myAnim;
 
@@ -56,6 +60,8 @@ public class BossSlime : MonoBehaviour
         moveM = GameObject.FindGameObjectWithTag("MoveMaster").GetComponent<MoveMaster>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        bossAttackTrigger = GameObject.Find("BossAttackTrigger");
+        bossAttackTrigger.SetActive(false);
         //spitScript = spitPrefab.GetComponent<BossSpite>();
     }
 
@@ -148,30 +154,34 @@ public class BossSlime : MonoBehaviour
     {
         if(phase == 0)
         {
-            if(timesAttacked < 1)
+            if(timesAttacked < 2)
             {
                 myAnim.SetTrigger("MeleeAttack");
                 timesAttacked++;
-                IdleState(3);
+                IdleState(2);
+                Debug.Log("Attacked in phase 0" + timesAttacked);
             }
             else
             {
                 timesAttacked = 0;
+                tiredCounter = 8;
                 TiredState();
             }
         }
 
         if (phase == 1)
         {
-            if (timesAttacked < 2)
+            if (timesAttacked < 3)
             {
                 myAnim.SetTrigger("MeleeAttack");
                 timesAttacked++;
-                IdleState(3);
+                IdleState(2);
+                Debug.Log("Attacked in phase 1" + timesAttacked);
             }
             else
             {
                 timesAttacked = 0;
+                tiredCounter = 6;
                 TiredState();
             }
         }
@@ -182,11 +192,13 @@ public class BossSlime : MonoBehaviour
             {
                 myAnim.SetTrigger("MeleeAttack");
                 timesAttacked++;
-                IdleState(3);
+                IdleState(2);
+                Debug.Log("Attacked in phase 2" + timesAttacked);
             }
             else
             {
                 timesAttacked = 0;
+                tiredCounter = 5;
                 TiredState();
             }
         }
@@ -195,7 +207,18 @@ public class BossSlime : MonoBehaviour
     void Tired()
     {
         myAnim.SetTrigger("Tired");
-        
+
+        if(tired)
+        {
+            tiredCounter -= Time.deltaTime;
+
+            if (tiredCounter <= 0 && recievedDamage)
+            {
+                lives--;
+                phase++;
+                IdleState(1);
+            }
+        }
     }
 
     void Dead()
@@ -243,14 +266,20 @@ public class BossSlime : MonoBehaviour
         isFacingRight = !isFacingRight;
     }
 
-    void MeleeAttack()
+    public void MeleeAttack()
     {
+        bossAttackTrigger.SetActive(true);
+    }
 
+    public void DesactiveAttackTrigger()
+    {
+        bossAttackTrigger.SetActive(false);
     }
 
     public void RecieveDamage()
     {
-        
+        recievedDamage = true;
+        //turns red
     }
 
     #endregion
