@@ -16,7 +16,7 @@ public class InputMaster : MonoBehaviour
     {
         if(!player.IsDead)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1"))
             {
                 player.Attack();
             }
@@ -24,7 +24,7 @@ public class InputMaster : MonoBehaviour
             {
                 player.Fall();
             }
-            if(Input.GetKeyDown(KeyCode.LeftShift))
+            if(Input.GetKeyDown(KeyCode.LeftShift) || Input.GetButtonDown("Fire2"))
             {
                 player.BeginDash();
             }
