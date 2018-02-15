@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class MoveMaster : MonoBehaviour
 {
-    public void Move(GameObject movingObject, Vector2 target, float speed)
+    public void Move(GameObject movingObject, Vector3 target, float speed)
     {
-        Vector2 movingObjectPos = movingObject.transform.position;
+        Vector3 movingObjectPos = movingObject.transform.position;
 
-        movingObject.transform.position = Vector2.MoveTowards(movingObjectPos, target, speed * Time.deltaTime);
+        movingObject.transform.position = Vector3.MoveTowards(movingObjectPos, target, speed * Time.deltaTime);
     }
 }

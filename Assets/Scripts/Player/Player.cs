@@ -271,43 +271,9 @@ public class Player : MonoBehaviour
             myAnim.SetTrigger("Attack");
 
             triggerGameObject.SetActive(true);
-            triggerGameObject.GetComponent<AttackTriggerBehaviour>().attacking = true;
-
         }
     }
 
-    void Damage (GameObject target, string targetType) //OBJECTIVE RECIEVES THE HIT
-    {
-        if(targetType == ("Slime"))
-        {
-            target.GetComponent<Slime>().RecieveDamage(damage);
-        }
-        if (targetType == ("SpitterSlime"))
-        {
-            target.GetComponent<SpitterSlime>().RecieveDamage(damage);
-        }
-        if (targetType == ("PassiveSlime"))
-        {
-            target.GetComponent<PassiveSlime>().RecieveDamage(damage);
-        }
-        if (targetType == ("Destructible"))
-        {
-            target.GetComponent<DestructibleBehaviour>().GetDestroyed();
-        }
-        if (targetType == ("BossSlime"))
-        {
-            target.GetComponent<BossSlime>().RecieveDamage(damage);
-        }
-        if (targetType == ("BossSpite"))
-        {
-            target.GetComponent<BossSpite>().Hit();
-        }
-        if (targetType == ("MiniBossSlime"))
-        {
-            target.GetComponent<MiniBossSlime>().RecieveDamage(damage);
-        }
-    }
-    
     public void RecieveDamage(int damage)
     {
         if(!godMode)
@@ -360,6 +326,7 @@ public class Player : MonoBehaviour
 
     public int Life { get { return life; } }
     public bool IsDead { get { return isDead; } }
+    public int Damage { get { return damage; } }
 
     #endregion
 

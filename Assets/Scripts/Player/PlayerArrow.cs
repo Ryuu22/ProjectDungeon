@@ -24,7 +24,7 @@ public class PlayerArrow : MonoBehaviour
     {
         if(other.gameObject.tag == "Slime")
         {
-            other.GetComponent<Slime>().RecieveDamage(damage);
+            other.GetComponent<Slime>().RecieveDamage();
         }
         if (other.gameObject.tag == "SpitterSlime")
         {
