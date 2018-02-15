@@ -15,24 +15,26 @@ public class BossSlime : MonoBehaviour
     Player playerScript;
 
     [Header("Boss Slime Fields")]
-    [SerializeField]
-    int life = 200;
     float speed = 0.8f;
+    public bool active;
+    int timesAttacked;
+    int phase;
+
     int meleeDamage = 25;
     float meleeCooldown = 2;
     float meleeCounter;
+
     int rangeDamage = 15;
     float rangeCooldown = 7;
     float rangeCounter = 1;
+
+    float idleTime;
     Vector2 slimeBossPos;
     float detectionRadius = 11;
     bool isFacingRight;
-    float idleTime;
     [SerializeField]
     GameObject spitPrefab;
     BossSpite spitScript;
-    [SerializeField]
-    GameObject miniBossPrefab;
     float deadTime = 0.5f;
     Animator myAnim;
 
@@ -40,10 +42,11 @@ public class BossSlime : MonoBehaviour
     BossSlimeState currentBossSlimeState;
     enum BossSlimeState
     {
+        Inactive,
         Idle,
         Chasing,
         Attack,
-        RangedAttack,
+        Tired,
         Dead
     }
 
@@ -53,15 +56,20 @@ public class BossSlime : MonoBehaviour
         moveM = GameObject.FindGameObjectWithTag("MoveMaster").GetComponent<MoveMaster>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        spitScript = spitPrefab.GetComponent<BossSpite>();
+        //spitScript = spitPrefab.GetComponent<BossSpite>();
     }
 
 	void Update ()
     {
         playerPos = player.transform.position;
+        slimeBossPos = this.transform.position;
 
         switch (currentBossSlimeState)
         {
+            case BossSlimeState.Inactive:
+                if (active) IdleState(1);
+                break;
+
             case BossSlimeState.Idle:
                 Idle();
                 break;
@@ -74,8 +82,8 @@ public class BossSlime : MonoBehaviour
                 Attack();
                 break;
 
-            case BossSlimeState.RangedAttack:
-                RangedAttack();
+            case BossSlimeState.Tired:
+                Tired();
                 break;
 
             case BossSlimeState.Dead:
@@ -92,8 +100,8 @@ public class BossSlime : MonoBehaviour
     void Idle()
     {
         idleTime -= Time.deltaTime;
-
-        if (Vector2.Distance(playerPos, slimeBossPos) < detectionRadius && idleTime <= 0)
+        
+        if(idleTime <= 0)
         {
             ChasingState();
         }
@@ -101,23 +109,26 @@ public class BossSlime : MonoBehaviour
 
     void Chasing()
     {
-        moveM.Move(this.gameObject, playerPos, speed);
-        slimeBossPos = this.gameObject.transform.position;
-
-        rangeCounter -= Time.deltaTime;
-
-        if(rangeCounter <= 0)
+        if (Vector2.Distance(playerPos, slimeBossPos) > 5)
         {
-            rangeCounter = rangeCooldown;
-            RangedAttackState();
-        }
+            moveM.Move(this.gameObject, playerPos, speed);
 
-        if (Vector2.Distance(playerPos, slimeBossPos) > detectionRadius)
-        {
-            IdleState();
-        }
+            float posZ;
+            posZ = this.transform.position.z;
 
-        if (Vector2.Distance(playerPos, slimeBossPos) <= 4.5)
+            if (this.gameObject.transform.position.z < player.position.z)
+            {
+                posZ += speed / 2 * Time.deltaTime;
+                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, posZ);
+            }
+
+            if (this.gameObject.transform.position.z > player.position.z)
+            {
+                posZ -= speed / 2 * Time.deltaTime;
+                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, posZ);
+            }
+        }
+        else
         {
             AttackState();
         }
@@ -135,71 +146,71 @@ public class BossSlime : MonoBehaviour
 
     void Attack()
     {
-        meleeCounter -= Time.deltaTime;
-
-        if(meleeCounter <= 0)
+        if(phase == 0)
         {
-            meleeCounter = meleeCooldown;
-
-            MeleeAttack();
+            if(timesAttacked < 1)
+            {
+                myAnim.SetTrigger("MeleeAttack");
+                timesAttacked++;
+                IdleState(3);
+            }
+            else
+            {
+                timesAttacked = 0;
+                TiredState();
+            }
         }
 
-        if (Vector2.Distance(playerPos, slimeBossPos) > 4.5)
+        if (phase == 1)
         {
-            IdleState();
+            if (timesAttacked < 2)
+            {
+                myAnim.SetTrigger("MeleeAttack");
+                timesAttacked++;
+                IdleState(3);
+            }
+            else
+            {
+                timesAttacked = 0;
+                TiredState();
+            }
+        }
+
+        if (phase == 2)
+        {
+            if (timesAttacked < 3)
+            {
+                myAnim.SetTrigger("MeleeAttack");
+                timesAttacked++;
+                IdleState(3);
+            }
+            else
+            {
+                timesAttacked = 0;
+                TiredState();
+            }
         }
     }
 
-    void RangedAttack()
+    void Tired()
     {
-        myAnim.SetTrigger("Attack");
-        audioSource.Play(); //Fit this into a method later.
-
-        spitScript.InitializateStats(1, rangeDamage, isFacingRight, false);
-        Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
-        spitScript.InitializateStats(2, rangeDamage, isFacingRight, false);
-        Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
-        spitScript.InitializateStats(3, rangeDamage, isFacingRight, false);
-        Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
-        spitScript.InitializateStats(4, rangeDamage, isFacingRight, false);
-        Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
-        spitScript.InitializateStats(5, rangeDamage, isFacingRight, false);
-        Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
-        spitScript.InitializateStats(6, rangeDamage, isFacingRight, false);
-        Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
-        spitScript.InitializateStats(7, rangeDamage, isFacingRight, false);
-        Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
-        spitScript.InitializateStats(8, rangeDamage, isFacingRight, false);
-        Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
-        spitScript.InitializateStats(9, rangeDamage, isFacingRight, false);
-        Instantiate(spitPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), new Quaternion(0, 0, 0, 0));
-
-        IdleState();
-        idleTime = 2;
+        myAnim.SetTrigger("Tired");
+        
     }
 
     void Dead()
     {
-        deadTime -= Time.deltaTime;
-        myAnim.SetTrigger("Dead");
-
-        if (deadTime <= 0)
-        {
-            miniBossPrefab.GetComponent<MiniBossSlime>().WhatMiniBossIs(false);
-            Instantiate(miniBossPrefab, new Vector3(this.transform.position.x, this.transform.position.y - 1, 0), new Quaternion(0, 0, 0, 0));
-            miniBossPrefab.GetComponent<MiniBossSlime>().WhatMiniBossIs(true);
-            Instantiate(miniBossPrefab, new Vector3(this.transform.position.x, this.transform.position.y + 1, 0), new Quaternion(0, 0, 0, 0));
-            Destroy(this.gameObject);
-        }        
+        myAnim.SetTrigger("Dead");   
     }
 
     #endregion
 
     #region STATE METHDOS
 
-    public void IdleState()
+    public void IdleState(int _idleTime)
     {
         currentBossSlimeState = BossSlimeState.Idle;
+        idleTime = _idleTime;
     }
 
     public void ChasingState()
@@ -212,9 +223,9 @@ public class BossSlime : MonoBehaviour
         currentBossSlimeState = BossSlimeState.Attack;
     }
 
-    public void RangedAttackState()
+    public void TiredState()
     {
-        currentBossSlimeState = BossSlimeState.RangedAttack;
+        currentBossSlimeState = BossSlimeState.Tired;
     }
 
     public void DeadState()
@@ -234,26 +245,13 @@ public class BossSlime : MonoBehaviour
 
     void MeleeAttack()
     {
-        myAnim.SetTrigger("Attack");
-        playerScript.RecieveDamage(meleeDamage);
+
     }
 
-    public void RecieveDamage(int damage)
+    public void RecieveDamage()
     {
-        life -= damage;
-
-        if (life <= 0)
-        {
-            DeadState();
-        }
-
+        
     }
-
-    #endregion
-
-    #region GETTERS/SETTERS
-
-    public int Life { get { return life; } }
 
     #endregion
 

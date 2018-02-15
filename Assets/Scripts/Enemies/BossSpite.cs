@@ -136,7 +136,7 @@ public class BossSpite : MonoBehaviour
         }
         if (other.gameObject.tag == "BossSlime")
         {
-            other.GetComponent<BossSlime>().RecieveDamage(damage);
+
         }
 
         Destroy(this.gameObject);

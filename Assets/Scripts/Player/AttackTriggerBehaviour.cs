@@ -37,7 +37,7 @@ public class AttackTriggerBehaviour : MonoBehaviour
         }
         if (collision.gameObject.tag == ("BossSlime"))
         {
-            collision.gameObject.GetComponent<BossSlime>().RecieveDamage(damage);
+            collision.gameObject.GetComponent<BossSlime>().RecieveDamage();
         }
     }
 
