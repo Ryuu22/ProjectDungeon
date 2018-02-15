@@ -13,7 +13,7 @@ public class EssenceBehaviour : MonoBehaviour {
     [SerializeField] bool playerDetected;
 
     public Transform playerTransform;
-    public Vector2 playerPos;
+    public Vector3 playerPos;
     public float speed;
 
     // Use this for initialization
@@ -28,6 +28,7 @@ public class EssenceBehaviour : MonoBehaviour {
     void Update()
     {
         playerPos = playerTransform.position;
+        playerPos.y = playerTransform.position.y + 1;
 
         if (Vector2.Distance(playerPos, this.transform.position) < radius && !playerDetected)
         {
@@ -41,7 +42,7 @@ public class EssenceBehaviour : MonoBehaviour {
         }
 
     }
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
@@ -49,7 +50,6 @@ public class EssenceBehaviour : MonoBehaviour {
             Destroy(this.gameObject);
         }
         
-
 
     }
 
