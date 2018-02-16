@@ -13,7 +13,7 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: DefaultCompany
   productName: Prototipo2D
-  defaultCursor: {fileID: 2800000, guid: f59bdba235dbf13448b4aa3b514ed3bc, type: 3}
+  defaultCursor: {fileID: 2800000, guid: 39332aa2b39b2804bb6da2a6c5a2dcbf, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_ShowUnitySplashScreen: 1
