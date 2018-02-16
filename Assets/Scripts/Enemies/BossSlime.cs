@@ -115,7 +115,7 @@ public class BossSlime : MonoBehaviour
 
     void Chasing()
     {
-        if (Vector2.Distance(playerPos, slimeBossPos) > 5)
+        if (Vector2.Distance(playerPos, slimeBossPos) > 3)
         {
             moveM.Move(this.gameObject, playerPos, speed);
 
@@ -136,6 +136,7 @@ public class BossSlime : MonoBehaviour
         }
         else
         {
+            myAnim.SetTrigger("Anticipation");
             AttackState();
         }
 
@@ -156,14 +157,15 @@ public class BossSlime : MonoBehaviour
         {
             if(timesAttacked < 2)
             {
-                myAnim.SetTrigger("MeleeAttack");
+                myAnim.SetTrigger("Attack");
                 timesAttacked++;
                 IdleState(2);
-                Debug.Log("Attacked in phase 0" + timesAttacked);
             }
             else
             {
+                this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
                 timesAttacked = 0;
+                tired = true;
                 tiredCounter = 8;
                 TiredState();
             }
@@ -173,14 +175,15 @@ public class BossSlime : MonoBehaviour
         {
             if (timesAttacked < 3)
             {
-                myAnim.SetTrigger("MeleeAttack");
+                myAnim.SetTrigger("Attack");
                 timesAttacked++;
                 IdleState(2);
-                Debug.Log("Attacked in phase 1" + timesAttacked);
             }
             else
             {
+                this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
                 timesAttacked = 0;
+                tired = true;
                 tiredCounter = 6;
                 TiredState();
             }
@@ -190,14 +193,15 @@ public class BossSlime : MonoBehaviour
         {
             if (timesAttacked < 3)
             {
-                myAnim.SetTrigger("MeleeAttack");
+                myAnim.SetTrigger("Attack");
                 timesAttacked++;
                 IdleState(2);
-                Debug.Log("Attacked in phase 2" + timesAttacked);
             }
             else
             {
+                this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
                 timesAttacked = 0;
+                tired = true;
                 tiredCounter = 5;
                 TiredState();
             }
@@ -206,16 +210,23 @@ public class BossSlime : MonoBehaviour
 
     void Tired()
     {
-        myAnim.SetTrigger("Tired");
+        myAnim.SetBool("Tired", true);
 
         if(tired)
         {
             tiredCounter -= Time.deltaTime;
 
-            if (tiredCounter <= 0 && recievedDamage)
+            if (tiredCounter <= 0 && recievedDamage && lives == 1)
+            {
+                DeadState();
+                GameObject.Find("InterfaceCanvas").GetComponent<GameplayInterface>().WinPanel();
+            }
+            else if (tiredCounter <= 0 && recievedDamage)
             {
                 lives--;
                 phase++;
+                this.gameObject.GetComponent<BoxCollider>().isTrigger = false;
+                myAnim.SetBool("Tired", false);
                 IdleState(1);
             }
         }
@@ -280,6 +291,11 @@ public class BossSlime : MonoBehaviour
     {
         recievedDamage = true;
         //turns red
+    }
+
+    public void SetActive()
+    {
+        active = true;
     }
 
     #endregion

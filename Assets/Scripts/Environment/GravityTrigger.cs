@@ -42,7 +42,12 @@ public class GravityTrigger : MonoBehaviour
     }
 
     void LateUpdate ()
-    {        
+    {   
+        if(this.gameObject.transform.position.x > 240 && moveX > 0)
+        {
+            moveX = -1;
+            GameObject.Find("BossSlime").GetComponent<BossSlime>().SetActive();
+        }
         if(noise)
         {
             noiseCounter += Time.deltaTime;
