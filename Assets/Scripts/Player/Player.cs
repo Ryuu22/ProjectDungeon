@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     [Header("Game Elements")]
     InputMaster inputM;
+    SceneMaster sceneM;
     CollisionMaster collisionM;
     AudioMaster audioM;
     public CameraBehaviour cameraBeh;
@@ -55,6 +56,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         inputM = GameObject.FindGameObjectWithTag("InputMaster").GetComponent<InputMaster>();
+        sceneM = GameObject.FindGameObjectWithTag("SceneMaster").GetComponent<SceneMaster>();
 
         //audioM = GameObject.FindGameObjectWithTag("SoundMaster").GetComponent<AudioMaster>();
 
@@ -129,6 +131,7 @@ public class Player : MonoBehaviour
         if(this.transform.position.y <= -2)
         {
             Fall();
+            isDead = true;
         }
     }
 
@@ -226,7 +229,7 @@ public class Player : MonoBehaviour
 
         if(deadCounter >= 2)
         {
-            Debug.Log("GAME OVER");
+            //sceneM.LoadEndingScreen();
         }
     }
 

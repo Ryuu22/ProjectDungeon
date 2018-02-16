@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraBehaviour : MonoBehaviour {
-
+public class CameraBehaviour : MonoBehaviour
+{
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform cameraTransform;
+    private Player playerScript;
     [SerializeField] private float distanceFromPlayer;
     [SerializeField] private float freq;
     [SerializeField] private float offsetX;
@@ -16,15 +17,13 @@ public class CameraBehaviour : MonoBehaviour {
     private float magnitudeRotation;
     private float shakingCounter;
     
-
-
     private Vector3 cameraPos;
 
     void Start ()
     {
         GameObject player = GameObject.FindWithTag("Player");
         playerTransform = player.GetComponent<Transform>();
-
+        playerScript = player.GetComponent<Player>();
         cameraTransform = this.GetComponent<Transform>();
 	}
 
@@ -34,11 +33,16 @@ public class CameraBehaviour : MonoBehaviour {
         cameraPos.z = distanceFromPlayer;
         this.transform.position = new Vector3(cameraPos.x + offsetX, cameraPos.y + offsetY, cameraPos.z);
 
+        if(playerScript.IsDead)
+        {
+            freq = 0;
+            offsetY = 0;
+        }
+
         if (Input.GetKey(KeyCode.AltGr))
         {
             ShakeCamera(0.5f, 30.0f, 1.0f);
         }
-
 
         if (shaking)
         {
