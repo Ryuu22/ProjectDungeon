@@ -63,6 +63,7 @@ public class Player : MonoBehaviour
         blood = bloodParticles.GetComponent<ParticleSystem>();
         collisionM = GetComponent<CollisionMaster>();
         myAnim = GetComponentInChildren<Animator>();
+        audioP.PlayMusic(0);
     }
 
     void Update()
