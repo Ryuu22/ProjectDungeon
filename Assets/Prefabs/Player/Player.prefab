@@ -11,6 +11,22 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1105894342485510}
   m_IsPrefabParent: 1
+--- !u!1 &1018676724072842
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4028458428899210}
+  - component: {fileID: 119262205456273172}
+  m_Layer: 0
+  m_Name: Projector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1105894342485510
 GameObject:
   m_ObjectHideFlags: 0
@@ -79,7 +95,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1619826297758254
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,8 +141,21 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4643983272883124}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -89.98, y: 0, z: -180.02798}
+--- !u!4 &4028458428899210
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1018676724072842}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 1.49, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4643983272883124}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4158500572281610
 Transform:
   m_ObjectHideFlags: 1
@@ -138,7 +167,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4643983272883124}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4436308102201480
 Transform:
@@ -151,7 +180,7 @@ Transform:
   m_LocalScale: {x: 1.3933753, y: 1.0503533, z: 1}
   m_Children: []
   m_Father: {fileID: 4643983272883124}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 89.94401, y: 0, z: 0}
 --- !u!4 &4576197350121776
 Transform:
@@ -164,7 +193,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4643983272883124}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4643983272883124
 Transform:
@@ -173,9 +202,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1105894342485510}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -23.94, y: 0, z: -0.6700001}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4028458428899210}
   - {fileID: 4436308102201480}
   - {fileID: 4887407062814716}
   - {fileID: 4023457055325388}
@@ -191,11 +221,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1311470353456576}
   m_LocalRotation: {x: 0.14212787, y: -0, z: -0, w: 0.9898484}
-  m_LocalPosition: {x: -0.008999944, y: 1.246, z: 0}
+  m_LocalPosition: {x: -0.008999944, y: 1.054, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4643983272883124}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 16.342001, y: 0, z: 0}
 --- !u!54 &54598969501444174
 Rigidbody:
@@ -298,6 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4f24d7418d46c74a9b94885b98a004d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioP: {fileID: 0}
   cameraBeh: {fileID: 0}
   life: 100
   essences: 0
@@ -305,6 +336,24 @@ MonoBehaviour:
   lifeParticles: {fileID: 1834331579444778}
   bloodParticles: {fileID: 1456788266819924}
   triggerGameObject: {fileID: 1619826297758254}
+--- !u!119 &119262205456273172
+Projector:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1018676724072842}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_NearClipPlane: 0.7
+  m_FarClipPlane: 4.87
+  m_FieldOfView: 8.84
+  m_AspectRatio: 1
+  m_Orthographic: 1
+  m_OrthographicSize: 0.6
+  m_Material: {fileID: 2100000, guid: 3ba6835f065a61741883b73a71dc50df, type: 2}
+  m_IgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!136 &136668438591105168
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -3695,7 +3744,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -668560749
+  randomSeed: 1126931379
   InitialModule:
     serializedVersion: 3
     enabled: 1

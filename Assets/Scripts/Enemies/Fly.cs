@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Fly : MonoBehaviour {
 
-    public bool front;
+    private bool front;
     MoveMaster moveM;
     Animator myAnim;
+    public AudioPlayer audioP;
 
     [SerializeField] GameObject particlesObj;
     ParticleSystem blood;
@@ -27,6 +28,7 @@ public class Fly : MonoBehaviour {
     [SerializeField]bool dead;
 
     float counter;
+    float timer;
 
 
 
@@ -39,7 +41,7 @@ public class Fly : MonoBehaviour {
        moveM = FindObjectOfType<MoveMaster>();
        myAnim = this.GetComponentInChildren<Animator>();
 
-        blood = particlesObj.GetComponent<ParticleSystem>();
+      blood = particlesObj.GetComponent<ParticleSystem>();
        	
 	}
 	
@@ -48,6 +50,7 @@ public class Fly : MonoBehaviour {
     {
         if(!dead)
         {
+            timer++;
             myAnim.SetBool("FlyingFront", front);
 
             if (front)moveM.Move(this.gameObject,new Vector3(this.transform.position.x,this.transform.position.y,distanceFront), speed);
@@ -55,6 +58,8 @@ public class Fly : MonoBehaviour {
 
             if (this.transform.position.z == distanceFront) front = false;
             if (this.transform.position.z == distanceBack) front = true;
+
+            if(timer%30 == 1) audioP.PlaySFX(4, 1, Random.Range(0.9f, 1.1f));
         }
         else
         {
@@ -81,6 +86,7 @@ public class Fly : MonoBehaviour {
         {
             bodyParts[i].gameObject.SetActive(true);
         }
+        audioP.Play2DSFX(5);
         blood.Play();
         dead = true;
 

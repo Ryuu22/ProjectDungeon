@@ -7,7 +7,8 @@ public class Player : MonoBehaviour
     [Header("Game Elements")]
     InputMaster inputM;
     CollisionMaster collisionM;
-    AudioMaster audioM;
+    [SerializeField]
+    AudioPlayer audioP;
     public CameraBehaviour cameraBeh;
 
     [Header("Player Fields")]
@@ -38,6 +39,8 @@ public class Player : MonoBehaviour
     float dashCooldown;
     float dashCounter = 0.2f;
 
+    float timer;
+
     Animator myAnim;
     Rigidbody rb;
 
@@ -55,7 +58,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         inputM = GameObject.FindGameObjectWithTag("InputMaster").GetComponent<InputMaster>();
-        //audioM = GameObject.FindGameObjectWithTag("SoundMaster").GetComponent<AudioMaster>();
 
         rb = GetComponent<Rigidbody>();
         blood = bloodParticles.GetComponent<ParticleSystem>();
@@ -192,6 +194,9 @@ public class Player : MonoBehaviour
 
         }
 
+        timer++;
+        if (timer % 15 == 1) audioP.PlaySFX(9, 1, Random.Range(0.9f, 1.1f));
+
         provisionalPos.x += inputM.GetAxis().x * Time.deltaTime * movementSpeed.x;
         provisionalPos.z += inputM.GetAxis().y * Time.deltaTime * movementSpeed.y;
         this.transform.position = provisionalPos;
@@ -273,6 +278,7 @@ public class Player : MonoBehaviour
             dashCooldown = 5;
             this.gameObject.GetComponent<CapsuleCollider>().radius = 0;
             DashState();
+            audioP.PlaySFX(10, 1, Random.Range(0.9f, 1.1f));
         }
     }
 
@@ -283,7 +289,7 @@ public class Player : MonoBehaviour
             attackCounter = attackCooldown;
 
             myAnim.SetTrigger("Attack");
-
+            audioP.PlaySFX(8, 1, Random.Range(0.9f, 1.1f));
             triggerGameObject.SetActive(true);
         }
     }
@@ -294,8 +300,9 @@ public class Player : MonoBehaviour
         {
             life --;
             blood.Emit(30);
-            //audioM.PlayerDamageSound();
+            audioP.Play2DSFX(6);
             recievedDamage = true;
+            myAnim.SetTrigger("Hurt");
         }
 
         if (life <= 0)

@@ -18,6 +18,8 @@ public class Slime : MonoBehaviour
     [SerializeField] GameObject slimeMediumPrefab;
     [SerializeField] GameObject slimeSmallPrefab;
 
+    public AudioPlayer audioP;
+
     [Header("Slime Fields")]
     [SerializeField]
     int phase;
@@ -57,6 +59,7 @@ public class Slime : MonoBehaviour
         myAnim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
         //audioM = GameObject.FindGameObjectWithTag("SoundMaster").GetComponent<AudioMaster>();
+
     }
 
     void Update ()
@@ -90,6 +93,7 @@ public class Slime : MonoBehaviour
     {
         if(Vector2.Distance(playerPos,slimePos) < detectionRadius)
         {
+            audioP.PlayAmbient(0);
             ChasingState();
         }
     }
@@ -164,6 +168,7 @@ public class Slime : MonoBehaviour
         if(other.tag == ("Player") && currentSlimeState == SlimeState.Chasing && attackCooldown <= 0)
         {
             myAnim.SetTrigger("Attack");
+            audioP.Play2DSFX(11);
             playerScript.RecieveDamage();
             attackCooldown = 2;
         }
@@ -181,6 +186,8 @@ public class Slime : MonoBehaviour
 
     public void RecieveDamage()
     {
+        audioP.StopAmbient();
+        audioP.Play2DSFX(1);
         DeadState();
     }
 
