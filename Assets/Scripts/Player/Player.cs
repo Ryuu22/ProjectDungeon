@@ -6,7 +6,6 @@ public class Player : MonoBehaviour
 {
     [Header("Game Elements")]
     InputMaster inputM;
-    SceneMaster sceneM;
     CollisionMaster collisionM;
     AudioMaster audioM;
     public CameraBehaviour cameraBeh;
@@ -56,8 +55,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         inputM = GameObject.FindGameObjectWithTag("InputMaster").GetComponent<InputMaster>();
-        sceneM = GameObject.FindGameObjectWithTag("SceneMaster").GetComponent<SceneMaster>();
-
         //audioM = GameObject.FindGameObjectWithTag("SoundMaster").GetComponent<AudioMaster>();
 
         rb = GetComponent<Rigidbody>();
