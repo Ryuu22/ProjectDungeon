@@ -38,7 +38,6 @@ public class BossSlime : MonoBehaviour
     [SerializeField]
     GameObject spitPrefab;
     BossSpite spitScript;
-    GameObject bossAttackTrigger;
     float deadTime = 0.5f;
     Animator myAnim;
 
@@ -60,8 +59,7 @@ public class BossSlime : MonoBehaviour
         moveM = GameObject.FindGameObjectWithTag("MoveMaster").GetComponent<MoveMaster>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        bossAttackTrigger = GameObject.Find("BossAttackTrigger");
-        bossAttackTrigger.SetActive(false);
+
         //spitScript = spitPrefab.GetComponent<BossSpite>();
     }
 
@@ -115,7 +113,7 @@ public class BossSlime : MonoBehaviour
 
     void Chasing()
     {
-        if (Vector2.Distance(playerPos, slimeBossPos) > 5)
+        if (Vector2.Distance(playerPos, slimeBossPos) > 3.5f)
         {
             moveM.Move(this.gameObject, playerPos, speed);
 
@@ -136,6 +134,7 @@ public class BossSlime : MonoBehaviour
         }
         else
         {
+            myAnim.SetTrigger("Anticipation");
             AttackState();
         }
 
@@ -156,13 +155,15 @@ public class BossSlime : MonoBehaviour
         {
             if(timesAttacked < 2)
             {
-                myAnim.SetTrigger("MeleeAttack");
+                myAnim.SetTrigger("Attack");
                 timesAttacked++;
                 IdleState(2);
-                Debug.Log("Attacked in phase 0" + timesAttacked);
             }
             else
             {
+                myAnim.SetBool("Tired", true);
+                tired = true;
+                this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
                 timesAttacked = 0;
                 tiredCounter = 8;
                 TiredState();
@@ -173,13 +174,15 @@ public class BossSlime : MonoBehaviour
         {
             if (timesAttacked < 3)
             {
-                myAnim.SetTrigger("MeleeAttack");
+                myAnim.SetTrigger("Attack");
                 timesAttacked++;
                 IdleState(2);
-                Debug.Log("Attacked in phase 1" + timesAttacked);
             }
             else
             {
+                myAnim.SetBool("Tired", true);
+                tired = true;
+                this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
                 timesAttacked = 0;
                 tiredCounter = 6;
                 TiredState();
@@ -190,13 +193,15 @@ public class BossSlime : MonoBehaviour
         {
             if (timesAttacked < 3)
             {
-                myAnim.SetTrigger("MeleeAttack");
+                myAnim.SetTrigger("Attack");
                 timesAttacked++;
                 IdleState(2);
-                Debug.Log("Attacked in phase 2" + timesAttacked);
             }
             else
             {
+                myAnim.SetBool("Tired", true);
+                tired = true;
+                this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
                 timesAttacked = 0;
                 tiredCounter = 5;
                 TiredState();
@@ -206,24 +211,31 @@ public class BossSlime : MonoBehaviour
 
     void Tired()
     {
-        myAnim.SetTrigger("Tired");
-
         if(tired)
         {
             tiredCounter -= Time.deltaTime;
 
-            if (tiredCounter <= 0 && recievedDamage)
+            if(tiredCounter <= 0 && recievedDamage && lives == 1)
             {
+                myAnim.SetTrigger("Dead");
+                DeadState();
+            }
+            else if (tiredCounter <= 0 && recievedDamage)
+            {
+                myAnim.SetBool("Tired", false);
+                this.gameObject.GetComponent<BoxCollider>().isTrigger = false;
                 lives--;
                 phase++;
                 IdleState(1);
+                tired = false;
             }
+
         }
     }
 
     void Dead()
     {
-        myAnim.SetTrigger("Dead");   
+
     }
 
     #endregion
@@ -266,20 +278,10 @@ public class BossSlime : MonoBehaviour
         isFacingRight = !isFacingRight;
     }
 
-    public void MeleeAttack()
-    {
-        bossAttackTrigger.SetActive(true);
-    }
-
-    public void DesactiveAttackTrigger()
-    {
-        bossAttackTrigger.SetActive(false);
-    }
-
     public void RecieveDamage()
     {
         recievedDamage = true;
-        //turns red
+        this.gameObject.GetComponentInChildren<SpriteRenderer>().color = new Color(this.gameObject.GetComponentInChildren<SpriteRenderer>().color.r +100, this.gameObject.GetComponentInChildren<SpriteRenderer>().color.g, this.gameObject.GetComponentInChildren<SpriteRenderer>().color.a);
     }
 
     #endregion
