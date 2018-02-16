@@ -7,8 +7,10 @@ public class Player : MonoBehaviour
     [Header("Game Elements")]
     InputMaster inputM;
     CollisionMaster collisionM;
+    GameplayInterface interfaceScript;
     AudioMaster audioM;
     public CameraBehaviour cameraBeh;
+    SceneMaster sceneM;
 
     [Header("Player Fields")]
     bool godMode;
@@ -55,12 +57,14 @@ public class Player : MonoBehaviour
     void Start()
     {
         inputM = GameObject.FindGameObjectWithTag("InputMaster").GetComponent<InputMaster>();
+        sceneM = GameObject.FindGameObjectWithTag("SceneMaster").GetComponent<SceneMaster>();
         //audioM = GameObject.FindGameObjectWithTag("SoundMaster").GetComponent<AudioMaster>();
 
         rb = GetComponent<Rigidbody>();
         blood = bloodParticles.GetComponent<ParticleSystem>();
         collisionM = GetComponent<CollisionMaster>();
         myAnim = GetComponentInChildren<Animator>();
+        interfaceScript = GameObject.Find("InterfaceCanvas").GetComponent<GameplayInterface>();
     }
 
     void Update()
@@ -224,9 +228,18 @@ public class Player : MonoBehaviour
     {
         deadCounter += Time.deltaTime;
 
-        if(deadCounter >= 2)
+
+        if(deadCounter >= 1)
         {
-            //sceneM.LoadEndingScreen();
+            interfaceScript.LosePanel();
+            
+            if(deadCounter >= 3)
+            {
+                if(Input.anyKeyDown)
+                {
+                    sceneM.LoadGameplayScreen();
+                }
+            }
         }
     }
 
