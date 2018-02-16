@@ -32,3 +32,7 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+Assets/Prefabs/Corridors/Corridor3.prefab
+Assets/Prefabs/Corridors/Corridor.prefab
+Assets/Prefabs/Corridors/Corridor3.prefab
+Assets/Prefabs/Corridors/Corridor8.prefab
