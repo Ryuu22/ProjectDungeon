@@ -111,12 +111,11 @@ public class Player : MonoBehaviour
         }
         else
         {
-            speed = new Vector2(5, 5);
-            attackCooldown = 0.4f;
+            attackCooldown = 0.2f;
             damage = 10;
             this.gameObject.layer = LayerMask.NameToLayer("Player");
         }
-        if(recievedDamage)
+        if (recievedDamage)
         {
             this.gameObject.GetComponent<CapsuleCollider>().radius = 0;
             inmuneCounter += Time.deltaTime;
@@ -129,9 +128,10 @@ public class Player : MonoBehaviour
             }
         }
 
-        if(this.transform.position.y <= -2)
+        if(this.transform.position.y <= -0.5f)
         {
             Fall();
+            myAnim.SetTrigger("Fall");
             isDead = true;
         }
     }
@@ -214,7 +214,7 @@ public class Player : MonoBehaviour
         {
             dashCounter -= Time.deltaTime;
             provisionalPos.x += dashDirection.x * Time.deltaTime * dashSpeed.x;
-            provisionalPos.z += dashDirection.y * Time.deltaTime * dashSpeed.y;
+            provisionalPos.z += dashDirection.y * Time.deltaTime * dashSpeed.y/2;
             rb.useGravity = false;
             this.transform.position = provisionalPos;
         }
@@ -290,6 +290,7 @@ public class Player : MonoBehaviour
         {
             attackCounter = attackCooldown;
 
+            speed = new Vector2(0, 0);
             myAnim.SetTrigger("Attack");
             audioP.PlaySFX(8, 1, Random.Range(0.9f, 1.1f));
             triggerGameObject.SetActive(true);
@@ -305,13 +306,15 @@ public class Player : MonoBehaviour
             audioP.Play2DSFX(6);
             recievedDamage = true;
             myAnim.SetTrigger("Hurt");
+
+            if (life <= 0)
+            {
+                myAnim.SetTrigger("Death");
+                isDead = true;
+                DeadState();
+            }
         }
 
-        if (life <= 0)
-        {
-            isDead = true;
-            DeadState();
-        }
     }
 
     public void RecieveHP(int HP)
@@ -351,6 +354,11 @@ public class Player : MonoBehaviour
     public int Life { get { return life; } }
     public bool IsDead { get { return isDead; } }
     public int Damage { get { return damage; } }
+
+    public void ResetSpeed()
+    {
+        speed = new Vector2(5, 5);
+    }
 
     #endregion
 
