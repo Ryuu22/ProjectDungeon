@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PostProcessing;
 
 public class Player : MonoBehaviour
 {
@@ -10,15 +11,15 @@ public class Player : MonoBehaviour
     [SerializeField]
     AudioPlayer audioP;
     public CameraBehaviour cameraBeh;
+    public PostProcessingProfile lightPospo;
 
     [Header("Player Fields")]
     bool godMode;
     [SerializeField]
-    int life = 3;
+    float life = 100;
+    float lightIntensity;
     [SerializeField]
     int essences = 100;
-    [SerializeField]
-    int maxLife = 100;
     [SerializeField]
     GameObject lifeParticles;
     [SerializeField]
@@ -91,7 +92,19 @@ public class Player : MonoBehaviour
                 break;
         }
 
-        if(attackCooldown > 0)
+        if(life < 100)
+        {
+            life += Time.deltaTime*5;
+        }
+        if (life > 100) life = 100;
+
+        lightIntensity = 1 - (life/100);
+
+        VignetteModel.Settings vignette = lightPospo.vignette.settings;
+        vignette.intensity = lightIntensity;
+        lightPospo.vignette.settings = vignette;
+
+        if (attackCooldown > 0)
         {
             attackCounter -= Time.deltaTime;
         }
@@ -317,16 +330,6 @@ public class Player : MonoBehaviour
 
     }
 
-    public void RecieveHP(int HP)
-    {
-        life += HP;
-
-        if (life >= maxLife)
-        {
-            life = maxLife;
-        }
-    }
-
     public void ReceiveEssences(int numberOfEssences)
     {
         essences += numberOfEssences;
@@ -351,7 +354,7 @@ public class Player : MonoBehaviour
 
     #region GETTERS/SETTERS
 
-    public int Life { get { return life; } }
+    public float Life { get { return life; } }
     public bool IsDead { get { return isDead; } }
     public int Damage { get { return damage; } }
 

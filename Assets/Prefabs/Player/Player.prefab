@@ -354,9 +354,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioP: {fileID: 0}
   cameraBeh: {fileID: 0}
+  lightPospo: {fileID: 11400000, guid: ba425dfe5d94fbb40b7321243779e90e, type: 2}
   life: 100
   essences: 0
-  maxLife: 100
   lifeParticles: {fileID: 1834331579444778}
   bloodParticles: {fileID: 1456788266819924}
   triggerGameObject: {fileID: 1619826297758254}

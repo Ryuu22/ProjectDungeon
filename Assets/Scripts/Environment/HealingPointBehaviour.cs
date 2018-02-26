@@ -20,7 +20,6 @@ public class HealingPointBehaviour : MonoBehaviour {
         if (Time.time > nextActionTime && playerInside)
         {
             nextActionTime += period;
-            player.RecieveHP(lifePerSecond);
         }
     }
 
