@@ -83,7 +83,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1819308292582608}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.2990997, y: 1.81, z: -0.59}
+  m_LocalPosition: {x: 7.65, y: 0.6889498, z: -0.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4749927735365726}
@@ -186,7 +186,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -303,12 +303,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5132d9d84e476a246a4ee0ec7e146aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 200
-  essenceValue: 1
+  radius: 3.36
+  essenceValue: 5
   playerDetected: 0
   playerTransform: {fileID: 0}
   playerPos: {x: 0, y: 0, z: 0}
-  speed: 5
+  speed: 1
 --- !u!135 &135457698349462502
 SphereCollider:
   m_ObjectHideFlags: 1
