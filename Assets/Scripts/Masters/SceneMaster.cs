@@ -22,7 +22,7 @@ public class SceneMaster : MonoBehaviour
 
     float logoCounter;
     float titleCounter;
-
+    [SerializeField]
     CurrentScene currentScene;
     enum CurrentScene
     {
@@ -38,7 +38,7 @@ public class SceneMaster : MonoBehaviour
 
     private void Start()
     {
-        currentScene = CurrentScene.Logo;
+        //currentScene = CurrentScene.Logo;
         alphaBlackScreen = 1;
         logoCounter = 8;
     }

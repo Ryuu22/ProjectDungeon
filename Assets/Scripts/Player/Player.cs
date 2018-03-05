@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         inputM = GameObject.FindGameObjectWithTag("InputMaster").GetComponent<InputMaster>();
-
+        isDead = false;
         rb = GetComponent<Rigidbody>();
         blood = bloodParticles.GetComponent<ParticleSystem>();
         collisionM = GetComponent<CollisionMaster>();
@@ -368,6 +368,5 @@ public class Player : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.white;
-
     }
 }
